@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Илья Адаменко](https://up.htmlacademy.ru/react/6/user/1693153).
-* Наставник: `Валерий Соловьев`.
+* Наставник: [Валерий Соловьев](https://up.htmlacademy.ru/ecmascript/13/user/8640).
 
 ---
 
