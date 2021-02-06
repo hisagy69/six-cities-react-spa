@@ -53,7 +53,7 @@ const Main = (props) => {
     </div>
   </React.Fragment>;
 };
-Main.PropsTypes = {
+Main.propTypes = {
   locations: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired
 };

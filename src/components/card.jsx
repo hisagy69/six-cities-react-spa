@@ -3,9 +3,9 @@ import PropsTypes from 'prop-types';
 const Card = (props) => {
   return <article className="cities__place-card place-card">
     { props.premium &&
-				<div className="place-card__mark">
-      <span>{props.premium}</span>
-				</div>
+      <div className="place-card__mark">
+        <span>{props.premium}</span>
+      </div>
     }
     <div className="cities__image-wrapper place-card__image-wrapper">
       <a href="#">
