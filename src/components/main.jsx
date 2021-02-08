@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './header';
 import Card from './card';
-import Tabs from './tabs';
+import Tab from './tab';
 import PropTypes from 'prop-types';
 
 const Main = (props) => {
@@ -14,7 +14,7 @@ const Main = (props) => {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               {
-                props.locations.map((location, i) => <Tabs key={location + i} location={location}/>)
+                props.locations.map((location) => <Tab key={location} location={location}/>)
               }
             </ul>
           </section>
@@ -40,7 +40,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {props.cards.map(({premium, image, cardName, cardType, price, priceText, bookmarks, width}, i) => <Card key={cardName + i} premium={premium} image={image} cardName={cardName} cardType={cardType} width={width} price={price} priceText={priceText} bookmarks={bookmarks}/>)
+                {props.cards.map((cardData) => <Card key={cardData.id} {...cardData}/>)
                 }
               </div>
             </section>

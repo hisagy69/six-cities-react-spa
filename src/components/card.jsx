@@ -2,9 +2,9 @@ import React from 'react';
 import PropsTypes from 'prop-types';
 const Card = (props) => {
   return <article className="cities__place-card place-card">
-    { props.premium &&
+    { props.isPremium &&
       <div className="place-card__mark">
-        <span>{props.premium}</span>
+        <span>Premium</span>
       </div>
     }
     <div className="cities__image-wrapper place-card__image-wrapper">
@@ -15,8 +15,8 @@ const Card = (props) => {
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
         <div className="place-card__price">
-          <b className="place-card__price-value" dangerouslySetInnerHTML={{__html: props.price}}></b>
-          <span className="place-card__price-text" dangerouslySetInnerHTML={{__html: props.priceText}}></span>
+          <b className="place-card__price-value">{props.price}</b>
+          <span className="place-card__price-text"></span>
         </div>
         <button className="place-card__bookmark-button button" type="button">
           <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -27,7 +27,7 @@ const Card = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={props.width}></span>
+          <span style={{width: "80%"}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
@@ -39,11 +39,9 @@ const Card = (props) => {
   </article>;
 };
 Card.propTypes = {
-  premium: PropsTypes.string,
+  isPremium: PropsTypes.bool,
   image: PropsTypes.string.isRequired,
-  price: PropsTypes.string.isRequired,
-  priceText: PropsTypes.string.isRequired,
-  width: PropsTypes.object,
+  price: PropsTypes.number.isRequired,
   cardName: PropsTypes.string.isRequired,
   cardType: PropsTypes.string,
   bookmarks: PropsTypes.string.isRequired
