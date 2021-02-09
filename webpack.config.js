@@ -25,5 +25,5 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.jsx']
 	},
-	devtool: 'soorce-map'
+	devtool: 'source-map'
 }
