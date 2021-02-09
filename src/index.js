@@ -6,24 +6,24 @@ const cards = [
   {
     isPremium: true,
     image: `img/apartment-01.jpg`,
-    cardName: `Beautiful &amp; luxurious apartment at great location`,
-    cardTypes: `Apartment`,
+    name: `Beautiful &amp; luxurious apartment at great location`,
+    types: `Apartment`,
     price: 120,
     bookmarks: `To bookmarks`,
     id: nanoid()
   },
   {
     image: `img/room.jpg`,
-    cardName: `Wood and stone place`,
-    cardTypes: `Private room`,
+    name: `Wood and stone place`,
+    types: `Private room`,
     price: 80,
     bookmarks: `In bookmarks`,
     id: nanoid()
   },
   {
     image: `img/apartment-02.jpg`,
-    cardName: `Canal View Prinsengracht`,
-    cardTypes: `Apartment`,
+    name: `Canal View Prinsengracht`,
+    types: `Apartment`,
     price: 132,
     bookmarks: `To bookmarks`,
     id: nanoid()
@@ -31,16 +31,16 @@ const cards = [
   {
     isPremium: true,
     image: `img/apartment-03.jpg`,
-    cardName: `Nice, cozy, warm big bed apartment`,
-    cardTypes: `Apartment`,
+    name: `Nice, cozy, warm big bed apartment`,
+    types: `Apartment`,
     price: 180,
     bookmarks: `To bookmarks`,
     id: nanoid()
   },
   {
     image: `img/room.jpg`,
-    cardName: `Wood and stone place`,
-    cardTypes: `Private room`,
+    name: `Wood and stone place`,
+    types: `Private room`,
     price: 80,
     bookmarks: `In bookmarks`,
     id: nanoid()
