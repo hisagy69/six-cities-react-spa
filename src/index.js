@@ -9,7 +9,7 @@ const cards = [
     name: `Beautiful &amp; luxurious apartment at great location`,
     types: `Apartment`,
     price: 120,
-    bookmarks: `To bookmarks`,
+    bookmarks: false,
     id: nanoid()
   },
   {
@@ -17,7 +17,7 @@ const cards = [
     name: `Wood and stone place`,
     types: `Private room`,
     price: 80,
-    bookmarks: `In bookmarks`,
+    bookmarks: true,
     id: nanoid()
   },
   {
@@ -25,7 +25,7 @@ const cards = [
     name: `Canal View Prinsengracht`,
     types: `Apartment`,
     price: 132,
-    bookmarks: `To bookmarks`,
+    bookmarks: false,
     id: nanoid()
   },
   {
@@ -34,7 +34,7 @@ const cards = [
     name: `Nice, cozy, warm big bed apartment`,
     types: `Apartment`,
     price: 180,
-    bookmarks: `To bookmarks`,
+    bookmarks: false,
     id: nanoid()
   },
   {
@@ -42,7 +42,7 @@ const cards = [
     name: `Wood and stone place`,
     types: `Private room`,
     price: 80,
-    bookmarks: `In bookmarks`,
+    bookmarks: true,
     id: nanoid()
   }
 ];
