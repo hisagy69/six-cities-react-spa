@@ -3,6 +3,7 @@ import Header from '../header';
 import Card from './card';
 import Tab from './tab';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 const Main = (props) => {
   return <React.Fragment>
@@ -33,7 +34,7 @@ const Main = (props) => {
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
+                  <li className="places__option places__option--active" tabIndex="0"><Link to="/favorites">Popular</Link></li>
                   <li className="places__option" tabIndex="0">Price: low to high</li>
                   <li className="places__option" tabIndex="0">Price: high to low</li>
                   <li className="places__option" tabIndex="0">Top rated first</li>
