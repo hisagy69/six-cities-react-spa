@@ -1,5 +1,6 @@
 import React from 'react';
 import PropsTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 const Card = (props) => {
   return <article className="cities__place-card place-card">
     { props.isPremium &&
@@ -8,9 +9,9 @@ const Card = (props) => {
       </div>
     }
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href="#">
+      <Link to={`/offer/${props.id}`}>
         <img className="place-card__image" src={props.image} width="260" height="200" alt="Place image"/>
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
@@ -22,7 +23,7 @@ const Card = (props) => {
           <svg className="place-card__bookmark-icon" width="18" height="19">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
-          <span className="visually-hidden">{props.bookmarks ? `In bookmarks` : `To bookmarks`}</span>
+          <span className="visually-hidden">{props.isBookmarks ? `In bookmarks` : `To bookmarks`}</span>
         </button>
       </div>
       <div className="place-card__rating rating">
@@ -32,7 +33,7 @@ const Card = (props) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{props.name}</a>
+        <Link to={`/offer/${props.id}`}>{props.name}</Link>
       </h2>
       <p className="place-card__type">{props.type}</p>
     </div>
@@ -44,6 +45,7 @@ Card.propTypes = {
   price: PropsTypes.number.isRequired,
   name: PropsTypes.string.isRequired,
   type: PropsTypes.string,
-  bookmarks: PropsTypes.bool.isRequired
+  isBookmarks: PropsTypes.bool.isRequired,
+  id: PropsTypes.string.isRequired
 };
 export default Card;
