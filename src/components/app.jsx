@@ -7,10 +7,10 @@ import Page404 from './404/page404';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 const Routes = {
-  LOGIN: '/login',
-  FAVORITES: '/favorites',
-  OFFER: '/offer/:id'
-}
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer/:id`
+};
 const App = (props) => {
   return <BrowserRouter>
     <Switch>
