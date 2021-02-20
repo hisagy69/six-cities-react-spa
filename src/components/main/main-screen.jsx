@@ -5,7 +5,7 @@ import Tab from './tab';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-const Main = (props) => {
+const MainScreen = (props) => {
   return <React.Fragment>
     <div className="page page--gray page--main">
       <Header/>
@@ -54,8 +54,8 @@ const Main = (props) => {
     </div>
   </React.Fragment>;
 };
-Main.propTypes = {
+MainScreen.propTypes = {
   locations: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired
 };
-export default Main;
+export default MainScreen;
