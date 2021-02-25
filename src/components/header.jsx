@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import Routes from './enum';
+const {LOGIN} = Routes;
 
 const Header = (props) => (
   <header className="header">
@@ -14,7 +16,7 @@ const Header = (props) => (
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item user">
-              <Link className="header__nav-link header__nav-link--profile" to="/login">
+              <Link className="header__nav-link header__nav-link--profile" to={LOGIN}>
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
                 {

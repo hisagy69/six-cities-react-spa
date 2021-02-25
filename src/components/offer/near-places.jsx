@@ -1,11 +1,13 @@
 import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Routes from '../enum';
+const {OFFER} = Routes;
 const NearPlaces = (props) => {
   return <Fragment>
     <article className="near-places__card place-card">
       <div className="near-places__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${props.id}`}>
+        <Link to={`${OFFER}${props.id}`}>
           <img className="place-card__image" src={props.image} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
@@ -30,7 +32,7 @@ const NearPlaces = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${props.id}`}>{props.name}</Link>
+          <Link to={`${OFFER}${props.id}`}>{props.name}</Link>
         </h2>
         <p className="place-card__type">{props.types}</p>
       </div>

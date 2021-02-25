@@ -1,6 +1,8 @@
 import React from 'react';
 import PropsTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import Routes from '../enum';
+const {OFFER} = Routes;
 const Card = (props) => {
   return <article className="cities__place-card place-card">
     { props.isPremium &&
@@ -9,7 +11,7 @@ const Card = (props) => {
       </div>
     }
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <Link to={`/offer/${props.id}`}>
+      <Link to={`${OFFER}${props.id}`}>
         <img className="place-card__image" src={props.image} width="260" height="200" alt="Place image"/>
       </Link>
     </div>
@@ -33,7 +35,7 @@ const Card = (props) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <Link to={`/offer/${props.id}`}>{props.name}</Link>
+        <Link to={`${OFFER}${props.id}`}>{props.name}</Link>
       </h2>
       <p className="place-card__type">{props.type}</p>
     </div>
