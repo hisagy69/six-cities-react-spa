@@ -1,32 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
-import {nanoid} from 'nanoid';
 const cards = [
   {
     isPremium: true,
     image: `img/apartment-01.jpg`,
-    name: `Beautiful &amp; luxurious apartment at great location`,
+    name: `Beautiful & luxurious apartment at great location`,
     types: `Apartment`,
     price: 120,
-    bookmarks: false,
-    id: nanoid()
+    isBookmarks: false,
+    id: `185647`
   },
   {
     image: `img/room.jpg`,
     name: `Wood and stone place`,
     types: `Private room`,
     price: 80,
-    bookmarks: true,
-    id: nanoid()
+    isBookmarks: true,
+    id: `185648`
   },
   {
     image: `img/apartment-02.jpg`,
     name: `Canal View Prinsengracht`,
     types: `Apartment`,
     price: 132,
-    bookmarks: false,
-    id: nanoid()
+    isBookmarks: false,
+    id: `185649`
   },
   {
     isPremium: true,
@@ -34,16 +33,16 @@ const cards = [
     name: `Nice, cozy, warm big bed apartment`,
     types: `Apartment`,
     price: 180,
-    bookmarks: false,
-    id: nanoid()
+    isBookmarks: false,
+    id: `185650`
   },
   {
     image: `img/room.jpg`,
     name: `Wood and stone place`,
     types: `Private room`,
     price: 80,
-    bookmarks: true,
-    id: nanoid()
+    isBookmarks: true,
+    id: `185660`
   }
 ];
 const locations = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];

@@ -1,10 +1,12 @@
 import React from 'react';
-import Header from './header';
+import Header from '../header';
 import Card from './card';
 import Tab from './tab';
 import PropTypes from 'prop-types';
-
-const Main = (props) => {
+import {Link} from 'react-router-dom';
+import Routes from '../enum';
+const {FAVORITES} = Routes;
+const MainScreen = (props) => {
   return <React.Fragment>
     <div className="page page--gray page--main">
       <Header/>
@@ -33,7 +35,7 @@ const Main = (props) => {
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
+                  <Link to={FAVORITES}><li className="places__option places__option--active" tabIndex="0">Popular</li></Link>
                   <li className="places__option" tabIndex="0">Price: low to high</li>
                   <li className="places__option" tabIndex="0">Price: high to low</li>
                   <li className="places__option" tabIndex="0">Top rated first</li>
@@ -53,8 +55,8 @@ const Main = (props) => {
     </div>
   </React.Fragment>;
 };
-Main.propTypes = {
+MainScreen.propTypes = {
   locations: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired
 };
-export default Main;
+export default MainScreen;
