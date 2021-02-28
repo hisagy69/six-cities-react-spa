@@ -10,8 +10,16 @@ const OfferScreen = (props) => {
     <Header/>
     <main className="page__main page__main--property">
       <section className="property">
-        <Gallery/>
-        <Property {...props.offer}/>
+        <div className="property__gallery-container container">
+          <div className="property__gallery">
+            {
+              props.offer.gallery.map((image, i) => (
+                <Gallery image={image} key={i}/>
+              ))
+            }
+          </div>
+        </div>
+        <Property {...props.offer} reviews={props.reviews}/>
         <section className="property__map map"></section>
       </section>
       <div className="container">
@@ -29,6 +37,7 @@ const OfferScreen = (props) => {
 };
 OfferScreen.propTypes = {
   offer: PropTypes.object.isRequired,
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
+  reviews: PropTypes.array
 };
 export default OfferScreen;
