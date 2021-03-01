@@ -3,7 +3,7 @@ import Review from './review';
 import PropTypes from 'prop-types';
 
 const Property = (props) => {
-  const [inputRate, setRate] = useState(0);
+  const [inputRate, setRate] = useState(5);
   const [inputComment, setComment] = useState(0);
   return <div className="property__container container">
     <div className="property__wrapper">
@@ -84,9 +84,9 @@ const Property = (props) => {
         <form className="reviews__form form" action="#" method="post">
           <label className="reviews__label form__label" htmlFor="review">Your review</label>
           <div className="reviews__rating-form form__rating">
-            <input onChange={
+            <input value={inputRate} onChange={
               (event) => setRate(event.target.value)
-            } className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"/>
+            } className="form__rating-input visually-hidden" name="rating" id="5-stars" type="radio"/>
             <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
@@ -121,7 +121,7 @@ const Property = (props) => {
               </svg>
             </label>
           </div>
-          <textarea onChange={ (event) => setComment(event.target.value) } className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
+          <textarea value={inputComment} onChange={ (event) => setComment(event.target.value) } className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
           <div className="reviews__button-wrapper">
             <p className="reviews__help">
               To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

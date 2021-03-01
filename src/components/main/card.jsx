@@ -5,7 +5,7 @@ import routes from '../enum';
 const {OFFER} = routes;
 const Card = (props) => {
   const [id, setState] = useState(0);
-  return <article onMouseOver={() => setState(props.id)} className="cities__place-card place-card">
+  return <article id={id} onMouseOver={() => setState(props.id)} className="cities__place-card place-card">
     { props.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
