@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const FavoritesScreen = (props) => {
   const byLocation = {};
   props.cards.forEach((card) => {
-    if(card.isBookmarks) {
+    if (card.isBookmarks) {
       byLocation[card.location] = byLocation[card.location] || [];
       byLocation[card.location].push(card);
     }
@@ -29,9 +29,7 @@ const FavoritesScreen = (props) => {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {
-                      byLocation[city].map(card => <FavoriteCard key={card.id} {...card}/>)
-                    }
+                    { byLocation[city].map((card) => <FavoriteCard key={card.id} {...card}/>) }
                   </div>
                 </li>;
               })

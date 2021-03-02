@@ -3,9 +3,9 @@ import Review from './review';
 import PropTypes from 'prop-types';
 
 const Property = (props) => {
-  const [inputRate, setRate] = useState('');
-  const [inputComment, setComment] = useState('');
-  const changeHandler = (event) => setRate(event.target.value)
+  const [inputRate, setRate] = useState(``);
+  const [inputComment, setComment] = useState(``);
+  const changeHandler = (event) => setRate(event.target.value);
   return <div className="property__container container">
     <div className="property__wrapper">
       {props.isPremium && <div className="property__mark">
