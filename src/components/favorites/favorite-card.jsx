@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import routes from '../enum';
-const {OFFER} = routes;
+import Routes from '../enum';
+const {OFFER} = Routes;
 const FavoriteCards = (props) => {
+  
   return <article className="favorites__card place-card">
     <div className="favorites__image-wrapper place-card__image-wrapper">
       <Link to={`${OFFER}${props.id}`}>

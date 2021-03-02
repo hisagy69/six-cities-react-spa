@@ -3,8 +3,9 @@ import Review from './review';
 import PropTypes from 'prop-types';
 
 const Property = (props) => {
-  const [inputRate, setRate] = useState(5);
-  const [inputComment, setComment] = useState(0);
+  const [inputRate, setRate] = useState('');
+  const [inputComment, setComment] = useState('');
+  const changeHandler = (event) => setRate(event.target.value)
   return <div className="property__container container">
     <div className="property__wrapper">
       {props.isPremium && <div className="property__mark">
@@ -84,37 +85,35 @@ const Property = (props) => {
         <form className="reviews__form form" action="#" method="post">
           <label className="reviews__label form__label" htmlFor="review">Your review</label>
           <div className="reviews__rating-form form__rating">
-            <input value={inputRate} onChange={
-              (event) => setRate(event.target.value)
-            } className="form__rating-input visually-hidden" name="rating" id="5-stars" type="radio"/>
+            <input value="5" onChange={changeHandler} className="form__rating-input visually-hidden" name="rating" id="5-stars" type="radio"/>
             <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
             </label>
 
-            <input onChange={ (event) => setRate(event.target.value) } className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"/>
+            <input onChange={ changeHandler } className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"/>
             <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
             </label>
 
-            <input onChange={ (event) => setRate(event.target.value) } className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"/>
+            <input onChange={ changeHandler } className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"/>
             <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
             </label>
 
-            <input onChange={ (event) => setRate(event.target.value) } className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"/>
+            <input onChange={ changeHandler } className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"/>
             <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
             </label>
 
-            <input onChange={ (event) => setRate(event.target.value) } className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"/>
+            <input onChange={ changeHandler } className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"/>
             <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>

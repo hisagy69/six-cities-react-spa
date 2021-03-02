@@ -6,8 +6,8 @@ import FavoritesScreen from './favorites/favorites-screen';
 import Page404 from './404/page404';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import routes from './enum';
-const {LOGIN, FAVORITES, OFFER} = routes;
+import Routes from './enum';
+const {LOGIN, FAVORITES, OFFER} = Routes;
 const App = (props) => {
   return <BrowserRouter>
     <Switch>

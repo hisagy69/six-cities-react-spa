@@ -4,6 +4,13 @@ import Footer from '../footer';
 import FavoriteCard from './favorite-card';
 import PropTypes from 'prop-types';
 const FavoritesScreen = (props) => {
+  const byLocation = {};
+  props.cards.forEach((card) => {
+    if(card.isBookmarks) {
+      byLocation[card.location] = byLocation[card.location] || [];
+      byLocation[card.location].push(card);
+    }
+  });
   return <div className="page">
     <Header/>
     <main className="page__main page__main--favorites">
@@ -12,17 +19,19 @@ const FavoritesScreen = (props) => {
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
             {
-              props.cards.map((card) => {
-                return card.isBookmarks && <li className="favorites__locations-items" key={card.id}>
+              Object.keys(byLocation).map((city) => {
+                return <li className="favorites__locations-items" key={city}>
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
                       <a className="locations__item-link" href="#">
-                        <span>{card.location}</span>
+                        <span>{city}</span>
                       </a>
                     </div>
                   </div>
                   <div className="favorites__places">
-                    <FavoriteCard {...card}/>
+                    {
+                      byLocation[city].map(card => <FavoriteCard key={card.id} {...card}/>)
+                    }
                   </div>
                 </li>;
               })

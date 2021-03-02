@@ -1,6 +1,6 @@
-const routes = {
+const Routes = {
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
   OFFER: `/offer/`,
 };
-export default routes;
+export default Routes;

@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropsTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import routes from '../enum';
-const {OFFER} = routes;
+import Routes from '../enum';
+const {OFFER} = Routes;
 const Card = (props) => {
-  const [id, setState] = useState(0);
-  return <article id={id} onMouseOver={() => setState(props.id)} className="cities__place-card place-card">
+  return <article id={props.id} onMouseOver={() => props.setId(props.id)} className="cities__place-card place-card">
     { props.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>

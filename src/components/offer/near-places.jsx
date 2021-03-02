@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import routes from '../enum';
-const {OFFER} = routes;
+import Routes from '../enum';
+const {OFFER} = Routes;
 const NearPlaces = (props) => {
   return <Fragment>
     <article className="near-places__card place-card">
