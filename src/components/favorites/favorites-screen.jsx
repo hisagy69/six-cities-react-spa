@@ -4,13 +4,14 @@ import Footer from '../footer';
 import FavoriteCard from './favorite-card';
 import PropTypes from 'prop-types';
 const FavoritesScreen = (props) => {
-  const byLocation = {};
-  props.cards.forEach((card) => {
-    if (card.isBookmarks) {
-      byLocation[card.location] = byLocation[card.location] || [];
-      byLocation[card.location].push(card);
+  const byLocation = props.cards.reduce((obj, card) => {
+    if (card.isBookmarks && card.location) {
+      obj[card.location] = obj[card.location] || [];
+      obj[card.location].push(card);
     }
-  });
+    return obj;
+  }, {});
+
   return <div className="page">
     <Header/>
     <main className="page__main page__main--favorites">

@@ -3,6 +3,7 @@ import Review from './review';
 import PropTypes from 'prop-types';
 
 const Property = (props) => {
+  // eslint-disable-next-line no-unused-vars
   const [inputRate, setRate] = useState(``);
   const [inputComment, setComment] = useState(``);
   const changeHandler = (event) => setRate(event.target.value);
