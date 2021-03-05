@@ -34,7 +34,7 @@ const NearPlaces = (props) => {
         <h2 className="place-card__name">
           <Link to={`${OFFER}${props.id}`}>{props.name}</Link>
         </h2>
-        <p className="place-card__type">{props.types}</p>
+        <p className="place-card__type">{props.type}</p>
       </div>
     </article>
   </Fragment>;
@@ -42,7 +42,7 @@ const NearPlaces = (props) => {
 NearPlaces.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  types: PropTypes.string.isRequired,
+  type: PropTypes.string,
   isBookmarks: PropTypes.bool,
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired

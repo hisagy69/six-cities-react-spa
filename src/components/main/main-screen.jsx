@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from '../header';
-import Card from './card';
-import Tab from './tab';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import Header from '../header';
+import Tab from './tab';
+import OfferList from './offer-list';
+import PropTypes from 'prop-types';
 import Routes from '../enum';
 const {FAVORITES} = Routes;
 const MainScreen = (props) => {
@@ -41,10 +41,7 @@ const MainScreen = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {props.cards.map((cardData) => <Card key={cardData.id} {...cardData}/>)
-                }
-              </div>
+              <OfferList cards={props.cards}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
