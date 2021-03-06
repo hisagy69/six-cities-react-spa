@@ -5,6 +5,9 @@ import Tab from './tab';
 import OfferList from './offer-list';
 import PropTypes from 'prop-types';
 import Routes from '../enum';
+import Map from '../map/map';
+import map from '../const';
+const {city, icon} = map;
 const {FAVORITES} = Routes;
 const MainScreen = (props) => {
   return <React.Fragment>
@@ -44,7 +47,9 @@ const MainScreen = (props) => {
               <OfferList cards={props.cards}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={city} cards={props.cards} icon={icon}/>
+              </section>
             </div>
           </div>
         </div>
@@ -54,6 +59,6 @@ const MainScreen = (props) => {
 };
 MainScreen.propTypes = {
   locations: PropTypes.array.isRequired,
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
 };
 export default MainScreen;
