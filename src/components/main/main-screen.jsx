@@ -8,11 +8,7 @@ import Routes from '../enum';
 import Map from '../map/map';
 const {FAVORITES} = Routes;
 const MainScreen = (props) => {
-  const offers = props.cards.filter((card) => {
-    if (card.location === `Amsterdam`) {
-      return card;
-    }
-  });
+  const offers = props.cards.filter((card) => card.location === `Amsterdam`);
   return <React.Fragment>
     <div className="page page--gray page--main">
       <Header/>

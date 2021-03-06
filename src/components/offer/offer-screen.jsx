@@ -6,11 +6,7 @@ import NearPlaces from './near-places';
 import PropTypes from 'prop-types';
 import Map from '../map/map';
 const OfferScreen = (props) => {
-  const offers = props.cards.filter((card) => {
-    if (card.location === `Amsterdam`) {
-      return card;
-    }
-  });
+  const offers = props.cards.filter((card) => card.location === `Amsterdam`);
   return <div className="page">
     <Header/>
     <main className="page__main page__main--property">
