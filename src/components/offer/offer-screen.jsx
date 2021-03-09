@@ -4,8 +4,9 @@ import Header from '../header';
 import Property from './property';
 import NearPlaces from './near-places';
 import PropTypes from 'prop-types';
-
+import Map from '../map/map';
 const OfferScreen = (props) => {
+  const offers = props.cards.filter((card) => card.location === `Amsterdam`);
   return <div className="page">
     <Header/>
     <main className="page__main page__main--property">
@@ -20,7 +21,7 @@ const OfferScreen = (props) => {
           </div>
         </div>
         <Property {...props.offer} reviews={props.reviews}/>
-        <section className="property__map map"></section>
+        <section className="property__map map"><Map offers={offers}/></section>
       </section>
       <div className="container">
         <section className="near-places places">

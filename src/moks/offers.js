@@ -10,7 +10,10 @@ const cards = [
     types: `Apartment`,
     price: 120,
     isBookmarks: false,
-    id: `185647`
+    id: `185647`,
+    location: `Amsterdam`,
+    cords: [52.3909553943508, 4.929309666406198]
+
   },
   {
     image: `img/apartment-02.jpg`,
@@ -22,7 +25,9 @@ const cards = [
     type: `Apartment`,
     price: 132,
     isBookmarks: false,
-    id: `185649`
+    id: `185649`,
+    location: `Amsterdam`,
+    cords: [52.3809553943508, 4.939309666406198]
   },
   {
     isPremium: true,
@@ -36,7 +41,8 @@ const cards = [
     price: 180,
     isBookmarks: true,
     id: `185650`,
-    location: `Amsterdam`
+    location: `Amsterdam`,
+    cords: [52.3909553943508, 4.85309666406198]
   },
   {
     image: `img/room.jpg`,
@@ -49,7 +55,8 @@ const cards = [
     price: 80,
     isBookmarks: true,
     id: `185660`,
-    location: `Amsterdam`
+    location: `Amsterdam`,
+    cords: [52.369553943508, 4.85309666406198]
   },
   {
     image: `img/apartment-small-04.jpg`,
