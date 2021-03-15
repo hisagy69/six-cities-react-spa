@@ -6,9 +6,10 @@ import OfferList from './offer-list';
 import PropTypes from 'prop-types';
 import Routes from '../enum';
 import Map from '../map/map';
+import {ActionCreator} from '../../store/action';
+import {connect} from 'react-redux';
 const {FAVORITES} = Routes;
 const MainScreen = (props) => {
-  const offers = props.cards.filter((card) => card.location === `Amsterdam`);
   return <React.Fragment>
     <div className="page page--gray page--main">
       <Header/>
@@ -18,7 +19,7 @@ const MainScreen = (props) => {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               {
-                props.locations.map((location) => <Tab key={location} location={location}/>)
+                props.locations.map((location) => <Tab key={location} location={location} active={props.city === location} onCityEnter={props.onCityEnter}/>)
               }
             </ul>
           </section>
@@ -27,7 +28,7 @@ const MainScreen = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{props.offers.length} places to stay in {props.city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -43,11 +44,11 @@ const MainScreen = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OfferList cards={props.cards}/>
+              <OfferList cards={props.offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers}/>
+                <Map offers={props.offers}/>
               </section>
             </div>
           </div>
@@ -56,8 +57,21 @@ const MainScreen = (props) => {
     </div>
   </React.Fragment>;
 };
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers
+});
+const mapDispatchToProps = (dispatch) => ({
+  onCityEnter(city, offers) {
+    dispatch(ActionCreator.cityEnter(city, offers));
+  }
+});
 MainScreen.propTypes = {
   locations: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
+  onCityEnter: PropTypes.func.isRequired,
+  city: PropTypes.string.isRequired,
+  offers: PropTypes.array.isRequired
 };
-export default MainScreen;
+export {MainScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

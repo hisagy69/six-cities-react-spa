@@ -11,7 +11,7 @@ const cards = [
     price: 120,
     isBookmarks: false,
     id: `185647`,
-    location: `Amsterdam`,
+    location: `Paris`,
     cords: [52.3909553943508, 4.929309666406198]
 
   },

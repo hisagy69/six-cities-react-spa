@@ -11,9 +11,6 @@ const {LOGIN, FAVORITES, OFFER} = Routes;
 const App = (props) => {
   return <BrowserRouter>
     <Switch>
-      <Route path="/" exact>
-        <MainScreen cards={props.cards} locations={props.locations}/>
-      </Route>
       <Route path={LOGIN} exact component={Login}/>
       <Route path={FAVORITES} exact>
         <FavoritesScreen cards={props.cards}/>
@@ -22,6 +19,9 @@ const App = (props) => {
         const offerId = renderProps.match.params.id;
         const offer = props.cards.find((card) => card.id === offerId);
         return <OfferScreen offer={offer} cards={props.cards} reviews={props.reviews}/>;
+      }}/>
+      <Route path="/:id?" exact render={(renderProps) => {
+        return <MainScreen cards={props.cards} locations={props.locations} city={renderProps.match.params.id}/>;
       }}/>
       <Route component={Page404}/>
     </Switch>

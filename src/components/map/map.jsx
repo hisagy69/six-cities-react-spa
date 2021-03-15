@@ -7,10 +7,13 @@ const {city, icon} = map;
 const Map = ({offers}) => {
   const mapRef = useRef();
   useEffect(() => {
+    if (offers.length === 0) {
+      return;
+    }
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: city.lat,
-        lng: city.lng
+        lat: offers[0] && offers[0].cords[0] || city.lat,
+        lng: offers[0] && offers[0].cords[1] || city.lng
       },
       zoom: city.zoom
     });
@@ -21,13 +24,13 @@ const Map = ({offers}) => {
         .addTo(mapRef.current);
     offers.forEach((offer) => {
       leaflet
-        .marker({
-          lat: offer.cords[0],
-          lng: offer.cords[1]
-        }, {
-          icon: leaflet.icon(icon)
-        })
-        .addTo(mapRef.current);
+      .marker({
+        lat: offer.cords && offer.cords[0],
+        lng: offer.cords && offer.cords[1]
+      }, {
+        icon: leaflet.icon(icon)
+      })
+      .addTo(mapRef.current);
     });
   },
   []);

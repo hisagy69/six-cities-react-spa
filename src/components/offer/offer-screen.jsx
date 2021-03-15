@@ -5,8 +5,8 @@ import Property from './property';
 import NearPlaces from './near-places';
 import PropTypes from 'prop-types';
 import Map from '../map/map';
+import {connect} from 'react-redux';
 const OfferScreen = (props) => {
-  const offers = props.cards.filter((card) => card.location === `Amsterdam`);
   return <div className="page">
     <Header/>
     <main className="page__main page__main--property">
@@ -21,13 +21,13 @@ const OfferScreen = (props) => {
           </div>
         </div>
         <Property {...props.offer} reviews={props.reviews}/>
-        <section className="property__map map"><Map offers={offers}/></section>
+        <section className="property__map map"><Map offers={props.offers}/></section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {props.cards.slice(0, 3).map((card) => {
+            {props.offers.map((card) => {
               return <NearPlaces {...card} key={card.id}/>;
             })}
           </div>
@@ -36,9 +36,16 @@ const OfferScreen = (props) => {
     </main>
   </div>;
 };
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers
+});
 OfferScreen.propTypes = {
-  offer: PropTypes.object.isRequired,
+  offers: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
-  reviews: PropTypes.array
+  reviews: PropTypes.array,
+  city: PropTypes.string.isRequired,
+  offer: PropTypes.object.isRequired
 };
-export default OfferScreen;
+export {OfferScreen};
+export default connect(mapStateToProps)(OfferScreen);
