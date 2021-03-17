@@ -6,8 +6,9 @@ import OfferList from './offer-list';
 import PropTypes from 'prop-types';
 import Routes from '../enum';
 import Map from '../map/map';
-import {ActionCreator} from '../../store/action';
+import {ActionCreators} from '../../store/action';
 import {connect} from 'react-redux';
+import cards from '../../moks/offers';
 const {FAVORITES} = Routes;
 const MainScreen = (props) => {
   return <React.Fragment>
@@ -44,7 +45,7 @@ const MainScreen = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OfferList cards={props.offers}/>
+              <OfferList offers={props.offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -59,19 +60,20 @@ const MainScreen = (props) => {
 };
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers
+  offers: cards.filter((card) => card.location === state.city)
 });
 const mapDispatchToProps = (dispatch) => ({
-  onCityEnter(city, offers) {
-    dispatch(ActionCreator.cityEnter(city, offers));
+  onCityEnter(city) {
+    dispatch(ActionCreators.setCity(city));
+    dispatch(ActionCreators.setOffers(cards.filter((card) => card.location === city)));
   }
 });
 MainScreen.propTypes = {
+  offers: PropTypes.array,
   locations: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
   onCityEnter: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired,
-  offers: PropTypes.array.isRequired
+  city: PropTypes.string.isRequired
 };
 export {MainScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

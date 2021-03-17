@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 const {city, icon} = map;
 const Map = ({offers}) => {
   const mapRef = useRef();
+  const markersRef = useRef();
   useEffect(() => {
-    if (offers.length === 0) {
+    if (!offers) {
       return;
     }
     mapRef.current = leaflet.map(`map`, {
@@ -22,18 +23,26 @@ const Map = ({offers}) => {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
         .addTo(mapRef.current);
-    offers.forEach((offer) => {
+  },
+  []);
+  useEffect(() => {
+    if (markersRef.current) {
+      markersRef.current.forEach((marker) => marker && marker.remove());
+    }
+    markersRef.current = offers.map((item) => {
+      if (!item.cords) {
+        return;
+      }
       leaflet
       .marker({
-        lat: offer.cords && offer.cords[0],
-        lng: offer.cords && offer.cords[1]
+        lat: item.cords[0],
+        lng: item.cords[1]
       }, {
         icon: leaflet.icon(icon)
       })
       .addTo(mapRef.current);
     });
-  },
-  []);
+  }, [offers]);
   return <div id="map" ref={mapRef} style={{height: `100%`, maxWidth: `1147px`, margin: `0 auto`}}></div>;
 };
 Map.propTypes = {

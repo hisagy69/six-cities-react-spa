@@ -7,13 +7,13 @@ const OfferList = (props) => {
   const [id, setId] = useState(0);
   return <div className="cities__places-list places__list tabs__content">
     {
-      props.cards.map((cardData) => {
+      props.offers.map((cardData) => {
         return <Card key={cardData.id} setId={setId} {...cardData}/>;
       })
     }
   </div>;
 };
 OfferList.propTypes = {
-  cards: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired
 };
 export default OfferList;

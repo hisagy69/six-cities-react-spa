@@ -1,17 +1,19 @@
-import cards from '../moks/offers';
-import {ActionType} from './action';
-const enterCards = (city) => cards.filter((card) => card.location === city);
+import {ActionTypes} from './action';
 const initialState = {
   city: `Paris`,
-  offers: enterCards(`Paris`)
+  offers: []
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CITY_ENTER:
+    case ActionTypes.CURENT_CITY_ENTER:
       return {
         ...state,
-        city: action.payload || state.city,
-        offers: enterCards(action.payload) || state.offer
+        city: action.payload
+      };
+    case ActionTypes.OFFERS_CREATOR:
+      return {
+        ...state,
+        offers: action.payload
       };
   }
   return state;

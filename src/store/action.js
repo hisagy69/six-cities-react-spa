@@ -1,9 +1,14 @@
-export const ActionType = {
-  CITY_ENTER: `cards/cityEnter`,
+export const ActionTypes = {
+  CURENT_CITY_ENTER: `offers/curentCityEnter`,
+  OFFERS_CREATOR: `offers/curentOffer`
 };
-export const ActionCreator = {
-  cityEnter: (city) => ({
-    type: ActionType.CITY_ENTER,
+export const ActionCreators = {
+  setCity: (city) => ({
+    type: ActionTypes.CURENT_CITY_ENTER,
     payload: city
+  }),
+  setOffers: (offers) => ({
+    type: ActionTypes.OFFERS_CREATOR,
+    payload: offers
   })
 };

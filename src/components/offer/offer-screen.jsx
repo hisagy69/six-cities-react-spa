@@ -6,6 +6,7 @@ import NearPlaces from './near-places';
 import PropTypes from 'prop-types';
 import Map from '../map/map';
 import {connect} from 'react-redux';
+import cards from '../../moks/offers';
 const OfferScreen = (props) => {
   return <div className="page">
     <Header/>
@@ -38,7 +39,7 @@ const OfferScreen = (props) => {
 };
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers
+  offers: cards.filter((card) => card.location === state.city)
 });
 OfferScreen.propTypes = {
   offers: PropTypes.array.isRequired,
