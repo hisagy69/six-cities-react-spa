@@ -1,7 +1,8 @@
 import {ActionTypes} from './action';
 const initialState = {
   city: `Paris`,
-  offers: []
+  offers: [],
+  sort: `Popular`
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -14,6 +15,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload
+      };
+    case ActionTypes.OFFERS_SORT:
+      return {
+        ...state,
+        sort: action.payload
       };
   }
   return state;

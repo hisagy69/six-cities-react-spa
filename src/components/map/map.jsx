@@ -33,7 +33,7 @@ const Map = ({offers}) => {
       if (!item.cords) {
         return;
       }
-      leaflet
+      return leaflet
       .marker({
         lat: item.cords[0],
         lng: item.cords[1]

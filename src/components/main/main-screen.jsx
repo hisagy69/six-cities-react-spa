@@ -1,15 +1,13 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import Header from '../header';
 import Tab from './tab';
 import OfferList from './offer-list';
 import PropTypes from 'prop-types';
-import Routes from '../enum';
 import Map from '../map/map';
 import {ActionCreators} from '../../store/action';
 import {connect} from 'react-redux';
 import cards from '../../moks/offers';
-const {FAVORITES} = Routes;
+import SortOptions from './sort-options';
 const MainScreen = (props) => {
   return <React.Fragment>
     <div className="page page--gray page--main">
@@ -30,21 +28,7 @@ const MainScreen = (props) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{props.offers.length} places to stay in {props.city}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <Link to={FAVORITES}><li className="places__option places__option--active" tabIndex="0">Popular</li></Link>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
+              <SortOptions onSort={props.onSort} sort={props.sort}/>
               <OfferList offers={props.offers}/>
             </section>
             <div className="cities__right-section">
@@ -58,14 +42,45 @@ const MainScreen = (props) => {
     </div>
   </React.Fragment>;
 };
+const sorts = (sort, offers) => {
+  switch (sort) {
+    case `Popular`:
+      return offers;
+    case `Price: low to high`:
+      return offers.sort((offer1, offer2) => {
+        if (offer1.price > offer2.price) {
+          return 1;
+        }
+        if (offer1.price < offer2.price) {
+          return -1;
+        }
+        return 0;
+      });
+    case `Price: high to low`:
+      return offers.sort((offer1, offer2) => {
+        if (offer1.price < offer2.price) {
+          return 1;
+        }
+        if (offer1.price > offer2.price) {
+          return -1;
+        }
+        return 0;
+      });
+  }
+  return offers;
+};
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: cards.filter((card) => card.location === state.city)
+  offers: sorts(state.sort, cards.filter((card) => card.location === state.city)),
+  sort: state.sort
 });
 const mapDispatchToProps = (dispatch) => ({
   onCityEnter(city) {
     dispatch(ActionCreators.setCity(city));
     dispatch(ActionCreators.setOffers(cards.filter((card) => card.location === city)));
+  },
+  onSort(sort) {
+    dispatch(ActionCreators.setSort(sort));
   }
 });
 MainScreen.propTypes = {
@@ -73,7 +88,9 @@ MainScreen.propTypes = {
   locations: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
   onCityEnter: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  onSort: PropTypes.func.isRequired,
+  sort: PropTypes.string.isRequired
 };
 export {MainScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

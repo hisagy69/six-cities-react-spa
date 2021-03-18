@@ -12,8 +12,8 @@ const cards = [
     isBookmarks: false,
     id: `185647`,
     location: `Paris`,
-    cords: [52.3909553943508, 4.929309666406198]
-
+    cords: [52.3909553943508, 4.929309666406198],
+    rate: 5
   },
   {
     image: `img/apartment-02.jpg`,
@@ -27,7 +27,8 @@ const cards = [
     isBookmarks: false,
     id: `185649`,
     location: `Amsterdam`,
-    cords: [52.3809553943508, 4.939309666406198]
+    cords: [52.3809553943508, 4.939309666406198],
+    rate: 4.7
   },
   {
     isPremium: true,
@@ -42,7 +43,8 @@ const cards = [
     isBookmarks: true,
     id: `185650`,
     location: `Amsterdam`,
-    cords: [52.3909553943508, 4.85309666406198]
+    cords: [52.3909553943508, 4.85309666406198],
+    rate: 3
   },
   {
     image: `img/room.jpg`,
@@ -56,7 +58,8 @@ const cards = [
     isBookmarks: true,
     id: `185660`,
     location: `Amsterdam`,
-    cords: [52.369553943508, 4.85309666406198]
+    cords: [52.369553943508, 4.85309666406198],
+    rate: 4.1
   },
   {
     image: `img/apartment-small-04.jpg`,
@@ -69,7 +72,8 @@ const cards = [
     price: 180,
     isBookmarks: true,
     id: `185661`,
-    location: `Cologne`
+    location: `Cologne`,
+    rate: 3.9
   }
 ];
 export default cards;
