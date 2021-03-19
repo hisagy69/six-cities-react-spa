@@ -4,7 +4,10 @@ import {Link} from 'react-router-dom';
 import Routes from '../enum';
 const {OFFER} = Routes;
 const Card = (props) => {
-  return <article id={props.id} onMouseOver={() => props.setId(props.id)} className="cities__place-card place-card">
+  return <article id={props.id} onMouseOver={() => {
+    props.setId(props.id);
+    props.onIdMarker(props.id);
+  }} className="cities__place-card place-card">
     { props.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>

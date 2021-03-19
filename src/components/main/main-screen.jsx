@@ -33,7 +33,7 @@ const MainScreen = (props) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={props.offers}/>
+                <Map offers={props.offers} activeId={props.activeId}/>
               </section>
             </div>
           </div>
@@ -72,7 +72,8 @@ const sorts = (sort, offers) => {
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: sorts(state.sort, cards.filter((card) => card.location === state.city)),
-  sort: state.sort
+  sort: state.sort,
+  activeId: state.id
 });
 const mapDispatchToProps = (dispatch) => ({
   onCityEnter(city) {

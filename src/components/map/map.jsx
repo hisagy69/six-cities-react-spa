@@ -3,8 +3,8 @@ import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import map from '../const';
 import PropTypes from 'prop-types';
-const {city, icon} = map;
-const Map = ({offers}) => {
+const {city, icon, acitveIcon} = map;
+const Map = ({offers, activeId}) => {
   const mapRef = useRef();
   const markersRef = useRef();
   useEffect(() => {
@@ -38,7 +38,7 @@ const Map = ({offers}) => {
         lat: item.cords[0],
         lng: item.cords[1]
       }, {
-        icon: leaflet.icon(icon)
+        icon: activeId === item.id && leaflet.icon(acitveIcon) || leaflet.icon(icon)
       })
       .addTo(mapRef.current);
     });

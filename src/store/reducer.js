@@ -21,6 +21,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         sort: action.payload
       };
+    case ActionTypes.SET_ID:
+      return {
+        ...state,
+        id: action.payload
+      };
   }
   return state;
 };
