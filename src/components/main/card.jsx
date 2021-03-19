@@ -52,6 +52,7 @@ Card.propTypes = {
   type: PropsTypes.string,
   isBookmarks: PropsTypes.bool.isRequired,
   id: PropsTypes.string.isRequired,
-  setId: PropsTypes.func.isRequired
+  setId: PropsTypes.func.isRequired,
+  onIdMarker: PropsTypes.func
 };
 export default Card;

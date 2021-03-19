@@ -16,7 +16,8 @@ const OfferList = (props) => {
   </div>;
 };
 OfferList.propTypes = {
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired,
+  onIdMarker: PropTypes.func
 };
 const mapDispatchToProps = (dispatch) => ({
   onIdMarker(id) {

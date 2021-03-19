@@ -46,6 +46,7 @@ const Map = ({offers, activeId}) => {
   return <div id="map" ref={mapRef} style={{height: `100%`, maxWidth: `1147px`, margin: `0 auto`}}></div>;
 };
 Map.propTypes = {
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired,
+  activeId: PropTypes.func
 };
 export default Map;

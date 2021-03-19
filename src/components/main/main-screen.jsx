@@ -91,7 +91,8 @@ MainScreen.propTypes = {
   onCityEnter: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
   onSort: PropTypes.func.isRequired,
-  sort: PropTypes.string.isRequired
+  sort: PropTypes.string.isRequired,
+  activeId: PropTypes.string
 };
 export {MainScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
