@@ -29,23 +29,24 @@ const Map = ({offers, activeId}) => {
     if (markersRef.current) {
       markersRef.current.forEach((marker) => marker && marker.remove());
     }
-    markersRef.current = offers.map((item) => {
-      if (!item.cords) {
-        return;
+    markersRef.current = offers.reduce((markers, marker) => {
+      if (marker.cords) {
+        markers.push(leaflet
+        .marker({
+          lat: marker.cords[0],
+          lng: marker.cords[1]
+        }, {
+          icon: activeId === marker.id && leaflet.icon(acitveIcon) || leaflet.icon(icon)
+        })
+        .addTo(mapRef.current));
       }
-      return leaflet
-      .marker({
-        lat: item.cords[0],
-        lng: item.cords[1]
-      }, {
-        icon: activeId === item.id && leaflet.icon(acitveIcon) || leaflet.icon(icon)
-      })
-      .addTo(mapRef.current);
-    });
+      return markers;
+    }, []);
   }, [offers]);
   return <div id="map" ref={mapRef} style={{height: `100%`, maxWidth: `1147px`, margin: `0 auto`}}></div>;
 };
 Map.propTypes = {
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired,
+  activeId: PropTypes.string
 };
 export default Map;

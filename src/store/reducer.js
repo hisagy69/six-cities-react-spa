@@ -6,7 +6,7 @@ const initialState = {
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.CURENT_CITY_ENTER:
+    case ActionTypes.CURRENT_CITY_ENTER:
       return {
         ...state,
         city: action.payload

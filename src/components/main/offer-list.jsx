@@ -15,13 +15,14 @@ const OfferList = (props) => {
     }
   </div>;
 };
-OfferList.propTypes = {
-  offers: PropTypes.array.isRequired
-};
 const mapDispatchToProps = (dispatch) => ({
   onIdMarker(id) {
     dispatch(ActionCreators.setId(id));
   }
 });
+OfferList.propTypes = {
+  offers: PropTypes.array.isRequired,
+  onIdMarker: PropTypes.func.isRequired
+};
 export default connect(null, mapDispatchToProps)(OfferList);
 export {OfferList};

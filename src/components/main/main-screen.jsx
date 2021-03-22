@@ -7,6 +7,7 @@ import Map from '../map/map';
 import {ActionCreators} from '../../store/action';
 import {connect} from 'react-redux';
 import cards from '../../moks/offers';
+import sorts from '../../selectors/sorts';
 import SortOptions from './sort-options';
 const MainScreen = (props) => {
   return <React.Fragment>
@@ -42,33 +43,7 @@ const MainScreen = (props) => {
     </div>
   </React.Fragment>;
 };
-const sorts = (sort, offers) => {
-  switch (sort) {
-    case `Popular`:
-      return offers;
-    case `Price: low to high`:
-      return offers.sort((offer1, offer2) => {
-        if (offer1.price > offer2.price) {
-          return 1;
-        }
-        if (offer1.price < offer2.price) {
-          return -1;
-        }
-        return 0;
-      });
-    case `Price: high to low`:
-      return offers.sort((offer1, offer2) => {
-        if (offer1.price < offer2.price) {
-          return 1;
-        }
-        if (offer1.price > offer2.price) {
-          return -1;
-        }
-        return 0;
-      });
-  }
-  return offers;
-};
+
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: sorts(state.sort, cards.filter((card) => card.location === state.city)),
@@ -91,7 +66,8 @@ MainScreen.propTypes = {
   onCityEnter: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
   onSort: PropTypes.func.isRequired,
-  sort: PropTypes.string.isRequired
+  sort: PropTypes.string.isRequired,
+  activeId: PropTypes.string
 };
 export {MainScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
