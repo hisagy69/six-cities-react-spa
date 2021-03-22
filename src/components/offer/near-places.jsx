@@ -5,7 +5,7 @@ import Routes from '../enum';
 const {OFFER} = Routes;
 const NearPlaces = (props) => {
   return <Fragment>
-    <article className="near-places__card place-card">
+    <article className="near-places__card place-card" onMouseOver={() => props.onIdMarker(props.id)}>
       <div className="near-places__image-wrapper place-card__image-wrapper">
         <Link to={`${OFFER}${props.id}`}>
           <img className="place-card__image" src={props.image} width="260" height="200" alt="Place image"/>
@@ -45,6 +45,7 @@ NearPlaces.propTypes = {
   type: PropTypes.string,
   isBookmarks: PropTypes.bool,
   price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired
+  image: PropTypes.string.isRequired,
+  onIdMarker: PropTypes.func.isRequired
 };
 export default NearPlaces;
