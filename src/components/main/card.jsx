@@ -5,7 +5,6 @@ import Routes from '../enum';
 const {OFFER} = Routes;
 const Card = (props) => {
   return <article id={props.id} onMouseOver={() => {
-    props.setId(props.id);
     props.onIdMarker(props.id);
   }} className="cities__place-card place-card">
     { props.isPremium &&
@@ -52,7 +51,6 @@ Card.propTypes = {
   type: PropTypes.string,
   isBookmarks: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
-  setId: PropTypes.func.isRequired,
   onIdMarker: PropTypes.func.isRequired
 };
 export default Card;
