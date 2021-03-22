@@ -1,10 +1,12 @@
 import React from 'react';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import Routes from '../enum';
 const {OFFER} = Routes;
 const Card = (props) => {
-  return <article id={props.id} onMouseOver={() => props.setId(props.id)} className="cities__place-card place-card">
+  return <article id={props.id} onMouseOver={() => {
+    props.onIdMarker(props.id);
+  }} className="cities__place-card place-card">
     { props.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -42,13 +44,13 @@ const Card = (props) => {
   </article>;
 };
 Card.propTypes = {
-  isPremium: PropsTypes.bool,
-  image: PropsTypes.string.isRequired,
-  price: PropsTypes.number.isRequired,
-  name: PropsTypes.string.isRequired,
-  type: PropsTypes.string,
-  isBookmarks: PropsTypes.bool.isRequired,
-  id: PropsTypes.string.isRequired,
-  setId: PropsTypes.func.isRequired
+  isPremium: PropTypes.bool,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  isBookmarks: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  onIdMarker: PropTypes.func.isRequired
 };
 export default Card;
