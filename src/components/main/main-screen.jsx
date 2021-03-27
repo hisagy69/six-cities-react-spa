@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import Map from '../map/map';
 import {ActionCreators} from '../../store/action';
 import {connect} from 'react-redux';
-import cards from '../../moks/offers';
 import sorts from '../../selectors/sorts';
 import SortOptions from './sort-options';
 const MainScreen = (props) => {

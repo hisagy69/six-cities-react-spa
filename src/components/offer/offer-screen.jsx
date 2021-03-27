@@ -6,7 +6,6 @@ import NearPlaces from './near-places';
 import PropTypes from 'prop-types';
 import Map from '../map/map';
 import {connect} from 'react-redux';
-import cards from '../../moks/offers';
 import {ActionCreators} from '../../store/action';
 const OfferScreen = (props) => {
   return <div className="page">
