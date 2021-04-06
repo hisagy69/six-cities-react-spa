@@ -2,7 +2,8 @@ import {ActionTypes} from './action';
 const initialState = {
   city: `Paris`,
   offers: [],
-  sort: `Popular`
+  sort: `Popular`,
+  isDataLoaded: false
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -11,11 +12,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         city: action.payload
       };
-    case ActionTypes.OFFERS_CREATOR:
-      return {
-        ...state,
-        offers: action.payload
-      };
+    // case ActionTypes.OFFERS_CREATOR:
+    //   return {
+    //     ...state,
+    //     offers: action.payload
+    //   };
     case ActionTypes.OFFERS_SORT:
       return {
         ...state,
@@ -25,6 +26,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         id: action.payload
+      };
+    case ActionTypes.OFFERS_LOAD:
+      return {
+        ...state,
+        cards: action.payload,
+        isDataLoaded: true
       };
   }
   return state;

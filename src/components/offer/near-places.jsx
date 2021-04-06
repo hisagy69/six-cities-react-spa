@@ -8,7 +8,7 @@ const NearPlaces = (props) => {
     <article className="near-places__card place-card" onMouseOver={() => props.onIdMarker(props.id)}>
       <div className="near-places__image-wrapper place-card__image-wrapper">
         <Link to={`${OFFER}${props.id}`}>
-          <img className="place-card__image" src={props.image} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={props.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -27,12 +27,12 @@ const NearPlaces = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}}></span>
+            <span style={{width: props.rating / 5 * 100 + `%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${OFFER}${props.id}`}>{props.name}</Link>
+          <Link to={`${OFFER}${props.id}`}>{props.title}</Link>
         </h2>
         <p className="place-card__type">{props.type}</p>
       </div>
@@ -40,12 +40,13 @@ const NearPlaces = (props) => {
   </Fragment>;
 };
 NearPlaces.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
   type: PropTypes.string,
   isBookmarks: PropTypes.bool,
   price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  onIdMarker: PropTypes.func.isRequired
+  previewImage: PropTypes.string.isRequired,
+  onIdMarker: PropTypes.func.isRequired,
+  rating: PropTypes.number.isRequired
 };
 export default NearPlaces;

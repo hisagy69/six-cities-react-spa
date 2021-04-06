@@ -30,7 +30,7 @@ const FavoritesScreen = (props) => {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    { byLocation[city].map((card) => <FavoriteCard key={card.id} {...card}/>) }
+                    { byLocation[city].map((offer) => <FavoriteCard key={offer.id} {...offer} isBookmarks={offer.is_bookmarks} previewImage={offer.preview_image}/>) }
                   </div>
                 </li>;
               })

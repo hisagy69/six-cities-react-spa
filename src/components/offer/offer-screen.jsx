@@ -15,21 +15,21 @@ const OfferScreen = (props) => {
         <div className="property__gallery-container container">
           <div className="property__gallery">
             {
-              props.offer.gallery.map((image, i) => (
+              props.offer.images.map((image, i) => (
                 <Gallery image={image} key={i}/>
               ))
             }
           </div>
         </div>
-        <Property {...props.offer} reviews={props.reviews}/>
+        <Property {...props.offer} isPremium={props.offer.is_premium} isBookmarks={props.offer.is_bookmarks} maxAdults={props.offer.max_adults} reviews={props.reviews}/>
         <section className="property__map map"><Map offers={props.offers} activeId={props.activeId}/></section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {props.offers.map((card) => {
-              return <NearPlaces {...card} onIdMarker={props.onIdMarker} key={card.id}/>;
+            {props.offers.map((offer) => {
+              return <NearPlaces {...offer} isPremium={offer.is_premium} isBookmarks={offer.is_bookmarks} previewImage={offer.preview_image} onIdMarker={props.onIdMarker} key={offer.id}/>;
             })}
           </div>
         </section>
@@ -44,8 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: cards.filter((card) => card.location === state.city),
-  activeId: state.id
+  offers: state.cards.filter((card) => card.city.name === state.city).slice(0, 3),
 });
 OfferScreen.propTypes = {
   offers: PropTypes.array.isRequired,

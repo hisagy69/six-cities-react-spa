@@ -13,8 +13,8 @@ const Map = ({offers, activeId}) => {
     }
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: offers[0] && offers[0].cords[0] || city.lat,
-        lng: offers[0] && offers[0].cords[1] || city.lng
+        lat: offers[0].location.latitude || city.lat,
+        lng: offers[0].location.longitude || city.lng
       },
       zoom: city.zoom
     });
@@ -26,15 +26,16 @@ const Map = ({offers, activeId}) => {
   },
   []);
   useEffect(() => {
+    mapRef.current.panTo([offers[0].location.latitude, offers[0].location.longitude]);
     if (markersRef.current) {
       markersRef.current.forEach((marker) => marker && marker.remove());
     }
     markersRef.current = offers.reduce((markers, marker) => {
-      if (marker.cords) {
+      if (marker.location) {
         markers.push(leaflet
         .marker({
-          lat: marker.cords[0],
-          lng: marker.cords[1]
+          lat: marker.location.latitude,
+          lng: marker.location.longitude
         }, {
           icon: activeId === marker.id && leaflet.icon(acitveIcon) || leaflet.icon(icon)
         })
@@ -47,6 +48,6 @@ const Map = ({offers, activeId}) => {
 };
 Map.propTypes = {
   offers: PropTypes.array.isRequired,
-  activeId: PropTypes.string
+  activeId: PropTypes.number
 };
 export default Map;

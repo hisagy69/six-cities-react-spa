@@ -9,6 +9,10 @@ import {connect} from 'react-redux';
 import sorts from '../../selectors/sorts';
 import SortOptions from './sort-options';
 const MainScreen = (props) => {
+  const locations = props.cards.reduce((obj, card) => {
+    obj[card.city.name] = card.city.name;
+    return obj;
+  }, {});
   return <React.Fragment>
     <div className="page page--gray page--main">
       <Header/>
@@ -18,7 +22,7 @@ const MainScreen = (props) => {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               {
-                props.locations.map((location) => <Tab key={location} location={location} active={props.city === location} onCityEnter={props.onCityEnter}/>)
+                Object.keys(locations).map((location) => <Tab key={location} location={location} active={props.city === location} onCityEnter={props.onCityEnter} cards={props.cards}/>)
               }
             </ul>
           </section>
@@ -45,14 +49,16 @@ const MainScreen = (props) => {
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: sorts(state.sort, cards.filter((card) => card.location === state.city)),
+  offers: sorts(state.sort, state.cards.filter((card) => card.city.name === state.city)),
   sort: state.sort,
-  activeId: state.id
+  activeId: state.id,
+  isDataLoaded: state.isDataLoaded,
+  cards: state.cards,
 });
 const mapDispatchToProps = (dispatch) => ({
-  onCityEnter(city) {
+  onCityEnter(city, cards) {
     dispatch(ActionCreators.setCity(city));
-    dispatch(ActionCreators.setOffers(cards.filter((card) => card.location === city)));
+    dispatch(ActionCreators.setOffers(cards.filter((card) => card.city.name === city)));
   },
   onSort(sort) {
     dispatch(ActionCreators.setSort(sort));
@@ -60,13 +66,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 MainScreen.propTypes = {
   offers: PropTypes.array,
-  locations: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
   onCityEnter: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
   onSort: PropTypes.func.isRequired,
   sort: PropTypes.string.isRequired,
-  activeId: PropTypes.string
+  activeId: PropTypes.number,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 export {MainScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

@@ -7,7 +7,7 @@ const FavoriteCards = (props) => {
   return <article className="favorites__card place-card">
     <div className="favorites__image-wrapper place-card__image-wrapper">
       <Link to={`${OFFER}${props.id}`}>
-        <img className="place-card__image" src={props.image} width="150" height="110" alt="Place image"/>
+        <img className="place-card__image" src={props.previewImage} width="150" height="110" alt="Place image"/>
       </Link>
     </div>
     <div className="favorites__card-info place-card__info">
@@ -25,23 +25,24 @@ const FavoriteCards = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: `100%`}}></span>
+          <span style={{width: props.rating / 5 * 100 + `%`}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{props.name}</a>
+        <a href="#">{props.title}</a>
       </h2>
       <p className="place-card__type">{props.type}</p>
     </div>
   </article>;
 };
 FavoriteCards.propTypes = {
-  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  isBookmarks: PropTypes.bool.isRequired,
+  isBookmarks: PropTypes.bool,
   price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired
+  previewImage: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired
 };
 export default FavoriteCards;

@@ -14,7 +14,7 @@ const Card = (props) => {
     }
     <div className="cities__image-wrapper place-card__image-wrapper">
       <Link to={`${OFFER}${props.id}`}>
-        <img className="place-card__image" src={props.image} width="260" height="200" alt="Place image"/>
+        <img className="place-card__image" src={props.previewImage} width="260" height="200" alt="Place image"/>
       </Link>
     </div>
     <div className="place-card__info">
@@ -32,12 +32,12 @@ const Card = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: `80%`}}></span>
+          <span style={{width: props.rating / 5 * 100 + `%`}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
       <h2 className="place-card__name">
-        <Link to={`${OFFER}${props.id}`}>{props.name}</Link>
+        <Link to={`${OFFER}${props.id}`}>{props.title}</Link>
       </h2>
       <p className="place-card__type">{props.type}</p>
     </div>
@@ -45,12 +45,13 @@ const Card = (props) => {
 };
 Card.propTypes = {
   isPremium: PropTypes.bool,
-  image: PropTypes.string.isRequired,
+  isBookmarks: PropTypes.bool,
+  previewImage: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   type: PropTypes.string,
-  isBookmarks: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   onIdMarker: PropTypes.func.isRequired,
 };
 export default Card;

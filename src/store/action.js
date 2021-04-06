@@ -2,7 +2,8 @@ export const ActionTypes = {
   CURRENT_CITY_ENTER: `offers/curentCityEnter`,
   OFFERS_CREATOR: `offers/curentOffer`,
   OFFERS_SORT: `offers/sort`,
-  SET_ID: `offers/id`
+  SET_ID: `offers/id`,
+  OFFERS_LOAD: `offers/load`
 };
 export const ActionCreators = {
   setCity: (city) => ({
@@ -20,5 +21,10 @@ export const ActionCreators = {
   setId: (id) => ({
     type: ActionTypes.SET_ID,
     payload: id
+  }),
+  offersLoad: (offers) => ({
+    type: ActionTypes.OFFERS_LOAD,
+    payload: offers,
+    isDataLoaded: true
   })
 };
