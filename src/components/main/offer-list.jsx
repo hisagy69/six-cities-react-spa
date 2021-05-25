@@ -8,7 +8,7 @@ const OfferList = (props) => {
   return <div className="cities__places-list places__list tabs__content">
     {
       props.offers.map((offer) => {
-        return <Card key={offer.id} {...offer} isPremium={offer.is_premium} isBookmarks={offer.is_bookmarks} previewImage={offer.preview_image} onIdMarker={props.onIdMarker} />;
+        return <Card key={offer.id} {...offer} isPremium={offer.is_premium} isFavorite={offer.is_favorite} previewImage={offer.preview_image} onIdMarker={props.onIdMarker} onButtonClick={props.onButtonClick}/>;
       })
     }
   </div>;
@@ -20,7 +20,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 OfferList.propTypes = {
   offers: PropTypes.array.isRequired,
-  onIdMarker: PropTypes.func.isRequired
+  onIdMarker: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired
 };
 export default connect(null, mapDispatchToProps)(OfferList);
 export {OfferList};

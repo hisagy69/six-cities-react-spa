@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import map from '../const';
+import map from '../../const';
 import PropTypes from 'prop-types';
 const {city, icon, acitveIcon} = map;
 const Map = ({offers, activeId}) => {

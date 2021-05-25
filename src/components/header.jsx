@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import routes from './enum';
-const {LOGIN} = routes;
+import {connect} from 'react-redux';
+import {AuthorizationStatus} from '../const';
+const {LOGIN, FAVORITES} = routes;
 
-const Header = (props) => (
-  <header className="header">
+const Header = (props) => {
+  return <header className="header">
     <div className="container">
       <div className="header__wrapper">
         <div className="header__left">
@@ -16,11 +18,11 @@ const Header = (props) => (
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item user">
-              <Link className="header__nav-link header__nav-link--profile" to={LOGIN}>
+              <Link className="header__nav-link header__nav-link--profile" to={props.authorizationStatus === AuthorizationStatus.AUTH ? FAVORITES : LOGIN}>
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
                 {
-                  props.login ? <span className="header__user-name user__name">{props.login}</span> :
+                  props.user && props.user.data.email ? <span className="header__user-name user__name">{props.user.data.email}</span> :
                     <span className="header__login">Sign in</span>
                 }
               </Link>
@@ -29,9 +31,16 @@ const Header = (props) => (
         </nav>
       </div>
     </div>
-  </header>
-);
-Header.propTypes = {
-  login: PropTypes.string
+  </header>;
 };
-export default Header;
+Header.propTypes = {
+  login: PropTypes.string,
+  authorizationStatus: PropTypes.string.isRequired,
+  user: PropTypes.object,
+};
+const mapStateToProps = (state) => ({
+  user: state.user,
+  authorizationStatus: state.authorizationStatus
+});
+export {Header};
+export default connect(mapStateToProps, null)(Header);

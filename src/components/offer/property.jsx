@@ -1,13 +1,22 @@
-import React, {useState} from 'react';
-// eslint-disable-next-line no-unused-vars
+import React, {useEffect} from 'react';
 import Review from './review';
+import FormComment from './form-comment';
 import PropTypes from 'prop-types';
-
+import {comments, favoritePost} from '../../api-actions';
+import {connect} from 'react-redux';
+import {AuthorizationStatus} from '../../const';
 const Property = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const [inputRate, setRate] = useState(``);
-  const [inputComment, setComment] = useState(``);
-  const changeHandler = (event) => setRate(event.target.value);
+  useEffect(() => {
+    if (!props.comments) {
+      props.onLoadComment(props.id);
+    }
+  }, [props.comments]);
+  useEffect(() => {
+    props.onLoadComment(props.id);
+  }, [props.id]);
+  if (!props.comments) {
+    return <span>loading...</span>;
+  }
   return <div className="property__container container">
     <div className="property__wrapper">
       {props.isPremium && <div className="property__mark">
@@ -17,11 +26,11 @@ const Property = (props) => {
         <h1 className="property__name">
           {props.title}
         </h1>
-        <button className="property__bookmark-button button" type="button">
+        <button className={`property__bookmark-button button ${props.isFavorite && `property__bookmark-button--active`}`} onClick={() => props.authorizationStatus === AuthorizationStatus.AUTH ? props.onFavorite(props.id, props.isFavorite) : props.onButtonClick()} type="button">
           <svg className="property__bookmark-icon" width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
-          <span className="visually-hidden">{props.isBookmarks ? `To bookmarks` : `In bookmarks`}</span>
+          <span className="visually-hidden">{props.isFavorite ? `To bookmarks` : `In bookmarks`}</span>
         </button>
       </div>
       <div className="property__rating rating">
@@ -75,65 +84,20 @@ const Property = (props) => {
         </div>
       </div>
       <section className="property__reviews reviews">
-        {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{props.reviews.length}</span></h2> */}
+        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{props.comments.length}</span></h2>
         <ul className="reviews__list">
           {
-            // props.reviews.map((review, i) => <Review review={review} key={i}/>)
+            props.comments.sort((a, b) => new Date(a.date).getTime() < new Date(b.date).getTime() ? 1 : -1).map((review, i) => i < 10 && <Review review={review} key={i}/>)
           }
         </ul>
-        <form className="reviews__form form" action="#" method="post">
-          <label className="reviews__label form__label" htmlFor="review">Your review</label>
-          <div className="reviews__rating-form form__rating">
-            <input value="5" onChange={changeHandler} className="form__rating-input visually-hidden" name="rating" id="5-stars" type="radio"/>
-            <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-
-            <input onChange={ changeHandler } className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"/>
-            <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-
-            <input onChange={ changeHandler } className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"/>
-            <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-
-            <input onChange={ changeHandler } className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"/>
-            <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-
-            <input onChange={ changeHandler } className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"/>
-            <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-          </div>
-          <textarea value={inputComment} onChange={ (event) => setComment(event.target.value) } className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
-          <div className="reviews__button-wrapper">
-            <p className="reviews__help">
-              To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-            </p>
-            <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
-          </div>
-        </form>
+        {props.authorizationStatus === AuthorizationStatus.AUTH && <FormComment id={props.id}/>}
       </section>
     </div>
   </div>;
 };
 Property.propTypes = {
   isPremium: PropTypes.bool,
-  isBookmarks: PropTypes.bool,
+  isFavorite: PropTypes.bool,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   type: PropTypes.string,
@@ -145,5 +109,25 @@ Property.propTypes = {
   goods: PropTypes.array.isRequired,
   host: PropTypes.object.isRequired,
   description: PropTypes.string.isRequired,
+  comments: PropTypes.array,
+  onLoadComment: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string,
+  onFavorite: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired
 };
-export default Property;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  comments: state.comments
+});
+const mapDispatchToProps = (dispatch) => ({
+  onLoadComment(id) {
+    dispatch(comments(id));
+  },
+  onFavorite(id, isFavorite) {
+    const status = isFavorite ? 0 : 1;
+    dispatch(favoritePost(id, status));
+  }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Property);
+export {Property};

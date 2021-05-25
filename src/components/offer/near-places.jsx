@@ -2,6 +2,9 @@ import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Routes from '../enum';
+import {connect} from 'react-redux';
+import {favoritePost} from '../../api-actions';
+import {AuthorizationStatus} from '../../const';
 const {OFFER} = Routes;
 const NearPlaces = (props) => {
   return <Fragment>
@@ -17,11 +20,11 @@ const NearPlaces = (props) => {
             <b className="place-card__price-value">&euro;{props.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button className={`place-card__bookmark-button ${props.isFavorite && `place-card__bookmark-button--active`} button`} type="button" onClick={() => props.authorizationStatus === AuthorizationStatus.AUTH ? props.onFavorite(props.id, props.isFavorite) : props.onButtonClick()}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            { props.isBookmarks ? <span className="visually-hidden">In bookmarks</span> :
+            { props.isFavorite ? <span className="visually-hidden">In bookmarks</span> :
               <span className="visually-hidden">To bookmarks</span> }
           </button>
         </div>
@@ -43,10 +46,23 @@ NearPlaces.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string,
-  isBookmarks: PropTypes.bool,
+  isFavorite: PropTypes.bool,
   price: PropTypes.number.isRequired,
   previewImage: PropTypes.string.isRequired,
   onIdMarker: PropTypes.func.isRequired,
-  rating: PropTypes.number.isRequired
+  rating: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  onFavorite: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired
 };
-export default NearPlaces;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus
+});
+const mapDispatchToProps = (dispatch) => ({
+  onFavorite(id, isFavorite) {
+    const status = isFavorite ? 0 : 1;
+    dispatch(favoritePost(id, status));
+  }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(NearPlaces);
+export {NearPlaces};
