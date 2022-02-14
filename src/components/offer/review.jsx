@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import dateString from '../../selectors/dateString';
+import dateString from '../../selectors/date-string';
 const Review = ({review}) => {
   return <li className="reviews__item">
     <div className="reviews__user user">
