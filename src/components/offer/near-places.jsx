@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import hotelProp from '../../props/hotel.prop';
 import Routes from '../enum';
 import {connect} from 'react-redux';
 import {favoritePost} from '../../api-actions';
@@ -43,14 +44,10 @@ const NearPlaces = (props) => {
   </Fragment>;
 };
 NearPlaces.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  type: PropTypes.string,
+  ...hotelProp,
   isFavorite: PropTypes.bool,
-  price: PropTypes.number.isRequired,
   previewImage: PropTypes.string.isRequired,
   onIdMarker: PropTypes.func.isRequired,
-  rating: PropTypes.number.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onFavorite: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import hotelProp from '../../props/hotel.prop';
 import {Link} from 'react-router-dom';
 import {favoritePost} from '../../api-actions';
 import {connect} from 'react-redux';
@@ -46,21 +47,6 @@ const Card = (props) => {
     </div>
   </article>;
 };
-Card.propTypes = {
-  isPremium: PropTypes.bool,
-  isFavorite: PropTypes.bool,
-  previewImage: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  rating: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired,
-  onIdMarker: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  onFavorite: PropTypes.func.isRequired,
-  onButtonClick: PropTypes.func.isRequired,
-
-};
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus
 });
@@ -70,5 +56,16 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(favoritePost(id, status));
   }
 });
+Card.propTypes = {
+  ...hotelProp,
+  isPremium: PropTypes.bool,
+  isFavorite: PropTypes.bool,
+  previewImage: PropTypes.string.isRequired,
+  onIdMarker: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  onFavorite: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
+
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
 export {Card};

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import commentProp from './comment.prop';
 import dateString from '../../selectors/date-string';
 const Review = ({review}) => {
   return <li className="reviews__item">
@@ -26,6 +26,6 @@ const Review = ({review}) => {
   </li>;
 };
 Review.propTypes = {
-  review: PropTypes.object
+  review: commentProp
 };
 export default Review;

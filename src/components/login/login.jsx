@@ -45,10 +45,6 @@ const Login = (props) => {
     </main>
   </div>;
 };
-Login.propTypes = {
-  onLogin: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
-};
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus
 });
@@ -57,5 +53,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(login({login: email, password}));
   }
 });
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
+};
 export {Login};
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

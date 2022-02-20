@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import userProp from '../props/user.prop';
 import {Link} from 'react-router-dom';
 import routes from './enum';
 import {connect} from 'react-redux';
@@ -22,7 +23,7 @@ const Header = (props) => {
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
                 {
-                  props.user && props.user.data.email ? <span className="header__user-name user__name">{props.user.data.email}</span> :
+                  props.user && props.user.email ? <span className="header__user-name user__name">{props.user.email}</span> :
                     <span className="header__login">Sign in</span>
                 }
               </Link>
@@ -36,10 +37,10 @@ const Header = (props) => {
 Header.propTypes = {
   login: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
-  user: PropTypes.object,
+  user: userProp,
 };
 const mapStateToProps = (state) => ({
-  user: state.user,
+  user: state.user && state.user.data,
   authorizationStatus: state.authorizationStatus
 });
 export {Header};

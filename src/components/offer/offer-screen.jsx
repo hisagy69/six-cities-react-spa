@@ -4,6 +4,8 @@ import Header from '../header';
 import Property from './property';
 import NearPlaces from './near-places';
 import PropTypes from 'prop-types';
+import commentProp from './comment.prop';
+import hotelProp from '../../props/hotel.prop';
 import Map from '../map/map';
 import {connect} from 'react-redux';
 import {ActionCreators} from '../../store/action';
@@ -36,7 +38,7 @@ const OfferScreen = (props) => {
           </div>
         </div>
         <Property {...props.hotel} isPremium={props.hotel.is_premium} isFavorite={props.hotel.is_favorite} maxAdults={props.hotel.max_adults} reviews={props.reviews} id={props.offerId} onButtonClick={props.onButtonClick}/>
-        <section className="property__map map"><Map offers={props.hotelNearby} activeId={props.activeId}/></section>
+        <section className="property__map map"><Map offers={props.hotelNearby}/></section>
       </section>
       <div className="container">
         <section className="near-places places">
@@ -50,19 +52,6 @@ const OfferScreen = (props) => {
       </div>
     </main>
   </div>;
-};
-OfferScreen.propTypes = {
-  reviews: PropTypes.array,
-  activeId: PropTypes.string,
-  onIdMarker: PropTypes.func.isRequired,
-  isHotelLoad: PropTypes.bool,
-  isHotelNearbyLoad: PropTypes.bool,
-  onLoadData: PropTypes.func.isRequired,
-  offerId: PropTypes.number.isRequired,
-  notFound: PropTypes.bool,
-  hotel: PropTypes.object,
-  hotelNearby: PropTypes.array,
-  onButtonClick: PropTypes.func.isRequired
 };
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(id) {
@@ -80,5 +69,17 @@ const mapStateToProps = (state) => ({
   isHotelNearbyLoad: state.isHotelNearbyLoad,
   notFound: state.notFound
 });
+OfferScreen.propTypes = {
+  reviews: PropTypes.arrayOf(commentProp),
+  onIdMarker: PropTypes.func.isRequired,
+  isHotelLoad: PropTypes.bool.isRequired,
+  isHotelNearbyLoad: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
+  offerId: PropTypes.number.isRequired,
+  notFound: PropTypes.bool,
+  hotel: PropTypes.shape(hotelProp),
+  hotelNearby: PropTypes.arrayOf(PropTypes.shape(hotelProp)),
+  onButtonClick: PropTypes.func.isRequired
+};
 export {OfferScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(OfferScreen);

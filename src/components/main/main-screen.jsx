@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+import hotelProp from '../../props/hotel.prop';
 import Map from '../map/map';
 import {ActionCreators} from '../../store/action';
 import {connect} from 'react-redux';
@@ -78,8 +79,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 MainScreen.propTypes = {
-  offers: PropTypes.array,
-  cards: PropTypes.array,
+  cards: PropTypes.arrayOf(PropTypes.shape(hotelProp)),
   city: PropTypes.string.isRequired,
   sort: PropTypes.string.isRequired,
   activeId: PropTypes.number,

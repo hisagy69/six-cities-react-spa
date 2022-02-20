@@ -3,6 +3,7 @@ import Header from '../header';
 import Footer from '../footer';
 import FavoriteCard from './favorite-card';
 import PropTypes from 'prop-types';
+import hotelProp from '../../props/hotel.prop';
 import {connect} from 'react-redux';
 import Spinner from '../spinner';
 import {favorites} from '../../api-actions';
@@ -59,11 +60,6 @@ const FavoritesScreen = (props) => {
     <Footer/>
   </div>;
 };
-FavoritesScreen.propTypes = {
-  favorites: PropTypes.array,
-  isLoadFavorites: PropTypes.bool,
-  onLoadData: PropTypes.func.isRequired
-};
 const mapStateToProps = (state) => ({
   favorites: state.favorites,
   isLoadFavorites: state.isLoadFavorites
@@ -73,5 +69,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(favorites());
   }
 });
+FavoritesScreen.propTypes = {
+  favorites: PropTypes.arrayOf(PropTypes.shape(hotelProp)),
+  isLoadFavorites: PropTypes.bool,
+  onLoadData: PropTypes.func.isRequired
+};
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesScreen);
 export {FavoritesScreen};

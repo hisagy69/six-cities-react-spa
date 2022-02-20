@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import map from '../../const';
 import PropTypes from 'prop-types';
+import hotelProp from '../../props/hotel.prop';
 const {city, icon, acitveIcon} = map;
 const Map = ({offers, activeId}) => {
   const mapRef = useRef();
@@ -47,7 +48,7 @@ const Map = ({offers, activeId}) => {
   return <div id="map" ref={mapRef} style={{height: `100%`, maxWidth: `1147px`, margin: `0 auto`}}></div>;
 };
 Map.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(hotelProp)),
   activeId: PropTypes.number
 };
 export default Map;

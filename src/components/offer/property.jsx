@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import Review from './review';
 import FormComment from './form-comment';
 import PropTypes from 'prop-types';
+import commentProp from './comment.prop';
+import locationProp from '../../props/location.prop';
 import {comments, favoritePost} from '../../api-actions';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
@@ -95,27 +97,6 @@ const Property = (props) => {
     </div>
   </div>;
 };
-Property.propTypes = {
-  isPremium: PropTypes.bool,
-  isFavorite: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  type: PropTypes.string,
-  reviews: PropTypes.array,
-  propertyInsideItems: PropTypes.array,
-  rating: PropTypes.number.isRequired,
-  bedrooms: PropTypes.number.isRequired,
-  maxAdults: PropTypes.number.isRequired,
-  goods: PropTypes.array.isRequired,
-  host: PropTypes.object.isRequired,
-  description: PropTypes.string.isRequired,
-  comments: PropTypes.array,
-  onLoadComment: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
-  authorizationStatus: PropTypes.string,
-  onFavorite: PropTypes.func.isRequired,
-  onButtonClick: PropTypes.func.isRequired
-};
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
   comments: state.comments
@@ -129,5 +110,34 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(favoritePost(id, status));
   }
 });
+Property.propTypes = {
+  isPremium: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  city: PropTypes.shape({
+    location: locationProp,
+    name: PropTypes.string.isRequired
+  }),
+  reviews: PropTypes.arrayOf({
+
+  }),
+  images: PropTypes.arrayOf(PropTypes.string),
+  location: locationProp,
+  propertyInsideItems: PropTypes.array,
+  rating: PropTypes.number.isRequired,
+  bedrooms: PropTypes.number.isRequired,
+  maxAdults: PropTypes.number.isRequired,
+  goods: PropTypes.arrayOf(PropTypes.string),
+  host: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
+  comments: PropTypes.arrayOf(commentProp),
+  onLoadComment: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  onFavorite: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Property);
 export {Property};

@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './card';
 import PropTypes from 'prop-types';
+import hotelProp from '../../props/hotel.prop';
 import {connect} from 'react-redux';
 import {ActionCreators} from '../../store/action';
 
@@ -19,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 OfferList.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(hotelProp)),
   onIdMarker: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired
 };
