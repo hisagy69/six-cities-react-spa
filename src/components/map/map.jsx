@@ -12,10 +12,21 @@ const Map = ({offers, activeId}) => {
     if (!offers) {
       return;
     }
+    const locationMaxMin = offers.reduce((obj, {location}) => {
+      obj.maxLat = Math.max(location.latitude, obj.maxLat);
+      obj.minLat = Math.min(location.latitude, obj.minLat);
+      obj.maxLng = Math.max(location.longitude, obj.maxLng);
+      obj.minLng = Math.min(location.longitude, obj.minLng);
+      return obj;
+    }, {});
+    const centerLocation = {
+      latitude: (locationMaxMin.maxLat - locationMaxMin.minLat) / 2 + locationMaxMin.minLat,
+      longitude: (locationMaxMin.maxLng - locationMaxMin.minLng) / 2 + locationMaxMin.minLng,
+    };
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: offers[0].location.latitude || city.lat,
-        lng: offers[0].location.longitude || city.lng
+        lat: centerLocation.latitude || city.lat,
+        lng: centerLocation.longitude || city.lng
       },
       zoom: city.zoom
     });
