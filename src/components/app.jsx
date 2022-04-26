@@ -16,7 +16,7 @@ const App = () => {
         return <MainScreen city={renderProps.match.params.id} onButtonClick={() => renderProps.history.push(LOGIN)}/>;
       }}/>
       <PrivateRoute path={FAVORITES} render={() => <FavoritesScreen/>} exact/>
-      <Route path={LOGIN} component={Login} onButtonClick={() => history.push(`/`)} exact/>
+      <Route path={LOGIN} component={Login} exact/>
       <Route path={`${OFFER}:id`} exact render={(renderProps) => {
         const offerId = +renderProps.match.params.id;
         return <OfferScreen offerId={offerId} onButtonClick={() => renderProps.history.push(LOGIN)}/>;
