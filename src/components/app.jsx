@@ -8,7 +8,7 @@ import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
 import Routes from './enum';
 import browserHistory from '../browser-history';
 const {LOGIN, FAVORITES, OFFER} = Routes;
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './private-route';
 const App = () => {
   return <BrowserRouter history={browserHistory}>
     <Switch>

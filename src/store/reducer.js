@@ -8,6 +8,7 @@ const initialState = {
   isHotelLoad: false,
   isHotelNearbyLoad: false,
   isLoadFavorites: false,
+  isLoadStatus: false,
   authorizationStatus: AuthorizationStatus.NO_AUTH
 };
 const reducer = (state = initialState, action) => {
@@ -37,7 +38,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: action.payload,
-        user: action.user
+        user: action.user,
+        isLoadStatus: action.isLoadStatus
       };
     case ActionTypes.HOTEL_LOAD:
       return {

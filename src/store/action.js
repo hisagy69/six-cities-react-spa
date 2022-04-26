@@ -39,6 +39,7 @@ export const ActionCreators = {
   requiredAuthorization: (status, user) => ({
     type: ActionTypes.REQUIRED_AUTHORIZATION,
     user,
+    isLoadStatus: true,
     payload: status
   }),
   hotelLoad: (data) => ({
