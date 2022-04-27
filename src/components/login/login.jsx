@@ -7,14 +7,18 @@ import {AuthorizationStatus} from '../../const';
 import PropTypes from 'prop-types';
 const Login = (props) => {
   const history = useHistory();
+  const redirect = () => {
+    if (props.authorizationStatus === AuthorizationStatus.AUTH) {
+      history.push(`/`);
+    }
+  };
+  redirect();
   const email = useRef();
   const password = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
     props.onLogin(email.current.value, password.current.value);
-    if (props.authorizationStatus === AuthorizationStatus.AUTH) {
-      history.push(`/`);
-    }
+    redirect();
   };
   return <div className="page page--gray page--login">
     <Header/>
