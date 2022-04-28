@@ -4,7 +4,7 @@ import FormComment from './form-comment';
 import PropTypes from 'prop-types';
 import commentProp from './comment.prop';
 import locationProp from '../../props/location.prop';
-import {comments, favoritePost} from '../../api-actions';
+import {comments, favoritePost, favoritesGet} from '../../api-actions';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
 const Property = (props) => {
@@ -16,6 +16,11 @@ const Property = (props) => {
   useEffect(() => {
     props.onLoadComment(props.id);
   }, [props.id]);
+  useEffect(() => {
+    if (!props.isLoadFavorites) {
+      props.getFavorite();
+    }
+  }, [props.isLoadFavorites]);
   if (!props.comments) {
     return <span>loading...</span>;
   }
@@ -32,7 +37,7 @@ const Property = (props) => {
           <svg className="property__bookmark-icon" width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
-          <span className="visually-hidden">{props.isFavorite ? `To bookmarks` : `In bookmarks`}</span>
+          <span className="visually-hidden">{props.isFavorite ? `In bookmarks` : `To bookmarks`}</span>
         </button>
       </div>
       <div className="property__rating rating">
@@ -99,7 +104,8 @@ const Property = (props) => {
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
-  comments: state.comments
+  comments: state.comments,
+  isLoadFavorites: state.isLoadFavorites
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadComment(id) {
@@ -108,10 +114,14 @@ const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {
     const status = isFavorite ? 0 : 1;
     dispatch(favoritePost(id, status));
+  },
+  getFavorite() {
+    dispatch(favoritesGet());
   }
 });
 Property.propTypes = {
   isPremium: PropTypes.bool.isRequired,
+  isLoadFavorites: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
@@ -120,9 +130,7 @@ Property.propTypes = {
     location: locationProp,
     name: PropTypes.string.isRequired
   }),
-  reviews: PropTypes.arrayOf({
-
-  }),
+  reviews: PropTypes.arrayOf(commentProp),
   images: PropTypes.arrayOf(PropTypes.string),
   location: locationProp,
   propertyInsideItems: PropTypes.array,
@@ -137,7 +145,8 @@ Property.propTypes = {
   id: PropTypes.number.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onFavorite: PropTypes.func.isRequired,
-  onButtonClick: PropTypes.func.isRequired
+  onButtonClick: PropTypes.func.isRequired,
+  getFavorite: PropTypes.func.isRequired
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Property);
 export {Property};

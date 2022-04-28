@@ -11,7 +11,7 @@ export const ActionTypes = {
   NOT_FOUND: `hotel/not-found`,
   GET_COMMENT: `hotel/get-comment`,
   ERROR_SEND: `error/send`,
-  GET_FAVORITES: `user/favorite`,
+  GET_FAVORITES: `user/get-favorites`,
   POST_FAVORITES: `user/post-favorites`
 };
 export const ActionCreators = {

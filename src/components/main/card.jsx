@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import {Link} from 'react-router-dom';
-import {favoritePost} from '../../api-actions';
+import {favoritePost, favoritesGet} from '../../api-actions';
 import {connect} from 'react-redux';
 import Routes from '../enum';
 import {AuthorizationStatus} from '../../const';
 const {OFFER} = Routes;
 const Card = (props) => {
+  useEffect(() => {
+    if (!props.isLoadFavorites) {
+      props.getFavorite();
+    }
+  }, [props.isLoadFavorites]);
   return <article id={props.id} onMouseOver={() => {
     props.onIdMarker(props.id);
   }} className="cities__place-card place-card">
@@ -48,24 +53,29 @@ const Card = (props) => {
   </article>;
 };
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus
+  authorizationStatus: state.authorizationStatus,
+  isLoadFavorites: state.isLoadFavorites
 });
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {
     const status = isFavorite ? 0 : 1;
     dispatch(favoritePost(id, status));
+  },
+  getFavorite() {
+    dispatch(favoritesGet());
   }
 });
 Card.propTypes = {
   ...hotelProp,
+  isLoadFavorites: PropTypes.bool.isRequired,
   isPremium: PropTypes.bool,
   isFavorite: PropTypes.bool,
   previewImage: PropTypes.string.isRequired,
   onIdMarker: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onFavorite: PropTypes.func.isRequired,
+  getFavorite: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired,
-
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
 export {Card};

@@ -1,13 +1,18 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import Routes from '../enum';
 import {connect} from 'react-redux';
-import {favoritePost} from '../../api-actions';
+import {favoritePost, favoritesGet} from '../../api-actions';
 import {AuthorizationStatus} from '../../const';
 const {OFFER} = Routes;
 const NearPlaces = (props) => {
+  useEffect(() => {
+    if (!props.isLoadFavorites) {
+      props.getFavorite();
+    }
+  }, [props.isLoadFavorites]);
   return <Fragment>
     <article className="near-places__card place-card" onMouseOver={() => props.onIdMarker(props.id)}>
       <div className="near-places__image-wrapper place-card__image-wrapper">
@@ -46,19 +51,25 @@ const NearPlaces = (props) => {
 NearPlaces.propTypes = {
   ...hotelProp,
   isFavorite: PropTypes.bool,
+  isLoadFavorites: PropTypes.bool.isRequired,
   previewImage: PropTypes.string.isRequired,
   onIdMarker: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onFavorite: PropTypes.func.isRequired,
-  onButtonClick: PropTypes.func.isRequired
+  onButtonClick: PropTypes.func.isRequired,
+  getFavorite: PropTypes.func.isRequired
 };
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus
+  authorizationStatus: state.authorizationStatus,
+  isLoadFavorites: state.isLoadFavorites
 });
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {
     const status = isFavorite ? 0 : 1;
     dispatch(favoritePost(id, status));
+  },
+  getFavorite() {
+    dispatch(favoritesGet());
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(NearPlaces);

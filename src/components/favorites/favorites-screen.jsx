@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import {connect} from 'react-redux';
 import Spinner from '../spinner';
-import {favorites} from '../../api-actions';
+import {favoritesGet} from '../../api-actions';
 const FavoritesScreen = (props) => {
   useEffect(() => {
     if (!props.isLoadFavorites) {
@@ -66,7 +66,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
-    dispatch(favorites());
+    dispatch(favoritesGet());
   }
 });
 FavoritesScreen.propTypes = {

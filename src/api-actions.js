@@ -43,7 +43,7 @@ export const commentPost = (id, comment, rating) => (dispatch, _getState, api) =
     .catch(dispatch(ActionCreators.errorSend()))
 );
 
-export const favorites = () => (dispatch, _getSate, api) => (
+export const favoritesGet = () => (dispatch, _getSate, api) => (
   api.get(`/favorite`)
     .then(({data}) => dispatch(ActionCreators.getFavorites(data)))
 );
@@ -51,6 +51,4 @@ export const favorites = () => (dispatch, _getSate, api) => (
 export const favoritePost = (id, status) => (dispatch, _getState, api) => {
   api.post(`/favorite/${id}/${status}`)
     .then(({data}) => dispatch(ActionCreators.postFavorite(data)));
-  api.get(`/favorite`)
-    .then(({data}) => dispatch(ActionCreators.getFavorites(data)));
 };

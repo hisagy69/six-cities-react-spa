@@ -93,6 +93,7 @@ const reducer = (state = initialState, action) => {
           }
           return item;
         })),
+        isLoadFavorites: false
       };
   }
   return state;
