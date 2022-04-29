@@ -17,7 +17,10 @@ const SortOptions = (props) => {
     </span>
     <ul className="places__options places__options--custom" ref={listRef}>
       {
-        sorting.map((sort) => <li className={props.sort === sort && `places__option places__option--active` || `places__option`} key={sort} onClick={() => props.onSort(sort)} tabIndex="0">{sort}</li>)
+        sorting.map((sort) => <li className={props.sort === sort && `places__option places__option--active` || `places__option`} key={sort} onClick={() => {
+          props.onSort(sort);
+          listToggle();
+        }} tabIndex="0">{sort}</li>)
       }
     </ul>
   </form>;
