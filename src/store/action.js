@@ -1,11 +1,10 @@
 export const ActionTypes = {
-  CURRENT_CITY_ENTER: `offers/curentCityEnter`,
-  OFFERS_CREATOR: `offers/curentOffer`,
+  CURRENT_CITY_ENTER: `offers/curent-city-enter`,
   OFFERS_SORT: `offers/sort`,
   SET_ID: `offers/id`,
   OFFERS_LOAD: `offers/load`,
-  REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  SET_USER: `user/setUser`,
+  REQUIRED_AUTHORIZATION: `user/required-authorization`,
+  SET_USER: `user/set-user`,
   HOTEL_LOAD: `hotel/load`,
   HOTEL_NEARBY: `hotel/nearby`,
   NOT_FOUND: `hotel/not-found`,
@@ -18,10 +17,6 @@ export const ActionCreators = {
   setCity: (city) => ({
     type: ActionTypes.CURRENT_CITY_ENTER,
     payload: city
-  }),
-  setOffers: (offers) => ({
-    type: ActionTypes.OFFERS_CREATOR,
-    payload: offers
   }),
   setSort: (sort) => ({
     type: ActionTypes.OFFERS_SORT,

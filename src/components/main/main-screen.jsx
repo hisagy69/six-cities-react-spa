@@ -70,9 +70,8 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchOffersLoad());
   },
-  onCityEnter(city, cards) {
+  onCityEnter(city) {
     dispatch(ActionCreators.setCity(city));
-    dispatch(ActionCreators.setOffers(cards.filter((card) => card.city.name === city)));
   },
   onSort(sort) {
     dispatch(ActionCreators.setSort(sort));
