@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import {Link} from 'react-router-dom';
@@ -10,7 +10,9 @@ import {ActionCreators} from '../../store/action';
 const {OFFER} = Routes;
 const Card = (props) => {
   return <article id={props.id} onMouseOver={() => {
-    props.onIdMarker(props.id);
+    if (props.prevId !== props.id) {
+      props.onIdMarker(props.id);
+    }
   }} className="cities__place-card place-card">
     { props.isPremium &&
       <div className="place-card__mark">
@@ -50,7 +52,7 @@ const Card = (props) => {
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
-  isLoadFavorites: state.isLoadFavorites
+  prevId: state.id
 });
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {
@@ -63,7 +65,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 Card.propTypes = {
   ...hotelProp,
-  isLoadFavorites: PropTypes.bool.isRequired,
   isPremium: PropTypes.bool,
   isFavorite: PropTypes.bool,
   previewImage: PropTypes.string.isRequired,
@@ -72,5 +73,8 @@ Card.propTypes = {
   onFavorite: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.isFavorite === nextProps.isFavorite;
+};
+export default connect(mapStateToProps, mapDispatchToProps)(memo(Card, areEqual));
 export {Card};

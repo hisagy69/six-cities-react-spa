@@ -41,12 +41,21 @@ const reducer = (state = initialState, action) => {
         user: action.user,
         isLoadStatus: action.isLoadStatus
       };
+    case ActionTypes.HOTEL_LOAD_START:
+      return {
+        ...state,
+        isHotelLoad: false
+      };
     case ActionTypes.HOTEL_LOAD:
       return {
         ...state,
         hotel: action.payload,
         isHotelLoad: true,
         notFound: false
+      };
+    case ActionTypes.HOTEL_NEARBY_START:
+      return {
+        isHotelNearbyLoad: false
       };
     case ActionTypes.HOTEL_NEARBY:
       return {
@@ -79,7 +88,7 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.POST_FAVORITES:
       return {
         ...state,
-        cards: state.cards.map(((item) => {
+        cards: state.cards && state.cards.map(((item) => {
           if (item.id === action.payload.id) {
             return action.payload;
           }

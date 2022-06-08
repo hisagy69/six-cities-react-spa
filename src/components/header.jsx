@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import userProp from '../props/user.prop';
 import {Link} from 'react-router-dom';
@@ -6,7 +6,6 @@ import routes from './enum';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../const';
 const {LOGIN, FAVORITES} = routes;
-
 const Header = (props) => {
   return <header className="header">
     <div className="container">
@@ -35,7 +34,6 @@ const Header = (props) => {
   </header>;
 };
 Header.propTypes = {
-  login: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
   user: userProp,
 };
@@ -43,5 +41,5 @@ const mapStateToProps = (state) => ({
   user: state.user && state.user.data,
   authorizationStatus: state.authorizationStatus
 });
+export default connect(mapStateToProps, null)(memo(Header, (prevProps, nextProps) => prevProps.authorizationStatus === nextProps.authorizationStatus));
 export {Header};
-export default connect(mapStateToProps, null)(Header);

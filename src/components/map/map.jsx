@@ -1,4 +1,5 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, memo} from 'react';
+import {connect} from 'react-redux';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import map from '../../const';
@@ -55,11 +56,18 @@ const Map = ({offers, activeId}) => {
       }
       return markers;
     }, []);
-  }, [offers]);
+  }, [offers, activeId]);
   return <div id="map" ref={mapRef} style={{height: `100%`, maxWidth: `1147px`, margin: `0 auto`}}></div>;
 };
+const mapStateToProps = (state) => ({
+  activeId: state.id
+});
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(hotelProp)),
   activeId: PropTypes.number
 };
-export default Map;
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.activeId === nextProps.activeId && prevProps.offers[0].city.name === nextProps.offers[0].city.name;
+};
+export default connect(mapStateToProps)(memo(Map, areEqual));
+export {Map};

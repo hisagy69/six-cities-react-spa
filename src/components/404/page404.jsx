@@ -1,9 +1,7 @@
 import React from 'react';
-import Header from '../header';
 import {Link} from 'react-router-dom';
 const Page404 = () => (
   <React.Fragment>
-    <Header/>
     <section className="error">
       <div className="container">
         <h1 className="error-header">404 not found</h1>

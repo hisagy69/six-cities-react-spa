@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 const Gallery = (props) => {
   return <div className="property__image-wrapper">
@@ -8,4 +8,4 @@ const Gallery = (props) => {
 Gallery.propTypes = {
   image: PropTypes.string.isRequired
 };
-export default Gallery;
+export default memo(Gallery);

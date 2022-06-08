@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, memo} from 'react';
 import {sorting} from '../sorting';
 import PropTypes from 'prop-types';
 const SortOptions = (props) => {
@@ -29,4 +29,4 @@ SortOptions.propTypes = {
   onSort: PropTypes.func.isRequired,
   sort: PropTypes.string.isRequired
 };
-export default SortOptions;
+export default memo(SortOptions);

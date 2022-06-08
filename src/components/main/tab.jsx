@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
-import hotelProp from '../../props/hotel.prop';
 const Tab = (props) => {
   return <li className="locations__item">
-    <a onClick={props.onCityEnter.bind(null, props.location, props.cards)} className={ props.active ?
+    <a onClick={props.onCityEnter.bind(null, props.location)} className={ props.active ?
       `locations__item-link tabs__item tabs__item--active` :
       `locations__item-link tabs__item`}>
       <span>{props.location}</span>
@@ -13,7 +12,6 @@ const Tab = (props) => {
 Tab.propTypes = {
   location: PropTypes.string.isRequired,
   active: PropTypes.bool,
-  onCityEnter: PropTypes.func.isRequired,
-  cards: PropTypes.arrayOf(PropTypes.shape(hotelProp))
+  onCityEnter: PropTypes.func.isRequired
 };
-export default Tab;
+export default memo(Tab);

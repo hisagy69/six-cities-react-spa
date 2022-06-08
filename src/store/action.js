@@ -5,7 +5,9 @@ export const ActionTypes = {
   OFFERS_LOAD: `offers/load`,
   REQUIRED_AUTHORIZATION: `user/required-authorization`,
   SET_USER: `user/set-user`,
+  HOTEL_LOAD_START: `hotel/load-start`,
   HOTEL_LOAD: `hotel/load`,
+  HOTEL_NEARBY_LOAD_START: `hotel-nearby/load-start`,
   HOTEL_NEARBY: `hotel/nearby`,
   NOT_FOUND: `hotel/not-found`,
   GET_COMMENT: `hotel/get-comment`,
@@ -37,9 +39,15 @@ export const ActionCreators = {
     isLoadStatus: true,
     payload: status
   }),
+  hotelLoadStart: () => ({
+    type: ActionTypes.HOTEL_LOAD_START
+  }),
   hotelLoad: (data) => ({
     type: ActionTypes.HOTEL_LOAD,
     payload: data
+  }),
+  hotelNearbyLoadStart: () => ({
+    type: ActionTypes.HOTEL_NEARBY_LOAD_START
   }),
   hotelNearby: (data) => ({
     type: ActionTypes.HOTEL_NEARBY,

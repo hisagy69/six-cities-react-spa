@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, memo} from 'react';
 import Review from './review';
 import FormComment from './form-comment';
 import PropTypes from 'prop-types';
@@ -12,9 +12,6 @@ const Property = (props) => {
     if (!props.comments) {
       props.onLoadComment(props.id);
     }
-  }, [props.comments]);
-  useEffect(() => {
-    props.onLoadComment(props.id);
   }, [props.id]);
   useEffect(() => {
     if (!props.isLoadFavorites) {
@@ -105,7 +102,11 @@ const Property = (props) => {
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
   comments: state.comments,
-  isLoadFavorites: state.isLoadFavorites
+  isLoadFavorites: state.isLoadFavorites,
+  ...state.hotel,
+  isPremium: state.hotel.is_premium,
+  isFavorite: state.hotel.is_favorite,
+  maxAdults: state.hotel.max_adults,
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadComment(id) {
@@ -130,7 +131,6 @@ Property.propTypes = {
     location: locationProp,
     name: PropTypes.string.isRequired
   }),
-  reviews: PropTypes.arrayOf(commentProp),
   images: PropTypes.arrayOf(PropTypes.string),
   location: locationProp,
   propertyInsideItems: PropTypes.array,
@@ -148,5 +148,8 @@ Property.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
   getFavorite: PropTypes.func.isRequired
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Property);
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.isFavorite === nextProps.isFavorite && prevProps.comments === nextProps.comments;
+};
+export default connect(mapStateToProps, mapDispatchToProps)(memo(Property, areEqual));
 export {Property};
