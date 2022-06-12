@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import Map from '../map/map';
 import {connect} from 'react-redux';
-import {ActionCreators} from '../../store/action';
+import {hotelLoadStart, hotelNearbyLoadStart, setId} from '../../store/action';
 import {hotel, nearby} from '../../api-actions';
 import Spinner from '../spinner';
 import Page404 from '../404/page404';
@@ -64,13 +64,13 @@ const Offer = (props) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(id) {
-    dispatch(ActionCreators.hotelLoadStart());
+    dispatch(hotelLoadStart());
     dispatch(hotel(id));
-    dispatch(ActionCreators.hotelNearbyLoadStart());
+    dispatch(hotelNearbyLoadStart());
     dispatch(nearby(id));
   },
   onIdMarker(id) {
-    dispatch(ActionCreators.setId(id));
+    dispatch(setId(id));
   }
 });
 const mapStateToProps = (state) => ({

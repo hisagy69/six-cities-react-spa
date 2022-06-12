@@ -15,60 +15,72 @@ export const ActionTypes = {
   GET_FAVORITES: `user/get-favorites`,
   POST_FAVORITES: `user/post-favorites`
 };
-export const ActionCreators = {
-  setCity: (city) => ({
-    type: ActionTypes.CURRENT_CITY_ENTER,
-    payload: city
-  }),
-  setSort: (sort) => ({
-    type: ActionTypes.OFFERS_SORT,
-    payload: sort
-  }),
-  setId: (id) => ({
-    type: ActionTypes.SET_ID,
-    payload: id
-  }),
-  offersLoad: (offers) => ({
-    type: ActionTypes.OFFERS_LOAD,
-    payload: offers,
-    isDataLoaded: true
-  }),
-  requiredAuthorization: (status, user) => ({
-    type: ActionTypes.REQUIRED_AUTHORIZATION,
-    user,
-    isLoadStatus: true,
-    payload: status
-  }),
-  hotelLoadStart: () => ({
-    type: ActionTypes.HOTEL_LOAD_START
-  }),
-  hotelLoad: (data) => ({
-    type: ActionTypes.HOTEL_LOAD,
-    payload: data
-  }),
-  hotelNearbyLoadStart: () => ({
-    type: ActionTypes.HOTEL_NEARBY_LOAD_START
-  }),
-  hotelNearby: (data) => ({
-    type: ActionTypes.HOTEL_NEARBY,
-    payload: data,
-  }),
-  hotelNotFound: () => ({
-    type: ActionTypes.NOT_FOUND
-  }),
-  getComment: (data) => ({
-    type: ActionTypes.GET_COMMENT,
-    payload: data
-  }),
-  errorSend: () => ({
-    type: ActionTypes.ERROR_SEND
-  }),
-  getFavorites: (data) => ({
-    type: ActionTypes.GET_FAVORITES,
-    payload: data
-  }),
-  postFavorite: (data) => ({
-    type: ActionTypes.POST_FAVORITES,
-    payload: data
-  })
-};
+
+export const setCity = (city) => ({
+  type: ActionTypes.CURRENT_CITY_ENTER,
+  payload: city
+});
+
+export const setSort = (sort) => ({
+  type: ActionTypes.OFFERS_SORT,
+  payload: sort
+});
+
+export const setId = (id) => ({
+  type: ActionTypes.SET_ID,
+  payload: id
+});
+
+export const offersLoad = (offers) => ({
+  type: ActionTypes.OFFERS_LOAD,
+  payload: offers,
+  isDataLoaded: true
+});
+
+export const requiredAuthorization = (status, user) => ({
+  type: ActionTypes.REQUIRED_AUTHORIZATION,
+  user,
+  isLoadStatus: true,
+  payload: status
+});
+
+export const hotelLoadStart = () => ({
+  type: ActionTypes.HOTEL_LOAD_START
+});
+
+export const hotelLoad = (data) => ({
+  type: ActionTypes.HOTEL_LOAD,
+  payload: data
+});
+
+export const hotelNearbyLoadStart = () => ({
+  type: ActionTypes.HOTEL_NEARBY_LOAD_START
+});
+
+export const hotelNearby = (data) => ({
+  type: ActionTypes.HOTEL_NEARBY,
+  payload: data,
+});
+
+export const hotelNotFound = () => ({
+  type: ActionTypes.NOT_FOUND
+});
+
+export const getComment = (data) => ({
+  type: ActionTypes.GET_COMMENT,
+  payload: data
+});
+
+export const errorSend = () => ({
+  type: ActionTypes.ERROR_SEND
+});
+
+export const getFavorites = (data) => ({
+  type: ActionTypes.GET_FAVORITES,
+  payload: data
+});
+
+export const postFavorite = (data) => ({
+  type: ActionTypes.POST_FAVORITES,
+  payload: data
+});

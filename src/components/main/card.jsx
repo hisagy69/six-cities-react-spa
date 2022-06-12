@@ -6,7 +6,7 @@ import {favoritePost} from '../../api-actions';
 import {connect} from 'react-redux';
 import Routes from '../enum';
 import {AuthorizationStatus} from '../../const';
-import {ActionCreators} from '../../store/action';
+import {setId} from '../../store/action';
 const {OFFER} = Routes;
 const Card = (props) => {
   return <article id={props.id} onMouseOver={() => {
@@ -60,7 +60,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(favoritePost(id, status));
   },
   onIdMarker(id) {
-    dispatch(ActionCreators.setId(id));
+    dispatch(setId(id));
   }
 });
 Card.propTypes = {

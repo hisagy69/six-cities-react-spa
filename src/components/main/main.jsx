@@ -2,7 +2,7 @@ import React, {useEffect, useMemo} from "react";
 import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import Map from '../map/map';
-import {ActionCreators} from '../../store/action';
+import {setCity, setSort} from '../../store/action';
 import {connect} from 'react-redux';
 import sorts from '../../selectors/sorts';
 import SortOptions from './sort-options';
@@ -79,10 +79,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchOffersLoad());
   },
   onCityEnter(city) {
-    dispatch(ActionCreators.setCity(city));
+    dispatch(setCity(city));
   },
   onSort(sort) {
-    dispatch(ActionCreators.setSort(sort));
+    dispatch(setSort(sort));
   }
 });
 Main.propTypes = {

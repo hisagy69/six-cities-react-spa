@@ -1,54 +1,54 @@
-import {ActionCreators} from './store/action';
+import {requiredAuthorization, offersLoad, hotelLoad, hotelNotFound, hotelNearby, getComment, errorSend, getFavorites, postFavorite} from './store/action';
 import {AuthorizationStatus} from './const';
 export const fetchOffersLoad = () => (dispatch, _getState, api) => (
   api.get(`/hotels`)
-    .then(({data}) => dispatch(ActionCreators.offersLoad(data)))
+    .then(({data}) => dispatch(offersLoad(data)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
-    .then((data) => dispatch(ActionCreators.requiredAuthorization(AuthorizationStatus.AUTH, data)))
+    .then((data) => dispatch(requiredAuthorization(AuthorizationStatus.AUTH, data)))
     .catch(() => {})
 );
 
 export const login = ({login: email, password}) => (dispatch, _getSate, api) => (
   api.post(`/login`, {email, password})
-    .then((data) => dispatch(ActionCreators.requiredAuthorization(AuthorizationStatus.AUTH, data)))
+    .then((data) => dispatch(requiredAuthorization(AuthorizationStatus.AUTH, data)))
 );
 
 export const logout = () => (dispatch, _getSate, api) => (
   api.get(`/logout`)
-    .then(() => dispatch(ActionCreators.requiredAuthorization(AuthorizationStatus.NO_AUTH)))
+    .then(() => dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH)))
 );
 
 export const hotel = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}`)
-    .then(({data}) => dispatch(ActionCreators.hotelLoad(data)))
-    .catch(() => dispatch(ActionCreators.hotelNotFound()))
+    .then(({data}) => dispatch(hotelLoad(data)))
+    .catch(() => dispatch(hotelNotFound()))
 );
 
 export const nearby = (id) => (dispatch, _getState, api) => (
   api.get(`hotels/${id}/nearby`)
-    .then(({data}) => dispatch(ActionCreators.hotelNearby(data)))
+    .then(({data}) => dispatch(hotelNearby(data)))
 );
 
 export const comments = (id) => (dispatch, _getSate, api) => (
   api.get(`/comments/${id}`)
-    .then(({data}) => dispatch(ActionCreators.getComment(data)))
+    .then(({data}) => dispatch(getComment(data)))
 );
 
 export const commentPost = (id, comment, rating) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, {comment, rating})
-    .then(({data}) => dispatch(ActionCreators.getComment(data)))
-    .catch(dispatch(ActionCreators.errorSend()))
+    .then(({data}) => dispatch(getComment(data)))
+    .catch(dispatch(errorSend()))
 );
 
 export const favoritesGet = () => (dispatch, _getSate, api) => (
   api.get(`/favorite`)
-    .then(({data}) => dispatch(ActionCreators.getFavorites(data)))
+    .then(({data}) => dispatch(getFavorites(data)))
 );
 
 export const favoritePost = (id, status) => (dispatch, _getState, api) => {
   api.post(`/favorite/${id}/${status}`)
-    .then(({data}) => dispatch(ActionCreators.postFavorite(data)));
+    .then(({data}) => dispatch(postFavorite(data)));
 };
