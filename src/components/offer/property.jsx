@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import commentProp from './comment.prop';
 import locationProp from '../../props/location.prop';
 import {comments, favoritePost} from '../../api-actions';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {getComments, getHotel} from '../../store/hotel/selectors';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
 const Property = (props) => {
@@ -94,13 +96,13 @@ const Property = (props) => {
     </div>
   </div>;
 };
-const mapStateToProps = ({USER, HOTEL}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  comments: HOTEL.comments,
-  ...HOTEL.hotel,
-  isPremium: HOTEL.hotel.is_premium,
-  isFavorite: HOTEL.hotel.is_favorite,
-  maxAdults: HOTEL.hotel.max_adults,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  comments: getComments(state),
+  ...getHotel(state),
+  isPremium: getHotel(state).is_premium,
+  isFavorite: getHotel(state).is_favorite,
+  maxAdults: getHotel(state).max_adults,
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadComment(id) {

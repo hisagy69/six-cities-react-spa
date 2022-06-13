@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, memo} from 'react';
 import {connect} from 'react-redux';
+import {getActiveId} from '../../store/offers/selectors';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import map from '../../const';
@@ -59,8 +60,8 @@ const Map = ({offers, activeId}) => {
   }, [offers, activeId]);
   return <div id="map" ref={mapRef} style={{height: `100%`, maxWidth: `1147px`, margin: `0 auto`}}></div>;
 };
-const mapStateToProps = ({OFFERS}) => ({
-  activeId: OFFERS.id
+const mapStateToProps = (state) => ({
+  activeId: getActiveId(state)
 });
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(hotelProp)),

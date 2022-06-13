@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import hotelProp from "../../props/hotel.prop";
 import {connect} from "react-redux";
 import {favoritesGet} from "../../api-actions";
+import {getFavorites, getLoadFavoritesStatus} from '../../store/user/selectors';
 const Favorites = (props) => {
   useEffect(() => {
     if (!props.isLoadFavorites) {
@@ -69,9 +70,9 @@ const Favorites = (props) => {
     </main>
   );
 };
-const mapStateToProps = ({USER}) => ({
-  favorites: USER.favorites,
-  isLoadFavorites: USER.isLoadFavorites,
+const mapStateToProps = (state) => ({
+  favorites: getFavorites(state),
+  isLoadFavorites: getLoadFavoritesStatus(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {

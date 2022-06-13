@@ -5,6 +5,7 @@ import hotelProp from '../../props/hotel.prop';
 import Routes from '../enum';
 import {connect} from 'react-redux';
 import {favoritePost} from '../../api-actions';
+import {getAuthorizationStatus, getLoadFavoritesStatus} from '../../store/user/selectors';
 import {AuthorizationStatus} from '../../const';
 const {OFFER} = Routes;
 const NearPlaces = (props) => {
@@ -51,9 +52,9 @@ NearPlaces.propTypes = {
   onFavorite: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired
 };
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  isLoadFavorites: USER.isLoadFavorites
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  isLoadFavorites: getLoadFavoritesStatus(state)
 });
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {

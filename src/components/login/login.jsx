@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import Header from '../header';
 import {connect} from 'react-redux';
 import {login} from '../../api-actions';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 import {useHistory} from 'react-router-dom';
 import {AuthorizationStatus} from '../../const';
 import PropTypes from 'prop-types';
@@ -49,8 +50,8 @@ const Login = (props) => {
     </main>
   </div>;
 };
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   onLogin(email, password) {

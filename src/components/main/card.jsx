@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import {Link} from 'react-router-dom';
 import {favoritePost} from '../../api-actions';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {getActiveId} from '../../store/offers/selectors';
 import {connect} from 'react-redux';
 import Routes from '../enum';
 import {AuthorizationStatus} from '../../const';
@@ -50,9 +52,9 @@ const Card = (props) => {
     </div>
   </article>;
 };
-const mapStateToProps = ({USER, OFFERS}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  prevId: OFFERS.id
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  prevId: getActiveId(state)
 });
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {

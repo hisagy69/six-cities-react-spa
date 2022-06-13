@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {connect} from 'react-redux';
 import {commentPost} from '../../api-actions';
+import {getSendStatus} from '../../store/error/selectors';
 import PropTypes from 'prop-types';
 const FormComment = (props) => {
   const buttonRef = useRef();
@@ -70,8 +71,8 @@ FormComment.propTypes = {
   id: PropTypes.number.isRequired,
   errorSend: PropTypes.bool
 };
-const mapStateToProps = ({ERROR}) => ({
-  errorSend: ERROR.errorSend
+const mapStateToProps = (state) => ({
+  errorSend: getSendStatus(state)
 });
 const mapDispatchToProps = (dispatch) => ({
   onSendComment(id, comment, rating, sendError, commentRef) {

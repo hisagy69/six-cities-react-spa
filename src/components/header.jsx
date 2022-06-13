@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import userProp from '../props/user.prop';
 import {Link} from 'react-router-dom';
 import routes from './enum';
+import {getUser, getAuthorizationStatus} from '../store/user/selectors';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../const';
 const {LOGIN, FAVORITES} = routes;
@@ -37,9 +38,9 @@ Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: userProp,
 };
-const mapStateToProps = ({USER}) => ({
-  user: USER.user && USER.user.data,
-  authorizationStatus: USER.authorizationStatus
+const mapStateToProps = (state) => ({
+  user: getUser(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 export default connect(mapStateToProps, null)(memo(Header, (prevProps, nextProps) => prevProps.authorizationStatus === nextProps.authorizationStatus));
 export {Header};

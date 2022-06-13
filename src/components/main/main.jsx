@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import sorts from '../../selectors/sorts';
 import SortOptions from './sort-options';
 import {fetchOffersLoad} from '../../api-actions';
+import {getCityOffers, getCards, getSortOffers, getIsDataLoaded} from '../../store/offers/selectors';
 import Spinner from '../spinner';
 import Tab from './tab';
 import OfferList from './offer-list';
@@ -68,11 +69,11 @@ const Main = (props) => {
     </div>
   </main>;
 };
-const mapStateToProps = ({OFFERS}) => ({
-  city: OFFERS.city,
-  cards: OFFERS.cards,
-  sort: OFFERS.sort,
-  isDataLoaded: OFFERS.isDataLoaded,
+const mapStateToProps = (state) => ({
+  city: getCityOffers(state),
+  cards: getCards(state),
+  sort: getSortOffers(state),
+  isDataLoaded: getIsDataLoaded(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {

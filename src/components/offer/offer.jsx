@@ -8,6 +8,7 @@ import Map from '../map/map';
 import {connect} from 'react-redux';
 import {hotelLoadStart, hotelNearbyLoadStart, setId} from '../../store/action';
 import {hotel, nearby} from '../../api-actions';
+import {getHotel, getStatusHotelLoad, getHotelNearby, getStatusHotelNearbyLoad, getStatusPageLoad} from '../../store/hotel/selectors';
 import Spinner from '../spinner';
 import Page404 from '../404/page404';
 const Offer = (props) => {
@@ -62,6 +63,13 @@ const Offer = (props) => {
     </main>
   );
 };
+const mapStateToProps = (state) => ({
+  hotel: getHotel(state),
+  isHotelLoad: getStatusHotelLoad(state),
+  hotelNearby: getHotelNearby(state),
+  isHotelNearbyLoad: getStatusHotelNearbyLoad(state),
+  notFound: getStatusPageLoad(state)
+});
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(id) {
     dispatch(hotelLoadStart());
@@ -72,13 +80,6 @@ const mapDispatchToProps = (dispatch) => ({
   onIdMarker(id) {
     dispatch(setId(id));
   }
-});
-const mapStateToProps = ({HOTEL}) => ({
-  hotel: HOTEL.hotel,
-  isHotelLoad: HOTEL.isHotelLoad,
-  hotelNearby: HOTEL.hotelNearby,
-  isHotelNearbyLoad: HOTEL.isHotelNearbyLoad,
-  notFound: HOTEL.notFound
 });
 Offer.propTypes = {
   onIdMarker: PropTypes.func.isRequired,

@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Routes from '../enum';
 import {connect} from 'react-redux';
 import {favoritePost} from '../../api-actions';
+import {getLoadFavoritesStatus} from '../../store/user/selectors';
 const {OFFER} = Routes;
 const FavoriteCards = (props) => {
   return <article className="favorites__card place-card">
@@ -49,8 +50,8 @@ FavoriteCards.propTypes = {
   rating: PropTypes.number.isRequired,
   onFavorite: PropTypes.func.isRequired,
 };
-const mapStateToProps = ({USER}) => ({
-  isLoadFavorites: USER.isLoadFavorites
+const mapStateToProps = (state) => ({
+  isLoadFavorites: getLoadFavoritesStatus(state)
 });
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {
