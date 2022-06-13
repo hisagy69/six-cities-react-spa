@@ -12,9 +12,9 @@ const user = (state = initialState, action) => {
     case ActionTypes.REQUIRED_AUTHORIZATION:
       return {
         ...state,
-        authorizationStatus: action.payload,
-        user: action.user,
-        isLoadStatus: action.isLoadStatus
+        authorizationStatus: action.payload.status,
+        user: action.payload.user,
+        isLoadStatus: true
       };
     case ActionTypes.GET_FAVORITES:
       return {

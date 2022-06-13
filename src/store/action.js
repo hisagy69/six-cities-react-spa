@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionTypes = {
   CURRENT_CITY_ENTER: `offers/curent-city-enter`,
   OFFERS_SORT: `offers/sort`,
@@ -18,85 +20,63 @@ export const ActionTypes = {
   POST_FAVORITES: `user/post-favorites`,
 };
 
-export const setCity = (city) => ({
-  type: ActionTypes.CURRENT_CITY_ENTER,
+export const setCity = createAction(ActionTypes.CURRENT_CITY_ENTER, (city) => ({
   payload: city
-});
+}));
 
-export const setSort = (sort) => ({
-  type: ActionTypes.OFFERS_SORT,
+export const setSort = createAction(ActionTypes.OFFERS_SORT, (sort) => ({
   payload: sort
-});
+}));
 
-export const setId = (id) => ({
-  type: ActionTypes.SET_ID,
+export const setId = createAction(ActionTypes.SET_ID, (id) => ({
   payload: id
-});
+}));
 
-export const offersLoad = (offers) => ({
-  type: ActionTypes.OFFERS_LOAD,
-  payload: offers,
-  isDataLoaded: true
-});
+export const offersLoad = createAction(ActionTypes.OFFERS_LOAD, (offers) => ({
+  payload: offers
+}));
 
-export const offersUpdate = (data) => ({
-  type: ActionTypes.OFFERS_UPDATE,
+export const offersUpdate = createAction(ActionTypes.OFFERS_UPDATE, (data) => ({
   payload: data
-});
+}));
 
-export const requiredAuthorization = (status, user) => ({
-  type: ActionTypes.REQUIRED_AUTHORIZATION,
-  user,
-  isLoadStatus: true,
-  payload: status
-});
+export const requiredAuthorization = createAction(ActionTypes.REQUIRED_AUTHORIZATION, (status, user) => ({
+  payload: {
+    status,
+    user
+  }
+}));
 
-export const hotelLoadStart = () => ({
-  type: ActionTypes.HOTEL_LOAD_START
-});
+export const hotelLoadStart = createAction(ActionTypes.HOTEL_LOAD_START);
 
-export const hotelLoad = (data) => ({
-  type: ActionTypes.HOTEL_LOAD,
+export const hotelLoad = createAction(ActionTypes.HOTEL_LOAD, (data) => ({
   payload: data
-});
+}));
 
-export const hotelUpdate = (data) => ({
-  type: ActionTypes.HOTEL_UPDATE,
+export const hotelUpdate = createAction(ActionTypes.HOTEL_UPDATE, (data) => ({
   payload: data
-});
+}));
 
-export const hotelNearbyLoadStart = () => ({
-  type: ActionTypes.HOTEL_NEARBY_LOAD_START
-});
+export const hotelNearbyLoadStart = createAction(ActionTypes.HOTEL_NEARBY_LOAD_START);
 
-export const hotelNearby = (data) => ({
-  type: ActionTypes.HOTEL_NEARBY,
+export const hotelNearby = createAction(ActionTypes.HOTEL_NEARBY, (data) => ({
   payload: data,
-});
+}));
 
-export const hotelNearbyUpdate = (data) => ({
-  type: ActionTypes.HOTEL_NEARBY_UPDATE,
+export const hotelNearbyUpdate = createAction(ActionTypes.HOTEL_NEARBY_UPDATE, (data) => ({
   payload: data
-});
+}));
 
-export const hotelNotFound = () => ({
-  type: ActionTypes.NOT_FOUND
-});
+export const hotelNotFound = createAction(ActionTypes.NOT_FOUND);
 
-export const getComment = (data) => ({
-  type: ActionTypes.GET_COMMENT,
+export const getComment = createAction(ActionTypes.GET_COMMENT, (data) => ({
   payload: data
-});
+}));
 
-export const errorSend = () => ({
-  type: ActionTypes.ERROR_SEND
-});
+export const errorSend = createAction(ActionTypes.ERROR_SEND);
 
-export const getFavorites = (data) => ({
-  type: ActionTypes.GET_FAVORITES,
+export const getFavorites = createAction(ActionTypes.GET_FAVORITES, (data) => ({
   payload: data
-});
+}));
 
-export const postFavorite = () => ({
-  type: ActionTypes.POST_FAVORITES,
-});
+export const postFavorite = createAction(ActionTypes.POST_FAVORITES);
