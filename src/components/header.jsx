@@ -37,9 +37,9 @@ Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: userProp,
 };
-const mapStateToProps = (state) => ({
-  user: state.user && state.user.data,
-  authorizationStatus: state.authorizationStatus
+const mapStateToProps = ({USER}) => ({
+  user: USER.user && USER.user.data,
+  authorizationStatus: USER.authorizationStatus
 });
 export default connect(mapStateToProps, null)(memo(Header, (prevProps, nextProps) => prevProps.authorizationStatus === nextProps.authorizationStatus));
 export {Header};

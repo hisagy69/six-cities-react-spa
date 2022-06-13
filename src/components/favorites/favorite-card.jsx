@@ -1,16 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import Routes from '../enum';
 import {connect} from 'react-redux';
-import {favoritePost, favoritesGet} from '../../api-actions';
+import {favoritePost} from '../../api-actions';
 const {OFFER} = Routes;
 const FavoriteCards = (props) => {
-  useEffect(() => {
-    if (!props.isLoadFavorites) {
-      props.getFavorite();
-    }
-  }, [props.isLoadFavorites]);
   return <article className="favorites__card place-card">
     <div className="favorites__image-wrapper place-card__image-wrapper">
       <Link to={`${OFFER}${props.id}`}>
@@ -53,18 +48,14 @@ FavoriteCards.propTypes = {
   id: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   onFavorite: PropTypes.func.isRequired,
-  getFavorite: PropTypes.func.isRequired
 };
-const mapStateToProps = (state) => ({
-  isLoadFavorites: state.isLoadFavorites
+const mapStateToProps = ({USER}) => ({
+  isLoadFavorites: USER.isLoadFavorites
 });
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {
     const status = isFavorite ? 0 : 1;
     dispatch(favoritePost(id, status));
-  },
-  getFavorite() {
-    dispatch(favoritesGet());
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteCards);

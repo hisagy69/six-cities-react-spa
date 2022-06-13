@@ -26,7 +26,7 @@ const Offer = (props) => {
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {props.hotel.images.map(
+            {props.hotel && props.hotel.images.map(
                 (image, i) => i < limitImages && <Gallery image={image} key={i} />
             )}
           </div>
@@ -73,12 +73,12 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setId(id));
   }
 });
-const mapStateToProps = (state) => ({
-  hotel: state.hotel,
-  isHotelLoad: state.isHotelLoad,
-  hotelNearby: state.hotelNearby,
-  isHotelNearbyLoad: state.isHotelNearbyLoad,
-  notFound: state.notFound
+const mapStateToProps = ({HOTEL}) => ({
+  hotel: HOTEL.hotel,
+  isHotelLoad: HOTEL.isHotelLoad,
+  hotelNearby: HOTEL.hotelNearby,
+  isHotelNearbyLoad: HOTEL.isHotelNearbyLoad,
+  notFound: HOTEL.notFound
 });
 Offer.propTypes = {
   onIdMarker: PropTypes.func.isRequired,

@@ -1,8 +1,10 @@
-import {requiredAuthorization, offersLoad, hotelLoad, hotelNotFound, hotelNearby, getComment, errorSend, getFavorites, postFavorite} from './store/action';
+import {requiredAuthorization, offersLoad, offersUpdate, hotelLoad, hotelUpdate, hotelNotFound, hotelNearby, hotelNearbyUpdate, getComment, errorSend, getFavorites, postFavorite} from './store/action';
 import {AuthorizationStatus} from './const';
+
 export const fetchOffersLoad = () => (dispatch, _getState, api) => (
   api.get(`/hotels`)
     .then(({data}) => dispatch(offersLoad(data)))
+    .catch(() => {})
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -50,5 +52,10 @@ export const favoritesGet = () => (dispatch, _getSate, api) => (
 
 export const favoritePost = (id, status) => (dispatch, _getState, api) => {
   api.post(`/favorite/${id}/${status}`)
-    .then(({data}) => dispatch(postFavorite(data)));
+    .then(({data}) => {
+      dispatch(hotelUpdate(data));
+      dispatch(offersUpdate(data));
+      dispatch(hotelNearbyUpdate(data));
+      dispatch(postFavorite());
+    });
 };

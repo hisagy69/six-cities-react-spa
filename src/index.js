@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './components/app';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import reducer from './store/reducer';
+import rootReducer from './store/root-reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import {createAPI} from './api';
@@ -14,7 +14,7 @@ const api = createAPI(
     () => store.dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH))
 );
 const store = createStore(
-    reducer,
+    rootReducer,
     composeWithDevTools(
         applyMiddleware(thunk.withExtraArgument(api))
     )

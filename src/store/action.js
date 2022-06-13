@@ -3,17 +3,19 @@ export const ActionTypes = {
   OFFERS_SORT: `offers/sort`,
   SET_ID: `offers/id`,
   OFFERS_LOAD: `offers/load`,
-  REQUIRED_AUTHORIZATION: `user/required-authorization`,
-  SET_USER: `user/set-user`,
+  OFFERS_UPDATE: `offers/update`,
   HOTEL_LOAD_START: `hotel/load-start`,
   HOTEL_LOAD: `hotel/load`,
-  HOTEL_NEARBY_LOAD_START: `hotel-nearby/load-start`,
+  HOTEL_UPDATE: `hotel/update`,
+  HOTEL_NEARBY_LOAD_START: `hotel/nearby-load-start`,
   HOTEL_NEARBY: `hotel/nearby`,
+  HOTEL_NEARBY_UPDATE: `hotel/nearby-update`,
   NOT_FOUND: `hotel/not-found`,
   GET_COMMENT: `hotel/get-comment`,
   ERROR_SEND: `error/send`,
+  REQUIRED_AUTHORIZATION: `user/required-authorization`,
   GET_FAVORITES: `user/get-favorites`,
-  POST_FAVORITES: `user/post-favorites`
+  POST_FAVORITES: `user/post-favorites`,
 };
 
 export const setCity = (city) => ({
@@ -37,6 +39,11 @@ export const offersLoad = (offers) => ({
   isDataLoaded: true
 });
 
+export const offersUpdate = (data) => ({
+  type: ActionTypes.OFFERS_UPDATE,
+  payload: data
+});
+
 export const requiredAuthorization = (status, user) => ({
   type: ActionTypes.REQUIRED_AUTHORIZATION,
   user,
@@ -53,6 +60,11 @@ export const hotelLoad = (data) => ({
   payload: data
 });
 
+export const hotelUpdate = (data) => ({
+  type: ActionTypes.HOTEL_UPDATE,
+  payload: data
+});
+
 export const hotelNearbyLoadStart = () => ({
   type: ActionTypes.HOTEL_NEARBY_LOAD_START
 });
@@ -60,6 +72,11 @@ export const hotelNearbyLoadStart = () => ({
 export const hotelNearby = (data) => ({
   type: ActionTypes.HOTEL_NEARBY,
   payload: data,
+});
+
+export const hotelNearbyUpdate = (data) => ({
+  type: ActionTypes.HOTEL_NEARBY_UPDATE,
+  payload: data
 });
 
 export const hotelNotFound = () => ({
@@ -80,7 +97,6 @@ export const getFavorites = (data) => ({
   payload: data
 });
 
-export const postFavorite = (data) => ({
+export const postFavorite = () => ({
   type: ActionTypes.POST_FAVORITES,
-  payload: data
 });

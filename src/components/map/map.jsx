@@ -59,8 +59,8 @@ const Map = ({offers, activeId}) => {
   }, [offers, activeId]);
   return <div id="map" ref={mapRef} style={{height: `100%`, maxWidth: `1147px`, margin: `0 auto`}}></div>;
 };
-const mapStateToProps = (state) => ({
-  activeId: state.id
+const mapStateToProps = ({OFFERS}) => ({
+  activeId: OFFERS.id
 });
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(hotelProp)),

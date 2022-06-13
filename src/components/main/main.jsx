@@ -68,11 +68,11 @@ const Main = (props) => {
     </div>
   </main>;
 };
-const mapStateToProps = (state) => ({
-  city: state.city,
-  cards: state.cards,
-  sort: state.sort,
-  isDataLoaded: state.isDataLoaded,
+const mapStateToProps = ({OFFERS}) => ({
+  city: OFFERS.city,
+  cards: OFFERS.cards,
+  sort: OFFERS.sort,
+  isDataLoaded: OFFERS.isDataLoaded,
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {

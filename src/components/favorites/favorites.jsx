@@ -18,7 +18,7 @@ const Favorites = (props) => {
           card,
         ]) || [card];
         return obj;
-      }, {}), [props.isLoadFavorites]);
+      }, {}), [props.favorites]);
   if (!props.isLoadFavorites) {
     return <Spinner />;
   }
@@ -69,9 +69,9 @@ const Favorites = (props) => {
     </main>
   );
 };
-const mapStateToProps = (state) => ({
-  favorites: state.favorites,
-  isLoadFavorites: state.isLoadFavorites,
+const mapStateToProps = ({USER}) => ({
+  favorites: USER.favorites,
+  isLoadFavorites: USER.isLoadFavorites,
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {

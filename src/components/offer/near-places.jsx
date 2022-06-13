@@ -51,9 +51,9 @@ NearPlaces.propTypes = {
   onFavorite: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired
 };
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  isLoadFavorites: state.isLoadFavorites
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  isLoadFavorites: USER.isLoadFavorites
 });
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {

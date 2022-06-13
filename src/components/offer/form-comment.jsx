@@ -70,8 +70,8 @@ FormComment.propTypes = {
   id: PropTypes.number.isRequired,
   errorSend: PropTypes.bool
 };
-const mapStateToProps = (state) => ({
-  errorSend: state.errorSend
+const mapStateToProps = ({ERROR}) => ({
+  errorSend: ERROR.errorSend
 });
 const mapDispatchToProps = (dispatch) => ({
   onSendComment(id, comment, rating, sendError, commentRef) {

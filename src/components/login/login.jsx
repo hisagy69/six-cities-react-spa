@@ -49,8 +49,8 @@ const Login = (props) => {
     </main>
   </div>;
 };
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus
 });
 const mapDispatchToProps = (dispatch) => ({
   onLogin(email, password) {

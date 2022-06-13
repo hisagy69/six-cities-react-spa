@@ -50,9 +50,9 @@ const Card = (props) => {
     </div>
   </article>;
 };
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  prevId: state.id
+const mapStateToProps = ({USER, OFFERS}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  prevId: OFFERS.id
 });
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {

@@ -4,7 +4,7 @@ import FormComment from './form-comment';
 import PropTypes from 'prop-types';
 import commentProp from './comment.prop';
 import locationProp from '../../props/location.prop';
-import {comments, favoritePost, favoritesGet} from '../../api-actions';
+import {comments, favoritePost} from '../../api-actions';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
 const Property = (props) => {
@@ -13,11 +13,6 @@ const Property = (props) => {
       props.onLoadComment(props.id);
     }
   }, [props.id]);
-  useEffect(() => {
-    if (!props.isLoadFavorites) {
-      props.getFavorite();
-    }
-  }, [props.isLoadFavorites]);
   if (!props.comments) {
     return <span>loading...</span>;
   }
@@ -99,14 +94,13 @@ const Property = (props) => {
     </div>
   </div>;
 };
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  comments: state.comments,
-  isLoadFavorites: state.isLoadFavorites,
-  ...state.hotel,
-  isPremium: state.hotel.is_premium,
-  isFavorite: state.hotel.is_favorite,
-  maxAdults: state.hotel.max_adults,
+const mapStateToProps = ({USER, HOTEL}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  comments: HOTEL.comments,
+  ...HOTEL.hotel,
+  isPremium: HOTEL.hotel.is_premium,
+  isFavorite: HOTEL.hotel.is_favorite,
+  maxAdults: HOTEL.hotel.max_adults,
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadComment(id) {
@@ -116,13 +110,9 @@ const mapDispatchToProps = (dispatch) => ({
     const status = isFavorite ? 0 : 1;
     dispatch(favoritePost(id, status));
   },
-  getFavorite() {
-    dispatch(favoritesGet());
-  }
 });
 Property.propTypes = {
   isPremium: PropTypes.bool.isRequired,
-  isLoadFavorites: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
@@ -146,7 +136,6 @@ Property.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   onFavorite: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired,
-  getFavorite: PropTypes.func.isRequired
 };
 const areEqual = (prevProps, nextProps) => {
   return prevProps.isFavorite === nextProps.isFavorite && prevProps.comments === nextProps.comments;
