@@ -1,64 +1,47 @@
-import {ActionTypes} from '../action';
+import {hotelLoadStart, hotelLoad, hotelUpdate, hotelNearbyLoadStart, hotelNearby, hotelNearbyUpdate, hotelNotFound, getComments} from '../action';
+import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   isHotelLoad: false,
   isHotelNearbyLoad: false,
 };
 
-const hotel = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionTypes.HOTEL_LOAD_START:
-      return {
-        ...state,
-        isHotelLoad: false
-      };
-    case ActionTypes.HOTEL_LOAD:
-      return {
-        ...state,
-        hotel: action.payload,
-        isHotelLoad: true,
-        notFound: false
-      };
-    case ActionTypes.HOTEL_UPDATE:
-      return {
-        ...state,
-        hotel: state.hotel && action.payload.id === state.hotel.id ?
-          action.payload :
-          state.hotel,
-      };
-    case ActionTypes.HOTEL_NEARBY_LOAD_START:
-      return {
-        ...state,
-        isHotelNearbyLoad: false
-      };
-    case ActionTypes.HOTEL_NEARBY:
-      return {
-        ...state,
-        hotelNearby: action.payload,
-        isHotelNearbyLoad: true
-      };
-    case ActionTypes.HOTEL_NEARBY_UPDATE:
-      return {
-        ...state,
-        hotelNearby: state.hotelNearby && state.hotelNearby.map(((item) => {
-          if (item.id === action.payload.id) {
-            return action.payload;
-          }
-          return item;
-        })),
-      };
-    case ActionTypes.NOT_FOUND:
-      return {
-        ...state,
-        notFound: true
-      };
-    case ActionTypes.GET_COMMENT:
-      return {
-        ...state,
-        comments: action.payload,
-        errorSend: false,
-      };
-  }
-  return state;
-};
+const hotel = createReducer(initialState, (builder) => {
+  builder.addCase(hotelLoadStart, (state) => {
+    state.isHotelLoad = false;
+  });
+  builder.addCase(hotelLoad, (state, action) => {
+    state.hotel = action.payload;
+    state.isHotelLoad = true;
+    state.notFound = false;
+  });
+  builder.addCase(hotelUpdate, (state, action) => {
+    state.hotel = state.hotel && action.payload.id === state.hotel.id ?
+      action.payload :
+      state.hotel;
+  });
+  builder.addCase(hotelNearbyLoadStart, (state) => {
+    state.isHotelNearbyLoad = false;
+  });
+  builder.addCase(hotelNearby, (state, action) => {
+    state.hotelNearby = action.payload;
+    state.isHotelNearbyLoad = true;
+  });
+  builder.addCase(hotelNearbyUpdate, (state, action) => {
+    state.hotelNearby = state.hotelNearby && state.hotelNearby.map(((item) => {
+      if (item.id === action.payload.id) {
+        return action.payload;
+      }
+      return item;
+    }));
+  });
+  builder.addCase(hotelNotFound, (state) => {
+    state.notFound = true;
+  });
+  builder.addCase(getComments, (state, action) => {
+    state.comments = action.payload;
+    state.errorSend = false;
+  });
+});
+
 export {hotel};

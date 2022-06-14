@@ -13,7 +13,7 @@ export const ActionTypes = {
   HOTEL_NEARBY: `hotel/nearby`,
   HOTEL_NEARBY_UPDATE: `hotel/nearby-update`,
   NOT_FOUND: `hotel/not-found`,
-  GET_COMMENT: `hotel/get-comment`,
+  GET_COMMENTS: `hotel/get-commentS`,
   ERROR_SEND: `error/send`,
   REQUIRED_AUTHORIZATION: `user/required-authorization`,
   GET_FAVORITES: `user/get-favorites`,
@@ -69,8 +69,8 @@ export const hotelNearbyUpdate = createAction(ActionTypes.HOTEL_NEARBY_UPDATE, (
 
 export const hotelNotFound = createAction(ActionTypes.NOT_FOUND);
 
-export const getComment = createAction(ActionTypes.GET_COMMENT, (data) => ({
-  payload: data
+export const getComments = createAction(ActionTypes.GET_COMMENTS, (data) => ({
+  payload: data,
 }));
 
 export const errorSend = createAction(ActionTypes.ERROR_SEND);

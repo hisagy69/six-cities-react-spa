@@ -1,4 +1,4 @@
-import {requiredAuthorization, offersLoad, offersUpdate, hotelLoad, hotelUpdate, hotelNotFound, hotelNearby, hotelNearbyUpdate, getComment, errorSend, getFavorites, postFavorite} from './store/action';
+import {requiredAuthorization, offersLoad, offersUpdate, hotelLoad, hotelUpdate, hotelNotFound, hotelNearby, hotelNearbyUpdate, getComments, errorSend, getFavorites, postFavorite} from './store/action';
 import {AuthorizationStatus} from './const';
 
 export const fetchOffersLoad = () => (dispatch, _getState, api) => (
@@ -39,13 +39,13 @@ export const nearby = (id) => (dispatch, _getState, api) => (
 
 export const comments = (id) => (dispatch, _getSate, api) => (
   api.get(`/comments/${id}`)
-    .then(({data}) => dispatch(getComment(data)))
+    .then(({data}) => dispatch(getComments(data)))
     .catch(() => {})
 );
 
 export const commentPost = (id, comment, rating) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, {comment, rating})
-    .then(({data}) => dispatch(getComment(data)))
+    .then(({data}) => dispatch(getComments(data)))
     .catch(dispatch(errorSend()))
 );
 

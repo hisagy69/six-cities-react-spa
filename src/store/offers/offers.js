@@ -1,4 +1,5 @@
-import {ActionTypes} from '../action';
+import {setCity, setSort, setId, offersLoad, offersUpdate} from '../action';
+import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   city: `Paris`,
@@ -6,40 +7,28 @@ const initialState = {
   isDataLoaded: false,
 };
 
-const offers = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionTypes.CURRENT_CITY_ENTER:
-      return {
-        ...state,
-        city: action.payload
-      };
-    case ActionTypes.OFFERS_SORT:
-      return {
-        ...state,
-        sort: action.payload
-      };
-    case ActionTypes.SET_ID:
-      return {
-        ...state,
-        id: action.payload
-      };
-    case ActionTypes.OFFERS_LOAD:
-      return {
-        ...state,
-        cards: action.payload,
-        isDataLoaded: true
-      };
-    case ActionTypes.OFFERS_UPDATE:
-      return {
-        ...state,
-        cards: state.cards && state.cards.map(((item) => {
-          if (item.id === action.payload.id) {
-            return action.payload;
-          }
-          return item;
-        })),
-      };
-  }
-  return state;
-};
+const offers = createReducer(initialState, (builder) => {
+  builder.addCase(setCity, (state, action) => {
+    state.city = action.payload;
+  });
+  builder.addCase(setSort, (state, action) => {
+    state.sort = action.payload;
+  });
+  builder.addCase(setId, (state, action) => {
+    state.id = action.payload;
+  });
+  builder.addCase(offersLoad, (state, action) => {
+    state.cards = action.payload;
+    state.isDataLoaded = true;
+  });
+  builder.addCase(offersUpdate, (state, action) => {
+    state.cards = state.cards && state.cards.map(((item) => {
+      if (item.id === action.payload.id) {
+        return action.payload;
+      }
+      return item;
+    }));
+  });
+});
+
 export {offers};

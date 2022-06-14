@@ -1,4 +1,4 @@
-import React, {useEffect, memo} from 'react';
+import React, {useEffect, memo, useMemo} from 'react';
 import Review from './review';
 import FormComment from './form-comment';
 import PropTypes from 'prop-types';
@@ -12,9 +12,14 @@ import {AuthorizationStatus} from '../../const';
 const Property = (props) => {
   useEffect(() => {
     if (!props.comments) {
-      props.onLoadComment(props.id);
+      props.onLoadComments(props.id);
     }
   }, [props.id]);
+  const commentsArr = useMemo(() => {
+    return props.comments && [...props.comments].sort((a, b) => {
+      return new Date(a.date).getTime() < new Date(b.date).getTime() ? 1 : -1;
+    });
+  }, [props.comments]);
   if (!props.comments) {
     return <span>loading...</span>;
   }
@@ -88,7 +93,7 @@ const Property = (props) => {
         <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{props.comments.length}</span></h2>
         <ul className="reviews__list">
           {
-            props.comments.sort((a, b) => new Date(a.date).getTime() < new Date(b.date).getTime() ? 1 : -1).map((review, i) => i < 10 && <Review review={review} key={i}/>)
+            commentsArr.map((review, i) => <Review review={review} key={i}/>)
           }
         </ul>
         {props.authorizationStatus === AuthorizationStatus.AUTH && <FormComment id={props.id}/>}
@@ -98,14 +103,14 @@ const Property = (props) => {
 };
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
-  comments: getComments(state),
   ...getHotel(state),
+  comments: getComments(state),
   isPremium: getHotel(state).is_premium,
   isFavorite: getHotel(state).is_favorite,
   maxAdults: getHotel(state).max_adults,
 });
 const mapDispatchToProps = (dispatch) => ({
-  onLoadComment(id) {
+  onLoadComments(id) {
     dispatch(comments(id));
   },
   onFavorite(id, isFavorite) {
@@ -133,7 +138,7 @@ Property.propTypes = {
   host: PropTypes.object.isRequired,
   description: PropTypes.string.isRequired,
   comments: PropTypes.arrayOf(commentProp),
-  onLoadComment: PropTypes.func.isRequired,
+  onLoadComments: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onFavorite: PropTypes.func.isRequired,

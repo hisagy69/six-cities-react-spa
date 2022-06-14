@@ -1,4 +1,5 @@
-import {ActionTypes} from '../action';
+import {requiredAuthorization, getFavorites, postFavorite} from '../action';
+import {createReducer} from '@reduxjs/toolkit';
 import {AuthorizationStatus} from '../../const';
 
 const initialState = {
@@ -7,28 +8,19 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH
 };
 
-const user = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionTypes.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload.status,
-        user: action.payload.user,
-        isLoadStatus: true
-      };
-    case ActionTypes.GET_FAVORITES:
-      return {
-        ...state,
-        favorites: action.payload,
-        isLoadFavorites: true
-      };
+const user = createReducer(initialState, (builder) => {
+  builder.addCase(requiredAuthorization, (state, action) => {
+    state.authorizationStatus = action.payload.status;
+    state.user = action.payload.user;
+    state.isLoadStatus = true;
+  });
+  builder.addCase(getFavorites, (state, action) => {
+    state.favorites = action.payload;
+    state.isLoadFavorites = true;
+  });
+  builder.addCase(postFavorite, (state) => {
+    state.isLoadFavorites = false;
+  });
+});
 
-    case ActionTypes.POST_FAVORITES:
-      return {
-        ...state,
-        isLoadFavorites: false
-      };
-  }
-  return state;
-};
 export {user};
