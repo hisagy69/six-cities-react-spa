@@ -2,6 +2,7 @@ import React, {useEffect, useMemo} from "react";
 import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import Map from '../map/map';
+import MainEmpty from './main-empty';
 import {setCity, setSort} from '../../store/action';
 import {connect} from 'react-redux';
 import sorts from '../../selectors/sorts';
@@ -34,7 +35,9 @@ const Main = (props) => {
   if (!props.isDataLoaded) {
     return <Spinner />;
   }
-  return <main className="page__main page__main--index">
+  return <main className={offers.length === 0 ?
+    `page__main page__main--index page__main--index-empty` :
+    `page__main page__main--index`}>
     <h1 className="visually-hidden">Cities</h1>
     <div className="tabs">
       <section className="locations container">
@@ -50,23 +53,27 @@ const Main = (props) => {
         </ul>
       </section>
     </div>
-    <div className="cities">
-      <div className="cities__places-container container">
-        <section className="cities__places places">
-          <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">
-            {offers.length} places to stay in {props.city}
-          </b>
-          <SortOptions onSort={props.onSort} sort={props.sort} />
-          <OfferList offers={offers} onButtonClick={props.onButtonClick} />
-        </section>
-        <div className="cities__right-section">
-          <section className="cities__map map">
-            <Map offers={offers} />
-          </section>
+    {
+      offers.length === 0 ?
+        <MainEmpty city={props.city}/> :
+        <div className="cities">
+          <div className="cities__places-container container">
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">
+                {offers.length} places to stay in {props.city}
+              </b>
+              <SortOptions onSort={props.onSort} sort={props.sort} />
+              <OfferList offers={offers} onButtonClick={props.onButtonClick} />
+            </section>
+            <div className="cities__right-section">
+              <section className="cities__map map">
+                <Map offers={offers} />
+              </section>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+    }
   </main>;
 };
 const mapStateToProps = (state) => ({
