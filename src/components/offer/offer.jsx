@@ -12,7 +12,7 @@ import {getHotel, getStatusHotelLoad, getHotelNearby, getStatusHotelNearbyLoad, 
 import Spinner from '../spinner';
 import Page404 from '../404/page404';
 const Offer = (props) => {
-  const limitImages = 9;
+  const limitImages = 6;
   useEffect(() => {
     props.onLoadData(props.offerId);
   }, [props.offerId]);
@@ -34,7 +34,7 @@ const Offer = (props) => {
         </div>
         <Property id={props.offerId} onButtonClick={props.onButtonClick} />
         <section className="property__map map">
-          <Map offers={props.hotelNearby} />
+          <Map offers={[...props.hotelNearby, props.hotel]}/>
         </section>
       </section>
       <div className="container">
@@ -51,7 +51,6 @@ const Offer = (props) => {
                     isPremium={offer.is_premium}
                     isFavorite={offer.is_favorite}
                     previewImage={offer.preview_image}
-                    onIdMarker={props.onIdMarker}
                     key={offer.id}
                     onButtonClick={props.onButtonClick}
                   />
@@ -76,13 +75,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(hotel(id));
     dispatch(hotelNearbyLoadStart());
     dispatch(nearby(id));
-  },
-  onIdMarker(id) {
     dispatch(setId(id));
   }
 });
 Offer.propTypes = {
-  onIdMarker: PropTypes.func.isRequired,
   isHotelLoad: PropTypes.bool.isRequired,
   isHotelNearbyLoad: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,

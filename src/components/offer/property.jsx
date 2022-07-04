@@ -10,6 +10,7 @@ import {getComments, getHotel} from '../../store/hotel/selectors';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
 const Property = (props) => {
+  const maxComments = 9;
   useEffect(() => {
     if (!props.comments) {
       props.onLoadComments(props.id);
@@ -90,10 +91,10 @@ const Property = (props) => {
         </div>
       </div>
       <section className="property__reviews reviews">
-        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{props.comments.length}</span></h2>
+        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{props.comments.length < maxComments ? props.comments.length : maxComments}</span></h2>
         <ul className="reviews__list">
           {
-            commentsArr.map((review, i) => <Review review={review} key={i}/>)
+            commentsArr.map((review, i) => i < maxComments && <Review review={review} key={i}/>)
           }
         </ul>
         {props.authorizationStatus === AuthorizationStatus.AUTH && <FormComment id={props.id}/>}

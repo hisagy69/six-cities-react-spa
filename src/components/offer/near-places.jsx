@@ -9,7 +9,7 @@ import {getAuthorizationStatus, getLoadFavoritesStatus} from '../../store/user/s
 import {AuthorizationStatus} from '../../const';
 const {OFFER} = Routes;
 const NearPlaces = (props) => {
-  return <article className="near-places__card place-card" onMouseOver={() => props.onIdMarker(props.id)}>
+  return <article className="near-places__card place-card">
     <div className="near-places__image-wrapper place-card__image-wrapper">
       <Link to={`${OFFER}${props.id}`}>
         <img className="place-card__image" src={props.previewImage} width="260" height="200" alt="Place image"/>
@@ -47,7 +47,6 @@ NearPlaces.propTypes = {
   isFavorite: PropTypes.bool,
   isLoadFavorites: PropTypes.bool.isRequired,
   previewImage: PropTypes.string.isRequired,
-  onIdMarker: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onFavorite: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired

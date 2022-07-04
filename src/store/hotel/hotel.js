@@ -1,9 +1,10 @@
-import {hotelLoadStart, hotelLoad, hotelUpdate, hotelNearbyLoadStart, hotelNearby, hotelNearbyUpdate, hotelNotFound, getComments} from '../action';
+import {hotelLoadStart, hotelLoad, hotelUpdate, hotelNearbyLoadStart, hotelNearby, hotelNearbyUpdate, hotelNotFound, getComments, postCommentStatusSend} from '../action';
 import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   isHotelLoad: false,
   isHotelNearbyLoad: false,
+  isCommentSend: false
 };
 
 const hotel = createReducer(initialState, (builder) => {
@@ -41,6 +42,10 @@ const hotel = createReducer(initialState, (builder) => {
   builder.addCase(getComments, (state, action) => {
     state.comments = action.payload;
     state.errorSend = false;
+    state.isCommentSend = true;
+  });
+  builder.addCase(postCommentStatusSend, (state) => {
+    state.isCommentSend = false;
   });
 });
 

@@ -6,3 +6,4 @@ export const getHotelNearby = (state) => state[NameSpace.HOTEL].hotelNearby;
 export const getStatusHotelNearbyLoad = (state) => state[NameSpace.HOTEL].isHotelNearbyLoad;
 export const getStatusPageLoad = (state) => state[NameSpace.HOTEL].notFound;
 export const getComments = (state) => state[NameSpace.HOTEL].comments;
+export const getStatusCommentSend = (state) => state[NameSpace.HOTEL].isCommentSend;

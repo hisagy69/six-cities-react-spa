@@ -2,6 +2,8 @@ import React, {useState, useRef} from 'react';
 import {connect} from 'react-redux';
 import {commentPost} from '../../api-actions';
 import {getSendStatus} from '../../store/error/selectors';
+import {getStatusCommentSend} from '../../store/hotel/selectors';
+import {postCommentStatusSend} from '../../store/action';
 import PropTypes from 'prop-types';
 const FormComment = (props) => {
   const buttonRef = useRef();
@@ -62,20 +64,23 @@ const FormComment = (props) => {
       <p className="reviews__help">
         To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
       </p>
-      <button className="reviews__submit form__submit button" type="submit" ref={buttonRef} disabled={!inputRate || inputComment.length < 50 || inputComment.length > 300}>Submit</button>
+      <button className="reviews__submit form__submit button" type="submit" ref={buttonRef} disabled={!inputRate || inputComment.length < 50 || inputComment.length > 300 || !props.isCommentSend}>Submit</button>
     </div>
   </form>;
 };
 FormComment.propTypes = {
   onSendComment: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  errorSend: PropTypes.bool
+  errorSend: PropTypes.bool,
+  isCommentSend: PropTypes.bool
 };
 const mapStateToProps = (state) => ({
-  errorSend: getSendStatus(state)
+  errorSend: getSendStatus(state),
+  isCommentSend: getStatusCommentSend(state)
 });
 const mapDispatchToProps = (dispatch) => ({
   onSendComment(id, comment, rating, sendError, commentRef) {
+    dispatch(postCommentStatusSend());
     dispatch(commentPost(id, comment, rating));
     if (!sendError) {
       commentRef.value = ``;

@@ -46,7 +46,7 @@ export const comments = (id) => (dispatch, _getSate, api) => (
 export const commentPost = (id, comment, rating) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, {comment, rating})
     .then(({data}) => dispatch(getComments(data)))
-    .catch(dispatch(errorSend()))
+    .catch(() => dispatch(errorSend()))
 );
 
 export const favoritesGet = () => (dispatch, _getSate, api) => (
