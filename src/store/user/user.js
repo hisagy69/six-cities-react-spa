@@ -1,4 +1,9 @@
-import {requiredAuthorization, getFavorites, postFavorite} from '../action';
+import {
+  requiredAuthorization,
+  userLoad,
+  getFavorites,
+  postFavorite
+} from '../action';
 import {createReducer} from '@reduxjs/toolkit';
 import {AuthorizationStatus} from '../../const';
 
@@ -10,9 +15,11 @@ const initialState = {
 
 const user = createReducer(initialState, (builder) => {
   builder.addCase(requiredAuthorization, (state, action) => {
-    state.authorizationStatus = action.payload.status;
-    state.user = action.payload.user;
+    state.authorizationStatus = action.payload;
     state.isLoadStatus = true;
+  });
+  builder.addCase(userLoad, (state, action) => {
+    state.user = action.payload;
   });
   builder.addCase(getFavorites, (state, action) => {
     state.favorites = action.payload;

@@ -1,4 +1,18 @@
-import {requiredAuthorization, offersLoad, offersUpdate, hotelLoad, hotelUpdate, hotelNotFound, hotelNearby, hotelNearbyUpdate, getComments, errorSend, getFavorites, postFavorite} from './store/action';
+import {
+  requiredAuthorization,
+  offersLoad,
+  offersUpdate,
+  hotelLoad,
+  hotelUpdate,
+  hotelNotFound,
+  hotelNearby,
+  hotelNearbyUpdate,
+  getComments,
+  errorSend,
+  getFavorites,
+  postFavorite,
+  userLoad
+} from './store/action';
 import {AuthorizationStatus} from './const';
 
 export const fetchOffersLoad = () => (dispatch, _getState, api) => (
@@ -9,13 +23,19 @@ export const fetchOffersLoad = () => (dispatch, _getState, api) => (
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
-    .then(({data}) => dispatch(requiredAuthorization(AuthorizationStatus.AUTH, data)))
+    .then(({data}) => {
+      dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
+      dispatch(userLoad(data));
+    })
     .catch(() => {})
 );
 
 export const login = ({login: email, password}) => (dispatch, _getSate, api) => (
   api.post(`/login`, {email, password})
-    .then(({data}) => dispatch(requiredAuthorization(AuthorizationStatus.AUTH, data)))
+    .then(({data}) => {
+      dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
+      dispatch(userLoad(data));
+    })
     .catch(() => {})
 );
 

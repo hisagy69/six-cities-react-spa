@@ -1,4 +1,10 @@
-import {setCity, setSort, setId, offersLoad, offersUpdate} from '../action';
+import {
+  setCity,
+  setSort,
+  setId,
+  offersLoad,
+  offersUpdate
+} from '../action';
 import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {

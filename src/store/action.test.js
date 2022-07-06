@@ -6,6 +6,7 @@ import {
   offersLoad,
   offersUpdate,
   requiredAuthorization,
+  userLoad,
   hotelLoadStart,
   hotelLoad,
   hotelUpdate,
@@ -65,13 +66,18 @@ describe(`Action creator work correctly`, () => {
   it(`Action creator for update authorization status, return currect action, authorization status and user indformation in payload`, () => {
     const expectedAction = {
       type: ActionTypes.REQUIRED_AUTHORIZATION,
-      payload: {
-        status: AuthorizationStatus.AUTH,
-        user: {}
-      }
+      payload: AuthorizationStatus.AUTH
     };
 
-    expect(requiredAuthorization(AuthorizationStatus.AUTH, {})).toEqual(expectedAction);
+    expect(requiredAuthorization(AuthorizationStatus.AUTH)).toEqual(expectedAction);
+  });
+  it(`Action creator for load user, return currect action and user indformation in payload`, () => {
+    const expectedAction = {
+      type: ActionTypes.USER_LOAD,
+      payload: {}
+    };
+
+    expect(userLoad({})).toEqual(expectedAction);
   });
   it(`Action creator for hotel load start, return currect action`, () => {
     const expectedAction = {

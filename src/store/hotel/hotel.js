@@ -1,4 +1,14 @@
-import {hotelLoadStart, hotelLoad, hotelUpdate, hotelNearbyLoadStart, hotelNearby, hotelNearbyUpdate, hotelNotFound, getComments, postCommentStatusSend} from '../action';
+import {
+  hotelLoadStart,
+  hotelLoad,
+  hotelUpdate,
+  hotelNearbyLoadStart,
+  hotelNearby,
+  hotelNearbyUpdate,
+  hotelNotFound,
+  getComments,
+  postCommentStatusSend
+} from '../action';
 import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {

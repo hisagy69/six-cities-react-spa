@@ -19,6 +19,7 @@ export const ActionTypes = {
   REQUIRED_AUTHORIZATION: `user/required-authorization`,
   GET_FAVORITES: `user/get-favorites`,
   POST_FAVORITES: `user/post-favorites`,
+  USER_LOAD: `user/load-user`
 };
 
 export const setCity = createAction(ActionTypes.CURRENT_CITY_ENTER, (city) => ({
@@ -41,11 +42,12 @@ export const offersUpdate = createAction(ActionTypes.OFFERS_UPDATE, (data) => ({
   payload: data
 }));
 
-export const requiredAuthorization = createAction(ActionTypes.REQUIRED_AUTHORIZATION, (status, user) => ({
-  payload: {
-    status,
-    user
-  }
+export const requiredAuthorization = createAction(ActionTypes.REQUIRED_AUTHORIZATION, (status) => ({
+  payload: status
+}));
+
+export const userLoad = createAction(ActionTypes.USER_LOAD, (user) => ({
+  payload: user
 }));
 
 export const hotelLoadStart = createAction(ActionTypes.HOTEL_LOAD_START);

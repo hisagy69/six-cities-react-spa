@@ -42,5 +42,5 @@ const mapStateToProps = (state) => ({
   user: getUser(state),
   authorizationStatus: getAuthorizationStatus(state)
 });
-export default connect(mapStateToProps, null)(memo(Header, (prevProps, nextProps) => prevProps.authorizationStatus === nextProps.authorizationStatus));
+export default connect(mapStateToProps, null)(memo(Header, (prevProps, nextProps) => prevProps.authorizationStatus === nextProps.authorizationStatus && prevProps.user === nextProps.user));
 export {Header};
