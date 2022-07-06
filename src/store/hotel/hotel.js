@@ -7,7 +7,7 @@ import {
   hotelNearbyUpdate,
   hotelNotFound,
   getComments,
-  postCommentStatusSend
+  commentStatusSend
 } from '../action';
 import {createReducer} from '@reduxjs/toolkit';
 
@@ -54,7 +54,7 @@ const hotel = createReducer(initialState, (builder) => {
     state.errorSend = false;
     state.isCommentSend = true;
   });
-  builder.addCase(postCommentStatusSend, (state) => {
+  builder.addCase(commentStatusSend, (state) => {
     state.isCommentSend = false;
   });
 });

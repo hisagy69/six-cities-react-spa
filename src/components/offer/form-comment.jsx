@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {commentPost} from '../../api-actions';
 import {getSendStatus} from '../../store/error/selectors';
 import {getStatusCommentSend} from '../../store/hotel/selectors';
-import {postCommentStatusSend} from '../../store/action';
+import {commentStatusSend} from '../../store/action';
 import PropTypes from 'prop-types';
 const FormComment = (props) => {
   const buttonRef = useRef();
@@ -80,7 +80,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   onSendComment(id, comment, rating, sendError, commentRef) {
-    dispatch(postCommentStatusSend());
+    dispatch(commentStatusSend());
     dispatch(commentPost(id, comment, rating));
     if (!sendError) {
       commentRef.value = ``;

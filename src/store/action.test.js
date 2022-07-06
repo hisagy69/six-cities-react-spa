@@ -15,7 +15,7 @@ import {
   hotelNearbyUpdate,
   hotelNotFound,
   getComments,
-  postCommentStatusSend,
+  commentStatusSend,
   errorSend,
   getFavorites,
   postFavorite
@@ -142,10 +142,10 @@ describe(`Action creator work correctly`, () => {
   });
   it(`Action creator for comment status send, return currect action`, () => {
     const expectedAction = {
-      type: ActionTypes.POST_COMMENT_STATUS_SEND,
+      type: ActionTypes.COMMENT_STATUS_SEND,
     };
 
-    expect(postCommentStatusSend()).toEqual(expectedAction);
+    expect(commentStatusSend()).toEqual(expectedAction);
   });
   it(`Action creator for error send form, return currect action`, () => {
     const expectedAction = {
