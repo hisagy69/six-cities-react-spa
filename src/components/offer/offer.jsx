@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import Map from '../map/map';
 import {connect} from 'react-redux';
-import {hotelLoadStart, hotelNearbyLoadStart, setId} from '../../store/action';
+import {setId} from '../../store/action';
 import {hotel, nearby} from '../../api-actions';
 import {getHotel, getStatusHotelLoad, getHotelNearby, getStatusHotelNearbyLoad, getStatusPageLoad} from '../../store/hotel/selectors';
 import Spinner from '../spinner';
@@ -71,9 +71,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(id) {
-    dispatch(hotelLoadStart());
     dispatch(hotel(id));
-    dispatch(hotelNearbyLoadStart());
     dispatch(nearby(id));
     dispatch(setId(id));
   }

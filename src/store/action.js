@@ -6,10 +6,8 @@ export const ActionTypes = {
   SET_ID: `offers/id`,
   OFFERS_LOAD: `offers/load`,
   OFFERS_UPDATE: `offers/update`,
-  HOTEL_LOAD_START: `hotel/load-start`,
   HOTEL_LOAD: `hotel/load`,
   HOTEL_UPDATE: `hotel/update`,
-  HOTEL_NEARBY_LOAD_START: `hotel/nearby-load-start`,
   HOTEL_NEARBY: `hotel/nearby`,
   HOTEL_NEARBY_UPDATE: `hotel/nearby-update`,
   NOT_FOUND: `hotel/not-found`,
@@ -50,8 +48,6 @@ export const userLoad = createAction(ActionTypes.USER_LOAD, (user) => ({
   payload: user
 }));
 
-export const hotelLoadStart = createAction(ActionTypes.HOTEL_LOAD_START);
-
 export const hotelLoad = createAction(ActionTypes.HOTEL_LOAD, (data) => ({
   payload: data
 }));
@@ -59,8 +55,6 @@ export const hotelLoad = createAction(ActionTypes.HOTEL_LOAD, (data) => ({
 export const hotelUpdate = createAction(ActionTypes.HOTEL_UPDATE, (data) => ({
   payload: data
 }));
-
-export const hotelNearbyLoadStart = createAction(ActionTypes.HOTEL_NEARBY_LOAD_START);
 
 export const hotelNearby = createAction(ActionTypes.HOTEL_NEARBY, (data) => ({
   payload: data,

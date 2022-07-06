@@ -7,10 +7,8 @@ import {
   offersUpdate,
   requiredAuthorization,
   userLoad,
-  hotelLoadStart,
   hotelLoad,
   hotelUpdate,
-  hotelNearbyLoadStart,
   hotelNearby,
   hotelNearbyUpdate,
   hotelNotFound,
@@ -79,13 +77,6 @@ describe(`Action creator work correctly`, () => {
 
     expect(userLoad({})).toEqual(expectedAction);
   });
-  it(`Action creator for hotel load start, return currect action`, () => {
-    const expectedAction = {
-      type: ActionTypes.HOTEL_LOAD_START
-    };
-
-    expect(hotelLoadStart()).toEqual(expectedAction);
-  });
   it(`Action creator for load hotel, return currect action and hotel indformation in payload`, () => {
     const expectedAction = {
       type: ActionTypes.HOTEL_LOAD,
@@ -101,13 +92,6 @@ describe(`Action creator work correctly`, () => {
     };
 
     expect(hotelUpdate({})).toEqual(expectedAction);
-  });
-  it(`Action creator for update hotel nearby load start, return currect action`, () => {
-    const expectedAction = {
-      type: ActionTypes.HOTEL_NEARBY_LOAD_START,
-    };
-
-    expect(hotelNearbyLoadStart()).toEqual(expectedAction);
   });
   it(`Action creator for load hotel nearby, return currect action and hotel nearby information in payload`, () => {
     const expectedAction = {

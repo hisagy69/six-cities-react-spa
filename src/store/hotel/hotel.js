@@ -1,8 +1,6 @@
 import {
-  hotelLoadStart,
   hotelLoad,
   hotelUpdate,
-  hotelNearbyLoadStart,
   hotelNearby,
   hotelNearbyUpdate,
   hotelNotFound,
@@ -18,9 +16,6 @@ const initialState = {
 };
 
 const hotel = createReducer(initialState, (builder) => {
-  builder.addCase(hotelLoadStart, (state) => {
-    state.isHotelLoad = false;
-  });
   builder.addCase(hotelLoad, (state, action) => {
     state.hotel = action.payload;
     state.isHotelLoad = true;
@@ -30,9 +25,6 @@ const hotel = createReducer(initialState, (builder) => {
     state.hotel = state.hotel && action.payload.id === state.hotel.id ?
       action.payload :
       state.hotel;
-  });
-  builder.addCase(hotelNearbyLoadStart, (state) => {
-    state.isHotelNearbyLoad = false;
   });
   builder.addCase(hotelNearby, (state, action) => {
     state.hotelNearby = action.payload;
