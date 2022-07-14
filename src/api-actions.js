@@ -15,12 +15,6 @@ import {
 } from './store/action';
 import {AuthorizationStatus} from './const';
 
-export const fetchOffersLoad = () => (dispatch, _getState, api) => (
-  api.get(`/hotels`)
-    .then(({data}) => dispatch(offersLoad(data)))
-    .catch(() => {})
-);
-
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then(({data}) => {
@@ -45,7 +39,29 @@ export const logout = () => (dispatch, _getSate, api) => (
     .catch(() => {})
 );
 
-export const hotel = (id) => (dispatch, _getState, api) => (
+export const favoritesGet = () => (dispatch, _getSate, api) => (
+  api.get(`/favorite`)
+    .then(({data}) => dispatch(getFavorites(data)))
+    .catch(() => {})
+);
+
+export const favoritePost = (id, status) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${id}/${status}`)
+    .then(({data}) => {
+      dispatch(hotelUpdate(data));
+      dispatch(offersUpdate(data));
+      dispatch(hotelNearbyUpdate(data));
+      dispatch(postFavorite());
+    })
+);
+
+export const fetchOffersLoad = () => (dispatch, _getState, api) => (
+  api.get(`/hotels`)
+    .then(({data}) => dispatch(offersLoad(data)))
+    .catch(() => {})
+);
+
+export const fetchHotelLoad = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}`)
     .then(({data}) => dispatch(hotelLoad(data)))
     .catch(() => dispatch(hotelNotFound()))
@@ -68,19 +84,3 @@ export const commentPost = (id, comment, rating) => (dispatch, _getState, api) =
     .then(({data}) => dispatch(getComments(data)))
     .catch(() => dispatch(errorSend()))
 );
-
-export const favoritesGet = () => (dispatch, _getSate, api) => (
-  api.get(`/favorite`)
-    .then(({data}) => dispatch(getFavorites(data)))
-    .catch(() => {})
-);
-
-export const favoritePost = (id, status) => (dispatch, _getState, api) => {
-  api.post(`/favorite/${id}/${status}`)
-    .then(({data}) => {
-      dispatch(hotelUpdate(data));
-      dispatch(offersUpdate(data));
-      dispatch(hotelNearbyUpdate(data));
-      dispatch(postFavorite());
-    });
-};

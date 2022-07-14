@@ -1,7 +1,12 @@
 import {offers} from './offers';
+import MockAdapter from 'axios-mock-adapter';
+import {createAPI} from '../../api';
+import {fetchOffersLoad} from '../../api-actions';
 import {ActionTypes} from '../action';
 
-describe(`Reducers work correctly`, () => {
+const api = createAPI(() => {});
+
+describe(`Reducers 'offers' should work correctly`, () => {
   it(`Reducer city enter, return current city enter`, () => {
     const state = {
       city: `Paris`
@@ -96,5 +101,25 @@ describe(`Reducers work correctly`, () => {
         }
       ]
     });
+  });
+});
+describe(`Async operation work correctly`, () => {
+  it(`Should make a correct API call to '/hotels'`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const fetchOffersLoader = fetchOffersLoad();
+
+    apiMock
+      .onGet(`/hotels`)
+      .reply(200, [{fake: true}]);
+
+    return fetchOffersLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.OFFERS_LOAD,
+          payload: [{fake: true}]
+        });
+      });
   });
 });

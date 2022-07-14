@@ -1,7 +1,12 @@
 import {hotel} from './hotel';
+import MockAdapter from 'axios-mock-adapter';
+import {createAPI} from '../../api';
+import {fetchHotelLoad, nearby, comments, commentPost} from '../../api-actions';
 import {ActionTypes} from '../action';
 
-describe(`Reducers work correctly`, () => {
+const api = createAPI(() => {});
+
+describe(`Reducer 'hotel' should work correctly`, () => {
   it(`Reducer hotel load, return current hotel information`, () => {
     const state = {
       isHotelLoad: false
@@ -142,5 +147,79 @@ describe(`Reducers work correctly`, () => {
     expect(hotel({}, commentStatusSendAction)).toEqual({
       isCommentSend: false
     });
+  });
+});
+describe(`Async operation work correctly`, () => {
+  it(`Should make a correct API call to '/hotels/id'`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const hotelLoader = fetchHotelLoad(1);
+
+    apiMock
+      .onGet(`/hotels/1`)
+      .reply(200, {fake: true});
+
+    return hotelLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.HOTEL_LOAD,
+          payload: {fake: true}
+        });
+      });
+  });
+  it(`Should make a correct API call to '/hotels/id/nearby'`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const nearbyLoader = nearby(1);
+
+    apiMock
+      .onGet(`/hotels/1/nearby`)
+      .reply(200, {fake: true});
+
+    return nearbyLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.HOTEL_NEARBY,
+          payload: {fake: true}
+        });
+      });
+  });
+  it(`Should make a correct API call to '/comments/id'`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const commentsLoader = comments(1);
+
+    apiMock
+      .onGet(`/comments/1`)
+      .reply(200, [{fake: true}]);
+
+    return commentsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.GET_COMMENTS,
+          payload: [{fake: true}]
+        });
+      });
+  });
+  it(`Should make a correct API post to '/comments/id'`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const commentLoader = commentPost(1, `test`, 5);
+
+    apiMock
+      .onPost(`/comments/1`)
+      .reply(200, [{fake: true}]);
+
+    return commentLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.GET_COMMENTS,
+          payload: [{fake: true}]
+        });
+      });
   });
 });
