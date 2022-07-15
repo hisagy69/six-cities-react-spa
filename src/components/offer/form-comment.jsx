@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 import {connect} from 'react-redux';
-import {commentPost} from '../../api-actions';
+import {addAComment} from '../../api-actions';
 import {getSendStatus} from '../../store/error/selectors';
 import {getStatusCommentSend} from '../../store/hotel/selectors';
 import {commentStatusSend} from '../../store/action';
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onSendComment(id, comment, rating, sendError, commentRef) {
     dispatch(commentStatusSend());
-    dispatch(commentPost(id, comment, rating));
+    dispatch(addAComment(id, comment, rating));
     if (!sendError) {
       commentRef.value = ``;
     }

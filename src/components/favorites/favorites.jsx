@@ -4,7 +4,7 @@ import Spinner from "../spinner";
 import PropTypes from "prop-types";
 import hotelProp from "../../props/hotel.prop";
 import {connect} from "react-redux";
-import {favoritesGet} from "../../api-actions";
+import {fetchFavoritesLoad} from "../../api-actions";
 import {getFavorites, getLoadFavoritesStatus} from '../../store/user/selectors';
 const Favorites = (props) => {
   useEffect(() => {
@@ -76,7 +76,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
-    dispatch(favoritesGet());
+    dispatch(fetchFavoritesLoad());
   },
 });
 Favorites.propTypes = {

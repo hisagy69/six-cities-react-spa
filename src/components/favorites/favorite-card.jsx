@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import Routes from '../enum';
 import {connect} from 'react-redux';
-import {favoritePost} from '../../api-actions';
+import {addToFavorites} from '../../api-actions';
 import {getLoadFavoritesStatus} from '../../store/user/selectors';
 const {OFFER} = Routes;
 const FavoriteCards = (props) => {
@@ -56,7 +56,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {
     const status = isFavorite ? 0 : 1;
-    dispatch(favoritePost(id, status));
+    dispatch(addToFavorites(id, status));
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteCards);

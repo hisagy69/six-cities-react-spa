@@ -4,7 +4,7 @@ import FormComment from './form-comment';
 import PropTypes from 'prop-types';
 import commentProp from './comment.prop';
 import locationProp from '../../props/location.prop';
-import {comments, favoritePost} from '../../api-actions';
+import {fetchCommentsLoad, addToFavorites} from '../../api-actions';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 import {getComments, getHotel} from '../../store/hotel/selectors';
 import {connect} from 'react-redux';
@@ -112,11 +112,11 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadComments(id) {
-    dispatch(comments(id));
+    dispatch(fetchCommentsLoad(id));
   },
   onFavorite(id, isFavorite) {
     const status = isFavorite ? 0 : 1;
-    dispatch(favoritePost(id, status));
+    dispatch(addToFavorites(id, status));
   },
 });
 Property.propTypes = {

@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import {Link} from 'react-router-dom';
-import {favoritePost} from '../../api-actions';
+import {addToFavorites} from '../../api-actions';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 import {getActiveId} from '../../store/offers/selectors';
 import {connect} from 'react-redux';
@@ -59,7 +59,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {
     const status = isFavorite ? 0 : 1;
-    dispatch(favoritePost(id, status));
+    dispatch(addToFavorites(id, status));
   },
   onIdMarker(id) {
     dispatch(setId(id));

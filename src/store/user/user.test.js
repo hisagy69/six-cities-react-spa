@@ -1,7 +1,7 @@
 import {user} from './user';
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../api';
-import {checkAuth, login, logout, favoritesGet, favoritePost} from '../../api-actions';
+import {checkAuth, login, logout, fetchFavoritesLoad, addToFavorites} from '../../api-actions';
 import {ActionTypes} from '../action';
 import {AuthorizationStatus} from '../../const';
 
@@ -152,7 +152,7 @@ describe(`Async operation work correctly`, () => {
   it(`Should make a correct API call to /favorite`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const favoritesLoader = favoritesGet();
+    const favoritesLoader = fetchFavoritesLoad();
 
     apiMock
       .onGet(`/favorite`)
@@ -170,7 +170,7 @@ describe(`Async operation work correctly`, () => {
   it(`Should make a correct API post to /favorite`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const favoritesLoader = favoritePost(1, AuthorizationStatus.AUTH);
+    const favoritesLoader = addToFavorites(1, AuthorizationStatus.AUTH);
     apiMock
       .onPost(`/favorite/1/${AuthorizationStatus.AUTH}`)
       .reply(200, {fake: true});

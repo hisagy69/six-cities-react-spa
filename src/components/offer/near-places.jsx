@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import hotelProp from '../../props/hotel.prop';
 import Routes from '../enum';
 import {connect} from 'react-redux';
-import {favoritePost} from '../../api-actions';
+import {addToFavorites} from '../../api-actions';
 import {getAuthorizationStatus, getLoadFavoritesStatus} from '../../store/user/selectors';
 import {AuthorizationStatus} from '../../const';
 const {OFFER} = Routes;
@@ -58,7 +58,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onFavorite(id, isFavorite) {
     const status = isFavorite ? 0 : 1;
-    dispatch(favoritePost(id, status));
+    dispatch(addToFavorites(id, status));
   }
 });
 const areEqual = (prevProps, nextProps) => prevProps.isFavorite === nextProps.isFavorite;

@@ -1,7 +1,7 @@
 import {hotel} from './hotel';
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../api';
-import {fetchHotelLoad, nearby, comments, commentPost} from '../../api-actions';
+import {fetchHotelLoad, fetchNearbyLoad, fetchCommentsLoad, addAComment} from '../../api-actions';
 import {ActionTypes} from '../action';
 
 const api = createAPI(() => {});
@@ -171,7 +171,7 @@ describe(`Async operation work correctly`, () => {
   it(`Should make a correct API call to '/hotels/id/nearby'`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const nearbyLoader = nearby(1);
+    const nearbyLoader = fetchNearbyLoad(1);
 
     apiMock
       .onGet(`/hotels/1/nearby`)
@@ -189,7 +189,7 @@ describe(`Async operation work correctly`, () => {
   it(`Should make a correct API call to '/comments/id'`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const commentsLoader = comments(1);
+    const commentsLoader = fetchCommentsLoad(1);
 
     apiMock
       .onGet(`/comments/1`)
@@ -207,7 +207,7 @@ describe(`Async operation work correctly`, () => {
   it(`Should make a correct API post to '/comments/id'`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const commentLoader = commentPost(1, `test`, 5);
+    const commentLoader = addAComment(1, `test`, 5);
 
     apiMock
       .onPost(`/comments/1`)

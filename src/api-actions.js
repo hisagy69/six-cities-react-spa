@@ -39,13 +39,13 @@ export const logout = () => (dispatch, _getSate, api) => (
     .catch(() => {})
 );
 
-export const favoritesGet = () => (dispatch, _getSate, api) => (
+export const fetchFavoritesLoad = () => (dispatch, _getSate, api) => (
   api.get(`/favorite`)
     .then(({data}) => dispatch(getFavorites(data)))
     .catch(() => {})
 );
 
-export const favoritePost = (id, status) => (dispatch, _getState, api) => (
+export const addToFavorites = (id, status) => (dispatch, _getState, api) => (
   api.post(`/favorite/${id}/${status}`)
     .then(({data}) => {
       dispatch(hotelUpdate(data));
@@ -67,19 +67,19 @@ export const fetchHotelLoad = (id) => (dispatch, _getState, api) => (
     .catch(() => dispatch(hotelNotFound()))
 );
 
-export const nearby = (id) => (dispatch, _getState, api) => (
+export const fetchNearbyLoad = (id) => (dispatch, _getState, api) => (
   api.get(`hotels/${id}/nearby`)
     .then(({data}) => dispatch(hotelNearby(data)))
     .catch(() => {})
 );
 
-export const comments = (id) => (dispatch, _getSate, api) => (
+export const fetchCommentsLoad = (id) => (dispatch, _getSate, api) => (
   api.get(`/comments/${id}`)
     .then(({data}) => dispatch(getComments(data)))
     .catch(() => {})
 );
 
-export const commentPost = (id, comment, rating) => (dispatch, _getState, api) => (
+export const addAComment = (id, comment, rating) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, {comment, rating})
     .then(({data}) => dispatch(getComments(data)))
     .catch(() => dispatch(errorSend()))
