@@ -4,9 +4,8 @@ import {Link} from 'react-router-dom';
 import Routes from '../enum';
 import {connect} from 'react-redux';
 import {addToFavorites} from '../../api-actions';
-import {getLoadFavoritesStatus} from '../../store/user/selectors';
 const {OFFER} = Routes;
-const FavoriteCards = (props) => {
+const FavoriteCard = (props) => {
   return <article className="favorites__card place-card">
     <div className="favorites__image-wrapper place-card__image-wrapper">
       <Link to={`${OFFER}${props.id}`}>
@@ -19,11 +18,11 @@ const FavoriteCards = (props) => {
           <b className="place-card__price-value">&euro;{props.price}</b>
           <span className="place-card__price-text">&#47;&nbsp;night</span>
         </div>
-        <button className="place-card__bookmark-button place-card__bookmark-button--active button" onClick={() => props.onFavorite(props.id, props.isFavorite)} type="button">
+        <button className="place-card__bookmark-button place-card__bookmark-button--active button" onClick={() => props.onFavorite(props.id)} type="button">
           <svg className="place-card__bookmark-icon" width="18" height="19">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
-          <span className="visually-hidden">{props.isFavorite ? `In bookmarks` : `To bookmarks`}</span>
+          <span className="visually-hidden">In bookmarks</span>
         </button>
       </div>
       <div className="place-card__rating rating">
@@ -39,25 +38,20 @@ const FavoriteCards = (props) => {
     </div>
   </article>;
 };
-FavoriteCards.propTypes = {
+FavoriteCard.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  isFavorite: PropTypes.bool,
-  isLoadFavorites: PropTypes.bool.isRequired,
   price: PropTypes.number.isRequired,
   previewImage: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   onFavorite: PropTypes.func.isRequired,
 };
-const mapStateToProps = (state) => ({
-  isLoadFavorites: getLoadFavoritesStatus(state)
-});
 const mapDispatchToProps = (dispatch) => ({
-  onFavorite(id, isFavorite) {
-    const status = isFavorite ? 0 : 1;
+  onFavorite(id) {
+    const status = 1;
     dispatch(addToFavorites(id, status));
   }
 });
-export default connect(mapStateToProps, mapDispatchToProps)(FavoriteCards);
-export {FavoriteCards};
+export default connect(null, mapDispatchToProps)(FavoriteCard);
+export {FavoriteCard};

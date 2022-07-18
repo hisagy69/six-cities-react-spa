@@ -55,7 +55,6 @@ const Favorites = (props) => {
                         <FavoriteCard
                           key={card.id}
                           {...card}
-                          isFavorite={card.is_favorite}
                           previewImage={card.preview_image}
                         />
                       ))}

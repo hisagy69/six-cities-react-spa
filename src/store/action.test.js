@@ -70,12 +70,18 @@ describe(`Action creator work correctly`, () => {
     expect(requiredAuthorization(AuthorizationStatus.AUTH)).toEqual(expectedAction);
   });
   it(`Action creator for load user, return currect action and user indformation in payload`, () => {
-    const expectedAction = {
+    const expectedAction1 = {
       type: ActionTypes.USER_LOAD,
       payload: {}
     };
 
-    expect(userLoad({})).toEqual(expectedAction);
+    expect(userLoad({})).toEqual(expectedAction1);
+
+    const expectedAction2 = {
+      type: ActionTypes.USER_LOAD,
+    };
+
+    expect(userLoad()).toEqual(expectedAction2);
   });
   it(`Action creator for load hotel, return currect action and hotel indformation in payload`, () => {
     const expectedAction = {

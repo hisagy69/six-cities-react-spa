@@ -29,12 +29,12 @@ const Login = (props) => {
           <h1 className="login__title">Sign in</h1>
           <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
             <div className="login__input-wrapper form__input-wrapper">
-              <label className="visually-hidden">E-mail</label>
-              <input className="login__input form__input" ref={email} type="email" name="email" placeholder="Email" required/>
+              <label className="visually-hidden" htmlFor="email">E-mail</label>
+              <input className="login__input form__input" id="email" data-testid="login" ref={email} type="email" name="email" placeholder="Email" required/>
             </div>
             <div className="login__input-wrapper form__input-wrapper">
-              <label className="visually-hidden">Password</label>
-              <input className="login__input form__input" ref={password} type="password" name="password" placeholder="Password" required/>
+              <label className="visually-hidden" htmlFor="password">Password</label>
+              <input className="login__input form__input" id="password" data-testid="password" ref={password} type="password" name="password" placeholder="Password" required/>
             </div>
             <button className="login__submit form__submit button" type="submit">Sign in</button>
           </form>
@@ -62,5 +62,5 @@ Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
-export {Login};
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export {Login};

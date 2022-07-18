@@ -4,16 +4,15 @@ import Login from './login/login';
 import OfferScreen from './offer/offer-screen';
 import FavoritesScreen from './favorites/favorites-screen';
 import Page404 from './404/page404';
-import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import Routes from './enum';
-import browserHistory from '../browser-history';
 const {LOGIN, FAVORITES, OFFER} = Routes;
 import PrivateRoute from './private-route';
 const App = () => {
-  return <BrowserRouter history={browserHistory}>
+  return (
     <Switch>
       <Route path="/" exact render={(renderProps) => {
-        return <MainScreen city={renderProps.match.params.id} onButtonClick={() => renderProps.history.push(LOGIN)}/>;
+        return <MainScreen onButtonClick={() => renderProps.history.push(LOGIN)}/>;
       }}/>
       <PrivateRoute path={FAVORITES} render={() => <FavoritesScreen/>} exact/>
       <Route path={LOGIN} component={Login} exact/>
@@ -23,6 +22,6 @@ const App = () => {
       }}/>
       <Route component={Page404}/>
     </Switch>
-  </BrowserRouter>;
+  );
 };
 export default App;

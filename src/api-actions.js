@@ -36,6 +36,7 @@ export const login = ({login: email, password}) => (dispatch, _getSate, api) => 
 export const logout = () => (dispatch, _getSate, api) => (
   api.get(`/logout`)
     .then(() => dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH)))
+    .then(() => dispatch(userLoad()))
     .catch(() => {})
 );
 

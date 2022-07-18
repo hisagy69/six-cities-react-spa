@@ -6,6 +6,7 @@ import routes from './enum';
 import {getUser, getAuthorizationStatus} from '../store/user/selectors';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../const';
+import {logout} from '../api-actions';
 const {LOGIN, FAVORITES} = routes;
 const Header = (props) => {
   return <header className="header">
@@ -28,6 +29,12 @@ const Header = (props) => {
                 }
               </Link>
             </li>
+            {
+              props.authorizationStatus === AuthorizationStatus.AUTH &&
+                <li className="header__nav-item logout">
+                  <button className="header__nav-link header__nav-link--logout" onClick={props.onLogout}></button>
+                </li>
+            }
           </ul>
         </nav>
       </div>
@@ -37,10 +44,16 @@ const Header = (props) => {
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: userProp,
+  onLogout: PropTypes.func.isRequired
 };
 const mapStateToProps = (state) => ({
   user: getUser(state),
   authorizationStatus: getAuthorizationStatus(state)
 });
-export default connect(mapStateToProps, null)(memo(Header, (prevProps, nextProps) => prevProps.authorizationStatus === nextProps.authorizationStatus && prevProps.user === nextProps.user));
+const mapDispatchToProps = (dispatch) => ({
+  onLogout() {
+    dispatch(logout());
+  }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(memo(Header, (prevProps, nextProps) => prevProps.authorizationStatus === nextProps.authorizationStatus && prevProps.user === nextProps.user));
 export {Header};

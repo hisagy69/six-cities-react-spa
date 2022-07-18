@@ -141,11 +141,14 @@ describe(`Async operation work correctly`, () => {
 
     return logoutLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionTypes.REQUIRED_AUTHORIZATION,
           payload: AuthorizationStatus.NO_AUTH
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionTypes.USER_LOAD
         });
       });
   });

@@ -8,6 +8,8 @@ import {createAPI} from './api';
 import {requiredAuthorization} from './store/action';
 import {checkAuth} from './api-actions';
 import {AuthorizationStatus} from './const';
+import {BrowserRouter} from 'react-router-dom';
+import browserHistory from './browser-history';
 const api = createAPI(
     () => store.dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH))
 );
@@ -24,7 +26,9 @@ store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App/>
+      <BrowserRouter history={browserHistory}>
+        <App/>
+      </BrowserRouter>
     </Provider>,
     document.getElementById(`root`)
 );
