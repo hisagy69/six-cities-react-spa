@@ -9,7 +9,7 @@ import Login from './login';
 import {AuthorizationStatus} from '../../const';
 const mockStore = configureStore({});
 
-it(`Render 'Login' when user navigate to '/login' url`, () => {
+it(`Render 'Login' when user navigate to '/login' url`, async () => {
   const history = createMemoryHistory();
   const store = mockStore({
     USER: {
@@ -18,11 +18,11 @@ it(`Render 'Login' when user navigate to '/login' url`, () => {
   });
 
   render(
-    <Provider store={store}>
-      <Router history={history}>
-        <Login/>
-      </Router>
-    </Provider>
+      <Provider store={store}>
+        <Router history={history}>
+          <Login/>
+        </Router>
+      </Provider>
   );
 
   screen.getAllByText(/Sign in/i).forEach((item) => expect(item).toBeInTheDocument());
@@ -30,8 +30,8 @@ it(`Render 'Login' when user navigate to '/login' url`, () => {
   expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
   expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
 
-  userEvent.type(screen.getByTestId(`login`), `testUser`);
-  userEvent.type(screen.getByTestId(`password`), `123456`);
+  await userEvent.type(screen.getByTestId(`login`), `testUser`);
+  await userEvent.type(screen.getByTestId(`password`), `123456`);
 
   expect(screen.getByDisplayValue(/testUser/i)).toBeInTheDocument();
   expect(screen.getByDisplayValue(/123456/i)).toBeInTheDocument();

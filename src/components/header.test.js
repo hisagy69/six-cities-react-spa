@@ -18,11 +18,11 @@ describe(`Header test`, () => {
     });
 
     render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Header/>
-        </Router>
-      </Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <Header/>
+          </Router>
+        </Provider>
     );
 
     expect(screen.getByText(`Sign in`)).toBeInTheDocument();
@@ -39,11 +39,11 @@ describe(`Header test`, () => {
       }
     });
     render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Header/>
-        </Router>
-      </Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <Header/>
+          </Router>
+        </Provider>
     );
 
     expect(screen.getByText(`test@test.gmail.com`)).toBeInTheDocument();

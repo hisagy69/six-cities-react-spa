@@ -23,6 +23,7 @@ describe(`Reducer 'hotel' should work correctly`, () => {
         hotel: {
           id: 1
         },
+        isCommentsLoad: false,
         isHotelLoad: true,
         notFound: false
       });
@@ -136,6 +137,7 @@ describe(`Reducer 'hotel' should work correctly`, () => {
     expect(hotel({}, getCommentsAction)).toEqual({
       comments: [],
       errorSend: false,
+      isCommentsLoad: true,
       isCommentSend: true
     });
   });

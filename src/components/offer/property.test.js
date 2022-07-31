@@ -1,11 +1,24 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import Property from "./property";
 import {AuthorizationStatus} from "../../const";
 
-const mockStore = configureStore({});
+const mockStore = configureStore([thunk]);
+jest.mock(`../../api-actions`, () => {
+  const originalModule = jest.requireActual(`../../api-actions`);
+  return {
+    __esModule: true,
+    ...originalModule,
+    fetchCommentsLoad: () => {
+      return {
+        type: ``
+      };
+    },
+  };
+});
 describe(`Property test`, () => {
   it(`Property should render correctly`, () => {
     const store = mockStore({
@@ -17,13 +30,13 @@ describe(`Property test`, () => {
       },
       HOTEL: {
         hotel: {
-          is_premium: true,
+          is_premium: true,// eslint-disable-line
           id: 1,
-          preview_image: `previewImage`,
+          preview_image: `previewImage`,// eslint-disable-line
           price: 1000,
-          is_favorite: true,
+          is_favorite: true,// eslint-disable-line
           rating: 5,
-          max_adults: 3,
+          max_adults: 3,// eslint-disable-line
           title: `title`,
           type: `type`,
           bedrooms: 1,
@@ -33,6 +46,7 @@ describe(`Property test`, () => {
             name: `host name`
           }
         },
+        isCommentsLoad: true,
         comments: [
           {
             user: {
@@ -45,14 +59,11 @@ describe(`Property test`, () => {
         ]
       }
     });
-    const props = {
-      onLoadComments: () => {},
-      onButtonClick: () => {}
-    };
+
     render(
-      <Provider store={store}>
-        <Property {...props}/>
-      </Provider>
+        <Provider store={store}>
+          <Property id={1} onButtonClick={() => {}}/>
+        </Provider>
     );
 
     expect(screen.getByText(`Premium`)).toBeInTheDocument();
@@ -76,13 +87,13 @@ describe(`Property test`, () => {
       },
       HOTEL: {
         hotel: {
-          is_premium: true,
+          is_premium: true,// eslint-disable-line
           id: 1,
-          preview_image: `previewImage`,
+          preview_image: `previewImage`,// eslint-disable-line
           price: 1000,
-          is_favorite: true,
+          is_favorite: true,// eslint-disable-line
           rating: 5,
-          max_adults: 3,
+          max_adults: 3,// eslint-disable-line
           title: `title`,
           type: `type`,
           bedrooms: 1,
@@ -91,19 +102,15 @@ describe(`Property test`, () => {
           host: {
             name: `host name`
           }
-        }
+        },
+        isCommentsLoad: false
       }
     });
 
-    const props = {
-      onLoadComments: () => {},
-      onButtonClick: () => {}
-    };
-
     render(
-      <Provider store={store}>
-        <Property {...props}/>
-      </Provider>
+        <Provider store={store}>
+          <Property id={1} onButtonClick={() => {}}/>
+        </Provider>
     );
 
     expect(screen.getByText(`loading...`)).toBeInTheDocument();

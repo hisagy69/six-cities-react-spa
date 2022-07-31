@@ -17,11 +17,11 @@ describe(`Test Favorites`, () => {
     });
 
     render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Favorites onLoadData={() => {}}/>
-        </Router>
-      </Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <Favorites onLoadData={() => {}}/>
+          </Router>
+        </Provider>
     );
 
     expect(screen.getByText(`Favorites (empty)`)).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe(`Test Favorites`, () => {
             title: `testing title`,
             type: `testing type`,
             price: 1000,
-            preview_image: `previewImage`,
+            preview_image: `previewImage`,// eslint-disable-line
             description: `description`,
             rating: 5
           }
@@ -52,11 +52,11 @@ describe(`Test Favorites`, () => {
     });
 
     render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Favorites onLoadData={() => {}}/>
-        </Router>
-      </Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <Favorites onLoadData={() => {}}/>
+          </Router>
+        </Provider>
     );
 
     expect(screen.getByText(`Saved listing`)).toBeInTheDocument();

@@ -8,35 +8,38 @@ import Card from "./card";
 import {AuthorizationStatus} from "../../const";
 
 const mockStore = configureStore({});
+
+const props = {
+  isPremium: true,
+  id: 1,
+  previewImage: `previewImage`,
+  price: 1000,
+  isFavorite: true,
+  rating: 5,
+  title: `title`,
+  type: `type`,
+  bedrooms: 1,
+  description: `description`,
+  onButtonClick: () => {}
+};
+
+const store = mockStore({
+  USER: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+  },
+  OFFERS: {
+  }
+});
 describe(`Card test`, () => {
   it(`Card should render correctly`, () => {
     const history = createMemoryHistory();
-    const store = mockStore({
-      USER: {
-        authorizationStatus: AuthorizationStatus.AUTH,
-      },
-      OFFERS: {
-      }
-    });
-    const props = {
-      isPremium: true,
-      id: 1,
-      previewImage: `previewImage`,
-      price: 1000,
-      isFavorite: true,
-      rating: 5,
-      title: `title`,
-      type: `type`,
-      bedrooms: 1,
-      description: `description`,
-      onButtonClick: () => {}
-    };
+
     render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Card {...props}/>
-        </Router>
-      </Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <Card {...props}/>
+          </Router>
+        </Provider>
     );
 
     expect(screen.getByText(`Premium`)).toBeInTheDocument();
@@ -49,32 +52,13 @@ describe(`Card test`, () => {
   });
   it(`Card should render correctly not favorite`, () => {
     const history = createMemoryHistory();
-    const store = mockStore({
-      USER: {
-        authorizationStatus: AuthorizationStatus.AUTH,
-      },
-      OFFERS: {
-      }
-    });
-    const props = {
-      isPremium: true,
-      id: 1,
-      previewImage: `previewImage`,
-      price: 1000,
-      isFavorite: false,
-      rating: 5,
-      title: `title`,
-      type: `type`,
-      bedrooms: 1,
-      description: `description`,
-      onButtonClick: () => {}
-    };
+
     render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Card {...props}/>
-        </Router>
-      </Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <Card {...props} isFavorite={false}/>
+          </Router>
+        </Provider>
     );
 
     expect(screen.getByText(`To bookmarks`)).toBeInTheDocument();

@@ -10,13 +10,21 @@ const mockStore = configureStore({});
 it(`FavoriteCard should render correctly`, () => {
   const history = createMemoryHistory();
   const store = mockStore({});
-
+  const props = {
+    onFavorite: () => {},
+    rating: 5,
+    id: 1,
+    previewImage: `previewImage`,
+    title: `testing title`,
+    type: `testing type`,
+    price: 1000
+  };
   render(
-    <Provider store={store}>
-      <Router history={history}>
-        <FavoriteCard title={`testing title`} type={`testing type`} price={1000}/>
-      </Router>
-    </Provider>
+      <Provider store={store}>
+        <Router history={history}>
+          <FavoriteCard {...props}/>
+        </Router>
+      </Provider>
   );
 
   expect(screen.getByText(`€1000`)).toBeInTheDocument();

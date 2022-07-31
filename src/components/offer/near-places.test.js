@@ -8,36 +8,40 @@ import NearPlaces from "./near-places";
 import {AuthorizationStatus} from "../../const";
 
 const mockStore = configureStore({});
+
+const store = mockStore({
+  USER: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+    isLoadFavorites: true
+  },
+  OFFERS: {
+  }
+});
+
+const props = {
+  id: 1,
+  previewImage: `previewImage`,
+  price: 1000,
+  isFavorite: true,
+  rating: 5,
+  title: `title`,
+  type: `type`,
+  bedrooms: 1,
+  description: `description`,
+  onFavorite: () => {},
+  onButtonClick: () => {}
+};
+
 describe(`NearPlaces test`, () => {
   it(`NearPlaces should render correctly`, () => {
     const history = createMemoryHistory();
-    const store = mockStore({
-      USER: {
-        authorizationStatus: AuthorizationStatus.AUTH,
-        isLoadFavorites: true
-      },
-      OFFERS: {
-      }
-    });
-    const props = {
-      id: 1,
-      previewImage: `previewImage`,
-      price: 1000,
-      isFavorite: true,
-      rating: 5,
-      title: `title`,
-      type: `type`,
-      bedrooms: 1,
-      description: `description`,
-      onFavorite: () => {},
-      onButtonClick: () => {}
-    };
+
     render(
-      <Provider store={store}>
-        <Router history={history}>
-          <NearPlaces {...props}/>
-        </Router>
-      </Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <NearPlaces {...props}/>
+          </Router>
+        </Provider>
     );
 
     expect(screen.getByText(`€1000`)).toBeInTheDocument();
@@ -49,33 +53,13 @@ describe(`NearPlaces test`, () => {
   });
   it(`NearPlaces should render correctly not favorite`, () => {
     const history = createMemoryHistory();
-    const store = mockStore({
-      USER: {
-        authorizationStatus: AuthorizationStatus.AUTH,
-        isLoadFavorites: true
-      },
-      OFFERS: {
-      }
-    });
-    const props = {
-      id: 1,
-      previewImage: `previewImage`,
-      price: 1000,
-      isFavorite: false,
-      rating: 5,
-      title: `title`,
-      type: `type`,
-      bedrooms: 1,
-      description: `description`,
-      onFavorite: () => {},
-      onButtonClick: () => {}
-    };
+
     render(
-      <Provider store={store}>
-        <Router history={history}>
-          <NearPlaces {...props}/>
-        </Router>
-      </Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <NearPlaces {...props} isFavorite={false}/>
+          </Router>
+        </Provider>
     );
 
     expect(screen.getByText(`To bookmarks`)).toBeInTheDocument();

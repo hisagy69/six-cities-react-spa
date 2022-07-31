@@ -10,7 +10,7 @@ it(`Review should render correctly`, () => {
     rating: 5,
     comment: `test comment`,
     date: `2022-05-29T15:42:38.370Z`
-  }
+  };
   const {getByText} = render(<Review review={comment}/>);
 
   expect(getByText(`test name`)).toBeInTheDocument();

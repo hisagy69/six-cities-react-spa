@@ -7,13 +7,11 @@ import Page404 from "./page404";
 it(`Page404 should render correctly`, () => {
   const history = createMemoryHistory();
   const {getByText} = render(
-    <Router history={history}>
-      <Page404/>
-    </Router>
+      <Router history={history}>
+        <Page404/>
+      </Router>
   );
-  const headerElement = getByText(`404 not found`);
-  const linkElement = getByText(`На главную`);
 
-  expect(headerElement).toBeInTheDocument();
-  expect(linkElement).toBeInTheDocument();
+  expect(getByText(`404 not found`)).toBeInTheDocument();
+  expect(getByText(`На главную`)).toBeInTheDocument();
 });

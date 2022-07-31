@@ -12,7 +12,8 @@ import {createReducer} from '@reduxjs/toolkit';
 const initialState = {
   isHotelLoad: false,
   isHotelNearbyLoad: false,
-  isCommentSend: false
+  isCommentSend: false,
+  isCommentsLoad: false
 };
 
 const hotel = createReducer(initialState, (builder) => {
@@ -20,6 +21,7 @@ const hotel = createReducer(initialState, (builder) => {
     state.hotel = action.payload;
     state.isHotelLoad = true;
     state.notFound = false;
+    state.isCommentsLoad = false;
   });
   builder.addCase(hotelUpdate, (state, action) => {
     state.hotel = state.hotel && action.payload.id === state.hotel.id ?
@@ -45,6 +47,7 @@ const hotel = createReducer(initialState, (builder) => {
     state.comments = action.payload;
     state.errorSend = false;
     state.isCommentSend = true;
+    state.isCommentsLoad = true;
   });
   builder.addCase(commentStatusSend, (state) => {
     state.isCommentSend = false;
